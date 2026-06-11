@@ -1,0 +1,211 @@
+---
+import {
+  getEquivalentPaths,
+  localizedPath,
+  routeSlugs,
+  type AnyRouteSlug,
+} from '@/config/routes';
+import { brandAssets } from '@/config/brand';
+import { site } from '@/config/site';
+import {
+  getDirection,
+  localeCodes,
+  localeFlags,
+  localeNames,
+  locales,
+  type Locale,
+} from '@/i18n/config';
+import { getDictionary } from '@/i18n/ui';
+import { canonicalUrl, hreflang, ogLocale } from '@/lib/seo';
+import { breadcrumbJsonLd, organizationJsonLd } from '@/lib/structured-data';
+import '@/styles/global.css';
+
+interface Props {
+  locale: Locale;
+  slug: AnyRouteSlug;
+}
+
+const { locale, slug } = Astro.props;
+const dictionary = getDictionary(locale);
+const page = dictionary.pages[slug];
+const equivalents = getEquivalentPaths(slug);
+const isNoindex = slug === 'contact/success';
+const desktopNavItems = [
+  ['business', 'business'],
+  ['technology', 'technology'],
+  ['media', 'media'],
+  ['about', 'about'],
+  ['contact', 'contact'],
+] as const;
+const mobileNavItems = [
+  ['home', ''],
+  ['about', 'about'],
+  ['business', 'business'],
+  ['technology', 'technology'],
+  ['media', 'media'],
+  ['contact', 'contact'],
+] as const;
+---
+
+<!doctype html>
+<html lang={locale} dir={getDirection(locale)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{page.title}</title>
+    <meta name="description" content={page.description} />
+    <meta
+      name="robots"
+      content={isNoindex ? 'noindex, nofollow' : 'index, follow'}
+    />
+    <link rel="canonical" href={canonicalUrl(locale, slug)} />
+    {
+      hreflang(locale, slug).map((item) => (
+        <link rel="alternate" hreflang={item.lang} href={item.href} />
+      ))
+    }
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brandName} />
+    <meta property="og:title" content={page.title} />
+    <meta property="og:description" content={page.description} />
+    <meta property="og:url" content={canonicalUrl(locale, slug)} />
+    <meta property="og:image" content={`${site.origin}/favicon.svg`} />
+    <meta property="og:locale" content={ogLocale(locale)} />
+    {
+      locales
+        .filter((item) => item !== locale)
+        .map((item) => (
+          <meta property="og:locale:alternate" content={ogLocale(item)} />
+        ))
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationJsonLd())}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbJsonLd(locale, slug, page.heading))}
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">{dictionary.actions.skip}</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={localizedPath(locale)} aria-label="Heavens home">
+          <img
+            src={brandAssets.symbol.src}
+            width={brandAssets.symbol.width}
+            height={brandAssets.symbol.height}
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-wordmark">Heavens</span>
+        </a>
+        <nav class="nav desktop-nav" aria-label="Primary navigation">
+          {
+            desktopNavItems.map(([key, itemSlug]) => (
+              <a
+                href={localizedPath(locale, itemSlug)}
+                aria-current={slug === itemSlug ? 'page' : undefined}
+              >
+                {dictionary.nav[key]}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="header-actions">
+          <details class="language-switcher" data-dropdown>
+            <summary
+              class="language-trigger"
+              role="button"
+              aria-label={`Current language: ${localeNames[locale]}`}
+              data-dropdown-trigger
+            >
+              <span>{localeCodes[locale]}</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <nav class="language-menu" aria-label="Language">
+              {
+                locales.map((item) => (
+                  <a
+                    href={equivalents[item]}
+                    hreflang={item}
+                    lang={item}
+                    aria-current={item === locale ? 'true' : undefined}
+                    data-language-link
+                  >
+                    <span aria-hidden="true">{localeFlags[item]}</span>
+                    <span>{localeNames[item]}</span>
+                  </a>
+                ))
+              }
+            </nav>
+          </details>
+          <details class="mobile-menu" data-dropdown>
+            <summary
+              class="mobile-menu-trigger"
+              role="button"
+              aria-label="Open navigation menu"
+              data-dropdown-trigger
+            >
+              <span aria-hidden="true">☰</span>
+            </summary>
+            <nav class="mobile-menu-panel" aria-label="Mobile navigation">
+              {
+                mobileNavItems.map(([key, itemSlug]) => (
+                  <a
+                    href={localizedPath(locale, itemSlug)}
+                    aria-current={slug === itemSlug ? 'page' : undefined}
+                  >
+                    {dictionary.nav[key]}
+                  </a>
+                ))
+              }
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-header">
+      <div class="container footer-inner">
+        <a
+          class="brand footer-brand"
+          href={localizedPath(locale)}
+          aria-label="Heavens home"
+        >
+          <img
+            src={brandAssets.symbol.src}
+            width={brandAssets.symbol.width}
+            height={brandAssets.symbol.height}
+            alt=""
+            aria-hidden="true"
+          />
+          <span>
+            <span class="brand-wordmark">Heavens</span>
+            <span class="footer-brand-meta">{site.slogan}</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Legal navigation">
+          {
+            routeSlugs
+              .filter((item) =>
+                ['legal', 'privacy', 'cookies', 'terms'].includes(item),
+              )
+              .map((item) => (
+                <a href={localizedPath(locale, item)}>
+                  {dictionary.pages[item].heading}
+                </a>
+              ))
+          }
+        </nav>
+      </div>
+    </footer>
+    <script is:inline src="/scripts/language-preference.js" defer></script>
+  </body>
+</html>

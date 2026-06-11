@@ -1,0 +1,190 @@
+---
+import { enquiryTypes } from '@/lib/forms';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { brandAssets } from '@/config/brand';
+import {
+  getRouteMatrix,
+  isAnyRouteSlug,
+  localizedPath,
+  type AnyRouteSlug,
+} from '@/config/routes';
+import { isLocale, type Locale } from '@/i18n/config';
+import { getDictionary } from '@/i18n/ui';
+
+export function getStaticPaths() {
+  return getRouteMatrix(true).map(({ locale, slug }) => ({
+    params: { locale, slug: slug || undefined },
+    props: { locale, slug },
+  }));
+}
+
+const localeParam = Astro.params.locale;
+const slugParam = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug.join('/')
+  : (Astro.params.slug ?? '');
+
+if (!isLocale(localeParam) || !isAnyRouteSlug(slugParam)) {
+  return Astro.redirect('/404/');
+}
+
+const locale = Astro.props.locale as Locale;
+const slug = Astro.props.slug as AnyRouteSlug;
+const dictionary = getDictionary(locale);
+const page = dictionary.pages[slug];
+const isHome = slug === '';
+---
+
+<BaseLayout locale={locale} slug={slug}>
+  <section class:list={['hero', isHome && 'hero-home']}>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        {page.eyebrow && <p class="eyebrow">{page.eyebrow}</p>}
+        {
+          isHome ? (
+            <h1 class="hero-title">
+              <span>Live the</span>
+              <span>Dream.</span>
+            </h1>
+          ) : (
+            <h1>{page.heading}</h1>
+          )
+        }
+        <p class="lead">{page.intro}</p>
+        {
+          isHome && (
+            <p class="hero-actions">
+              <a
+                class="button button-primary-dark"
+                href={localizedPath(locale, 'about')}
+              >
+                {dictionary.actions.discover}
+              </a>
+              <a
+                class="button button-secondary-dark"
+                href={localizedPath(locale, 'contact')}
+              >
+                {dictionary.actions.contact}
+              </a>
+            </p>
+          )
+        }
+      </div>
+      {
+        isHome && (
+          <img
+            class="hero-graphic"
+            src={brandAssets.heroGraphic.src}
+            width={brandAssets.heroGraphic.width}
+            height={brandAssets.heroGraphic.height}
+            alt=""
+            aria-hidden="true"
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section-ivory">
+    <div class="container">
+      <div class="grid">
+        {
+          page.sections.map((section) => (
+            <article class="card">
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    slug === 'contact' && (
+      <section class="section section-ivory">
+        <div class="container">
+          <form
+            name="premium-contact"
+            method="POST"
+            action={localizedPath(locale, 'contact/success')}
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="form-grid"
+          >
+            <input type="hidden" name="form-name" value="premium-contact" />
+            <input type="hidden" name="locale" value={locale} />
+            <p class="hidden-field">
+              <label>
+                Do not fill this field{' '}
+                <input name="bot-field" autocomplete="off" />
+              </label>
+            </p>
+            <label>
+              Full name{' '}
+              <input
+                name="full-name"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
+            </label>
+            <label>
+              Company{' '}
+              <input
+                name="company"
+                autocomplete="organization"
+                maxlength="150"
+              />
+            </label>
+            <label>
+              Email{' '}
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+              />
+            </label>
+            <label>
+              Phone <input name="phone" autocomplete="tel" maxlength="40" />
+            </label>
+            <label>
+              Country{' '}
+              <input
+                name="country"
+                autocomplete="country-name"
+                maxlength="100"
+              />
+            </label>
+            <label>
+              Enquiry type
+              <select name="enquiry-type" required>
+                {enquiryTypes.map((type) => (
+                  <option value={type}>{type}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Message <textarea name="message" maxlength="5000" required />
+            </label>
+            <label>
+              <span>
+                <input
+                  type="checkbox"
+                  name="privacy-acknowledgement"
+                  value="accepted"
+                  required
+                />{' '}
+                I agree that Heavens may process this enquiry to respond.
+              </span>
+            </label>
+            <button class="button button-primary-light" type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

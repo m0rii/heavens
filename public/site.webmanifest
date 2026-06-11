@@ -1,0 +1,8 @@
+{
+  "name": "Heavens",
+  "short_name": "Heavens",
+  "start_url": "/hy/",
+  "display": "minimal-ui",
+  "background_color": "#080A0D",
+  "theme_color": "#080A0D"
+}

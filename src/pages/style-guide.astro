@@ -1,0 +1,87 @@
+---
+import { brandAssets } from '@/config/brand';
+import '@/styles/global.css';
+
+const swatches = Object.entries(brandAssets.palette.colors);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Heavens Internal Style Guide</title>
+    <meta
+      name="description"
+      content="Internal noindex color and component reference for Heavens."
+    />
+  </head>
+  <body>
+    <main>
+      <section class="section section-dark">
+        <div class="container">
+          <p class="eyebrow">Internal reference</p>
+          <h1>Heavens Color System</h1>
+          <p class="lead">
+            Noindex implementation reference for palette, buttons, cards, and
+            form states. This page is not production marketing content.
+          </p>
+          <p>
+            <a class="button button-primary-dark" href="/en/">Amber CTA</a>
+            <a class="button button-secondary-dark" href="/en/">Olive outline</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <section class="section section-ivory">
+        <div class="container">
+          <p class="eyebrow">Palette</p>
+          <h2>Logo-derived Tokens</h2>
+          <div class="swatch-grid">
+            {
+              swatches.map(([name, value]) => (
+                <article class="swatch">
+                  <div class="swatch-color" style={`background: ${value}`} />
+                  <div class="swatch-label">
+                    <strong>{name}</strong>
+                    <p class="muted">{value}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-ivory">
+        <div class="container">
+          <p class="eyebrow">Components</p>
+          <div class="grid">
+            <article class="card">
+              <h2>Light Card</h2>
+              <p class="muted">
+                Porcelain surface, warm border, ink text, muted supporting copy.
+              </p>
+              <p>
+                <a class="button button-primary-light" href="/en/">Primary</a>
+                <a class="button button-secondary-light" href="/en/"
+                  >Secondary</a
+                >
+              </p>
+            </article>
+            <article class="card form-success">
+              <h2>Success State</h2>
+              <p>Success uses color with text, never color alone.</p>
+            </article>
+            <article class="card form-error">
+              <h2>Error State</h2>
+              <p>Error uses color with text, never color alone.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+---
+import { defaultLocale, locales } from '@/i18n/config';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Heavens</title>
+    <script is:inline type="module" src="/scripts/root-language.js"></script>
+  </head>
+  <body>
+    <p>
+      <a href={`/${defaultLocale}/`}>Continue to Heavens</a>
+    </p>
+    <noscript>
+      <meta http-equiv="refresh" content={`0; url=/${defaultLocale}/`} />
+      <p><a href={`/${defaultLocale}/`}>Continue to Heavens</a></p>
+    </noscript>
+    <script is:inline define:vars={{ locales, defaultLocale }}>
+      window.__HEAVENS_LOCALES__ = locales;
+      window.__HEAVENS_DEFAULT_LOCALE__ = defaultLocale;
+    </script>
+  </body>
+</html>
