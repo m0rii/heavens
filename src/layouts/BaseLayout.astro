@@ -54,11 +54,21 @@ const mobileNavItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{page.title}</title>
     <meta name="description" content={page.description} />
+    <meta name="theme-color" content="#0A0D09" />
     <meta
       name="robots"
       content={isNoindex ? 'noindex, nofollow' : 'index, follow'}
     />
     <link rel="canonical" href={canonicalUrl(locale, slug)} />
+    <link rel="icon" href={brandAssets.icons.faviconIco} sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      href={brandAssets.icons.faviconPng}
+      sizes="32x32"
+    />
+    <link rel="apple-touch-icon" href={brandAssets.icons.appleTouchIcon} />
+    <link rel="manifest" href="/site.webmanifest" />
     {
       hreflang(locale, slug).map((item) => (
         <link rel="alternate" hreflang={item.lang} href={item.href} />
@@ -69,7 +79,14 @@ const mobileNavItems = [
     <meta property="og:title" content={page.title} />
     <meta property="og:description" content={page.description} />
     <meta property="og:url" content={canonicalUrl(locale, slug)} />
-    <meta property="og:image" content={`${site.origin}/favicon.svg`} />
+    <meta
+      property="og:image"
+      content={`${site.origin}${brandAssets.logo.src}`}
+    />
+    <meta
+      name="twitter:image"
+      content={`${site.origin}${brandAssets.logo.src}`}
+    />
     <meta property="og:locale" content={ogLocale(locale)} />
     {
       locales
@@ -96,13 +113,12 @@ const mobileNavItems = [
       <div class="container header-inner">
         <a class="brand" href={localizedPath(locale)} aria-label="Heavens home">
           <img
-            src={brandAssets.symbol.src}
-            width={brandAssets.symbol.width}
-            height={brandAssets.symbol.height}
-            alt=""
-            aria-hidden="true"
+            src={brandAssets.logo.src}
+            width={brandAssets.logo.width}
+            height={brandAssets.logo.height}
+            alt="Heavens"
           />
-          <span class="brand-wordmark">Heavens</span>
+          <span class="header-brand-meta">{site.slogan}</span>
         </a>
         <nav class="nav desktop-nav" aria-label="Primary navigation">
           {
@@ -180,14 +196,12 @@ const mobileNavItems = [
           aria-label="Heavens home"
         >
           <img
-            src={brandAssets.symbol.src}
-            width={brandAssets.symbol.width}
-            height={brandAssets.symbol.height}
-            alt=""
-            aria-hidden="true"
+            src={brandAssets.logo.src}
+            width={brandAssets.logo.width}
+            height={brandAssets.logo.height}
+            alt="Heavens"
           />
           <span>
-            <span class="brand-wordmark">Heavens</span>
             <span class="footer-brand-meta">{site.slogan}</span>
           </span>
         </a>

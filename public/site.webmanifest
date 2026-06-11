@@ -3,6 +3,20 @@
   "short_name": "Heavens",
   "start_url": "/hy/",
   "display": "minimal-ui",
-  "background_color": "#080A0D",
-  "theme_color": "#080A0D"
+  "background_color": "#0A0D09",
+  "theme_color": "#0A0D09",
+  "icons": [
+    {
+      "src": "/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

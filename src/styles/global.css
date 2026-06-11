@@ -141,16 +141,21 @@ a {
 
 .brand img {
   display: block;
-  inline-size: clamp(2.75rem, 3.6vw, 3.25rem);
+  inline-size: clamp(5.25rem, 8vw, 7rem);
   block-size: auto;
   aspect-ratio: 1;
   flex: 0 0 auto;
 }
 
-.brand-wordmark {
+.header-brand-meta {
   display: block;
-  font-size: clamp(1.45rem, 1.7vw, 1.65rem);
-  line-height: 1;
+  max-inline-size: 10rem;
+  border-inline-start: 1px solid rgb(249 160 4 / 42%);
+  color: var(--color-heavens-soft-ivory);
+  font-size: clamp(0.82rem, 0.9vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.15;
+  padding-inline-start: 0.8rem;
 }
 
 .footer-brand {
@@ -159,7 +164,7 @@ a {
 }
 
 .footer-brand img {
-  inline-size: clamp(3.75rem, 7vw, 5.25rem);
+  inline-size: clamp(5.75rem, 9vw, 7.5rem);
   block-size: auto;
 }
 
@@ -386,9 +391,9 @@ a {
 
 .hero-graphic {
   inline-size: 100%;
-  max-inline-size: 42rem;
+  max-inline-size: 34rem;
   block-size: auto;
-  aspect-ratio: 18 / 13;
+  aspect-ratio: 1;
   justify-self: end;
 }
 
@@ -587,15 +592,17 @@ textarea {
   }
 
   .brand img {
-    inline-size: 42px;
+    inline-size: 76px;
   }
 
-  .brand-wordmark {
-    font-size: 1.35rem;
+  .header-brand-meta {
+    max-inline-size: 7rem;
+    font-size: 0.78rem;
+    padding-inline-start: 0.65rem;
   }
 
   .footer-brand img {
-    inline-size: 58px;
+    inline-size: 84px;
   }
 
   .desktop-nav {
@@ -641,6 +648,17 @@ textarea {
 
   .language-trigger {
     inline-size: 68px;
+  }
+}
+
+@media (max-width: 430px) {
+  .brand {
+    gap: 0.6rem;
+  }
+
+  .header-brand-meta {
+    max-inline-size: 5.5rem;
+    font-size: 0.72rem;
   }
 }
 

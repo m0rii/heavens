@@ -1,3 +1,4 @@
+import { brandAssets } from '../config/brand';
 import { company } from '../config/company';
 import { localizedPath, type AnyRouteSlug } from '../config/routes';
 import { site } from '../config/site';
@@ -10,7 +11,7 @@ export function organizationJsonLd() {
     name: company.legalName,
     alternateName: company.brandName,
     url: site.origin,
-    logo: `${site.origin}/favicon.svg`,
+    logo: `${site.origin}${brandAssets.logo.src}`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: company.address.streetAddress,

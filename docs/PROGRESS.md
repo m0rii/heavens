@@ -215,3 +215,47 @@ Verified:
 - `npm run test:e2e` - passed.
 - Playwright viewport audit passed at 1440, 1536, 1024, 768, 430, 390, and 360 px.
 - Audit confirmed no horizontal overflow, visible focus, reduced-motion behavior, one header wordmark, no public approval-status notice, and no empty hero placeholder frame.
+
+## 2026-06-12 - Supplied Public Logo Usage
+
+Implemented:
+
+- Updated `src/config/brand.ts` so `public/brand/logopng.png` is the active source for the logo, symbol fallback, and homepage graphic.
+- Updated the header and footer to render the supplied logo PNG directly without an extra visible wordmark.
+- Updated Organization JSON-LD and Open Graph image metadata to reference the supplied logo PNG.
+- Updated brand verification records to reflect the current runtime asset.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed.
+
+Blockers:
+
+- Approved transparent SVG logo variants and final homepage graphic direction remain launch blockers.
+
+## 2026-06-12 - Header Slogan
+
+Implemented:
+
+- Added the existing `site.slogan` text, "Live the Dream.", beside the header logo.
+- Added responsive styling so the slogan reads as a compact brand tagline near the logo without becoming a navigation item.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed.
+
+## 2026-06-12 - Favicon And Search Logo Signals
+
+Implemented:
+
+- Generated favicon and app icon PNG/ICO assets from `public/brand/logopng.png`.
+- Added favicon, Apple touch icon, manifest, and theme color links to the shared document head.
+- Added manifest icons for 192px and 512px app/search surfaces.
+- Added Twitter image metadata and kept Organization JSON-LD/OG image pointed at the logo asset.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed.

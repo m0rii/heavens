@@ -1,25 +1,34 @@
 export const brandAssets = {
-  status: 'current-logo-png-vector-pending',
+  status: 'supplied-logo-png-vector-pending',
   logo: {
-    src: '/brand/heavens-logo-current.png',
-    width: 720,
-    height: 720,
+    src: '/brand/logopng.png',
+    width: 6000,
+    height: 6000,
     replacementRule:
-      'Current implementation uses an optimized transparent PNG derived from the supplied logo. Replace with approved transparent SVG assets when delivered.',
+      'Current implementation uses the supplied transparent PNG from public/brand/logopng.png. Replace with approved transparent SVG assets when delivered.',
   },
   symbol: {
-    src: '/brand/heavens-symbol-current.svg',
-    width: 96,
-    height: 96,
+    src: '/brand/logopng.png',
+    width: 6000,
+    height: 6000,
     replacementRule:
-      'Temporary transparent symbol extracted as an implementation aid for responsive horizontal lockups. Replace with approved standalone SVG symbol when delivered.',
+      'Current implementation reuses the supplied transparent PNG until an approved standalone SVG symbol is delivered.',
   },
   heroGraphic: {
-    src: '/brand/heavens-hero-graphic-placeholder.svg',
-    width: 720,
-    height: 520,
+    src: '/brand/logopng.png',
+    width: 6000,
+    height: 6000,
     replacementRule:
-      'Replace with approved brand graphic, photography, or art direction after the visual identity package is provided.',
+      'Current implementation reuses the supplied transparent PNG as the homepage graphic until approved brand art direction is delivered.',
+  },
+  icons: {
+    faviconIco: '/favicon.ico',
+    faviconPng: '/favicon-32.png',
+    appleTouchIcon: '/apple-touch-icon.png',
+    manifest192: '/brand/icon-192.png',
+    manifest512: '/brand/icon-512.png',
+    replacementRule:
+      'Browser and app icons are generated from public/brand/logopng.png. Regenerate them when the approved final logo changes.',
   },
   palette: {
     status: 'logo-derived-current',
