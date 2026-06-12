@@ -16,6 +16,12 @@ React, Vue, Svelte, Preact, and similar runtimes are intentionally excluded. Ast
 
 The stable internal Netlify form name is `premium-contact` for every locale, resolving any generic `contact` naming in favor of the security architecture and master prompt.
 
+## 2026-06-12 - Contact Form Security Hardening
+
+The contact form remains a static Netlify Forms implementation with no custom backend, API route, database, uploads, embedded feed, iframe, widget, or tracking script. The progressive enhancement posts `application/x-www-form-urlencoded` data to `/`, keeps the localized static success action for no-JavaScript users, prevents duplicate submissions, preserves values on failures, and never renders submitted values back into HTML.
+
+Validation focuses on required fields, length limits, native email validity, the approved enquiry allowlist, and privacy acknowledgement. It intentionally does not block apostrophes, quotes, SQL-like words, code snippets, or international names, because those are legitimate business enquiry contents and should not be treated as attack signatures.
+
 ## 2026-06-11 - Email Placeholder Strategy
 
 The recommended `info@heavens.am` address is not rendered until verified. A typed company configuration stores the public email with explicit verification status, and production validation fails when an official email is required but unconfirmed.

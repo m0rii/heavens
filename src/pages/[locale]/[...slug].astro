@@ -1,5 +1,5 @@
 ---
-import { enquiryTypes } from '@/lib/forms';
+import { contactFormName, enquiryTypes } from '@/lib/forms';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { brandAssets } from '@/config/brand';
 import { socialProfiles } from '@/config/social';
@@ -34,6 +34,7 @@ const slug = Astro.props.slug as AnyRouteSlug;
 const dictionary = getDictionary(locale);
 const page = dictionary.pages[slug];
 const isHome = slug === '';
+const formCopy = dictionary.form;
 ---
 
 <BaseLayout locale={locale} slug={slug}>
@@ -104,9 +105,264 @@ const isHome = slug === '';
   {
     slug === 'contact' && (
       <section class="section section-ivory">
-        <div class="container">
-          <p class="contact-social">
-            <span>{dictionary.actions.followHeavens}</span>
+        <div class="container contact-shell">
+          <div class="contact-form-panel">
+            <div class="form-heading">
+              <h2>{formCopy.heading}</h2>
+              <p>{formCopy.intro}</p>
+              <p class="required-note">{formCopy.requiredNote}</p>
+            </div>
+            <form
+              name={contactFormName}
+              method="POST"
+              action={localizedPath(locale, 'contact/success')}
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              data-enhanced-contact-form
+              data-success-url={localizedPath(locale, 'contact/success')}
+              data-status-idle={formCopy.status.idle}
+              data-status-pending={formCopy.status.pending}
+              data-status-success={formCopy.status.success}
+              data-status-failure={formCopy.status.failure}
+              data-error-summary={formCopy.errors.summary}
+              data-error-required-text={formCopy.errors.requiredText}
+              data-error-email={formCopy.errors.email}
+              data-error-enquiry-type={formCopy.errors.enquiryType}
+              data-error-message={formCopy.errors.message}
+              data-error-privacy={formCopy.errors.privacy}
+              data-error-max-length={formCopy.errors.maxLength}
+              class="contact-form"
+            >
+              <input type="hidden" name="form-name" value={contactFormName} />
+              <input type="hidden" name="locale" value={locale} />
+              <p class="honeypot" aria-hidden="true">
+                <label>
+                  {formCopy.labels.honeypot}
+                  <input name="bot-field" tabindex="-1" autocomplete="off" />
+                </label>
+              </p>
+              <div
+                id="form-status"
+                class="form-status"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                tabindex="-1"
+              />
+              <div
+                id="form-error-summary"
+                class="form-error-summary"
+                tabindex="-1"
+                hidden
+              />
+              <div class="form-grid">
+                <div class="field">
+                  <label for="full-name">
+                    <span>
+                      {formCopy.labels.fullName}
+                      <span aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    autocomplete="name"
+                    minlength="2"
+                    maxlength="100"
+                    required
+                    aria-describedby="full-name-error"
+                  />
+                  <p
+                    id="full-name-error"
+                    class="field-error"
+                    data-field-error="full-name"
+                  />
+                </div>
+                <div class="field">
+                  <label for="company">
+                    <span>
+                      {formCopy.labels.company}
+                      <span class="optional">{formCopy.optional}</span>
+                    </span>
+                  </label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    autocomplete="organization"
+                    maxlength="150"
+                    aria-describedby="company-error"
+                  />
+                  <p
+                    id="company-error"
+                    class="field-error"
+                    data-field-error="company"
+                  />
+                </div>
+                <div class="field">
+                  <label for="email">
+                    <span>
+                      {formCopy.labels.email}
+                      <span aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    maxlength="254"
+                    required
+                    aria-describedby="email-error"
+                  />
+                  <p
+                    id="email-error"
+                    class="field-error"
+                    data-field-error="email"
+                  />
+                </div>
+                <div class="field">
+                  <label for="phone">
+                    <span>
+                      {formCopy.labels.phone}
+                      <span class="optional">{formCopy.optional}</span>
+                    </span>
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    maxlength="40"
+                    aria-describedby="phone-error"
+                  />
+                  <p
+                    id="phone-error"
+                    class="field-error"
+                    data-field-error="phone"
+                  />
+                </div>
+                <div class="field">
+                  <label for="country">
+                    <span>
+                      {formCopy.labels.country}
+                      <span class="optional">{formCopy.optional}</span>
+                    </span>
+                  </label>
+                  <input
+                    id="country"
+                    name="country"
+                    type="text"
+                    autocomplete="country-name"
+                    maxlength="100"
+                    aria-describedby="country-error"
+                  />
+                  <p
+                    id="country-error"
+                    class="field-error"
+                    data-field-error="country"
+                  />
+                </div>
+                <div class="field">
+                  <label for="enquiry-type">
+                    <span>
+                      {formCopy.labels.enquiryType}
+                      <span aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <select
+                    id="enquiry-type"
+                    name="enquiry-type"
+                    required
+                    aria-describedby="enquiry-type-error"
+                  >
+                    <option value="" selected disabled>
+                      {formCopy.selectEnquiryType}
+                    </option>
+                    {enquiryTypes.map((type) => (
+                      <option value={type}>
+                        {formCopy.enquiryTypes[type]}
+                      </option>
+                    ))}
+                  </select>
+                  <p
+                    id="enquiry-type-error"
+                    class="field-error"
+                    data-field-error="enquiry-type"
+                  />
+                </div>
+                <div class="field field-full">
+                  <label for="message">
+                    <span>
+                      {formCopy.labels.message}
+                      <span aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    minlength="10"
+                    maxlength="5000"
+                    rows="8"
+                    required
+                    aria-describedby="message-count message-error"
+                  />
+                  <div class="field-meta">
+                    <p
+                      id="message-error"
+                      class="field-error"
+                      data-field-error="message"
+                    />
+                    <p
+                      id="message-count"
+                      class="character-count"
+                      aria-live="polite"
+                    >
+                      0 / 5000
+                    </p>
+                  </div>
+                </div>
+                <div class="checkbox-field field-full">
+                  <input
+                    id="privacy-acknowledgement"
+                    name="privacy-acknowledgement"
+                    type="checkbox"
+                    value="acknowledged"
+                    required
+                    aria-describedby="privacy-acknowledgement-error"
+                  />
+                  <label for="privacy-acknowledgement">
+                    <span>
+                      {formCopy.labels.privacyAcknowledgement}{' '}
+                      <a href={localizedPath(locale, 'privacy')}>
+                        {formCopy.labels.privacyPolicy}
+                      </a>
+                      <span aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <p
+                    id="privacy-acknowledgement-error"
+                    class="field-error"
+                    data-field-error="privacy-acknowledgement"
+                  />
+                </div>
+                <div class="field-full">
+                  <button
+                    class="button button-primary-light form-submit"
+                    type="submit"
+                  >
+                    {formCopy.status.idle}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <aside class="contact-info" aria-labelledby="contact-info-title">
+            <h2 id="contact-info-title">{dictionary.actions.followHeavens}</h2>
+            <p>{page.sections[0]?.body}</p>
             <a
               class="social-link contact-social-link"
               href={socialProfiles.instagram.url}
@@ -117,88 +373,9 @@ const isHome = slug === '';
               <InstagramIcon />
               <span>{dictionary.social.instagram}</span>
             </a>
-          </p>
-          <form
-            name="premium-contact"
-            method="POST"
-            action={localizedPath(locale, 'contact/success')}
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            class="form-grid"
-          >
-            <input type="hidden" name="form-name" value="premium-contact" />
-            <input type="hidden" name="locale" value={locale} />
-            <p class="hidden-field">
-              <label>
-                Do not fill this field{' '}
-                <input name="bot-field" autocomplete="off" />
-              </label>
-            </p>
-            <label>
-              Full name{' '}
-              <input
-                name="full-name"
-                autocomplete="name"
-                maxlength="100"
-                required
-              />
-            </label>
-            <label>
-              Company{' '}
-              <input
-                name="company"
-                autocomplete="organization"
-                maxlength="150"
-              />
-            </label>
-            <label>
-              Email{' '}
-              <input
-                type="email"
-                name="email"
-                autocomplete="email"
-                maxlength="254"
-                required
-              />
-            </label>
-            <label>
-              Phone <input name="phone" autocomplete="tel" maxlength="40" />
-            </label>
-            <label>
-              Country{' '}
-              <input
-                name="country"
-                autocomplete="country-name"
-                maxlength="100"
-              />
-            </label>
-            <label>
-              Enquiry type
-              <select name="enquiry-type" required>
-                {enquiryTypes.map((type) => (
-                  <option value={type}>{type}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Message <textarea name="message" maxlength="5000" required />
-            </label>
-            <label>
-              <span>
-                <input
-                  type="checkbox"
-                  name="privacy-acknowledgement"
-                  value="accepted"
-                  required
-                />{' '}
-                I agree that Heavens may process this enquiry to respond.
-              </span>
-            </label>
-            <button class="button button-primary-light" type="submit">
-              Submit
-            </button>
-          </form>
+          </aside>
         </div>
+        <script is:inline src="/scripts/contact-form.js" defer />
       </section>
     )
   }

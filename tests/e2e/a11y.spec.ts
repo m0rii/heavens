@@ -8,3 +8,13 @@ test('English homepage has no critical axe violations', async ({ page }) => {
     results.violations.filter((violation) => violation.impact === 'critical'),
   ).toEqual([]);
 });
+
+test('English contact form has no critical axe violations', async ({
+  page,
+}) => {
+  await page.goto('/en/contact/');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(
+    results.violations.filter((violation) => violation.impact === 'critical'),
+  ).toEqual([]);
+});

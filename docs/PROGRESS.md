@@ -317,3 +317,21 @@ Verified:
 
 - `npm run ci` - passed.
 - `npm run test:e2e` - passed, including no visible username, mobile link spacing, keyboard focus, and Instagram URL checks.
+
+## 2026-06-12 - Contact Form Hardening
+
+Implemented:
+
+- Rebuilt the Contact page form around the stable `premium-contact` Netlify form name with hidden `form-name`, hidden `locale`, clipped honeypot, localized success action, and the approved enquiry allowlist.
+- Added localized form labels, optional markers, field-level errors, error summary, persistent live status region, message character count, privacy acknowledgement, and mobile-safe two-column desktop layout.
+- Added a small local progressive enhancement script that validates without fake SQL keyword filtering, posts URL-encoded data to `/`, prevents duplicate submissions, preserves values after failed sends, and redirects to the localized success page on success.
+- Added tests for the fixed enquiry allowlist, international/code-like input acceptance, Netlify markup, URL-encoded POST body, failure preservation, duplicate-submit prevention, contact accessibility, and Instagram/schema regressions.
+- Documented that live Netlify detection, email delivery, retention, and deletion responsibility remain unverified until account-level production checks are performed.
+
+Verified:
+
+- `npm run format:check` - passed.
+- `npm run lint` - passed.
+- `npm run check` - passed with existing dependency deprecation hints only.
+- `npm run test:unit` - passed.
+- `npm run test:e2e` - passed.

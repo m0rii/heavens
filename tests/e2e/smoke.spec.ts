@@ -175,13 +175,155 @@ test('mobile drawer language grid stays compact across mobile sizes', async ({
 
 test('contact form contains Netlify fields', async ({ page }) => {
   await page.goto('/en/contact/');
-  await expect(page.locator('form[name="premium-contact"]')).toHaveAttribute(
-    'data-netlify',
-    'true',
-  );
+  const form = page.locator('form[name="premium-contact"]');
+  await expect(form).toHaveAttribute('data-netlify', 'true');
+  await expect(form).toHaveAttribute('data-netlify-honeypot', 'bot-field');
+  await expect(form).toHaveAttribute('method', 'POST');
+  await expect(form).toHaveAttribute('action', /\/en\/contact\/success\/$/);
   await expect(page.locator('input[name="form-name"]')).toHaveValue(
     'premium-contact',
   );
+  await expect(page.locator('input[name="locale"]')).toHaveValue('en');
+  await expect(page.locator('input[name="bot-field"]')).toHaveAttribute(
+    'tabindex',
+    '-1',
+  );
+  await expect(page.locator('#full-name')).toHaveAttribute('minlength', '2');
+  await expect(page.locator('#full-name')).toHaveAttribute('maxlength', '100');
+  await expect(page.locator('#email')).toHaveAttribute('type', 'email');
+  await expect(page.locator('#message')).toHaveAttribute('maxlength', '5000');
+  await expect(page.locator('#privacy-acknowledgement')).toHaveAttribute(
+    'value',
+    'acknowledged',
+  );
+  await expect(page.locator('#enquiry-type option')).toHaveCount(11);
+  await expect(page.locator('#enquiry-type option').first()).toHaveAttribute(
+    'value',
+    '',
+  );
+  await expect(
+    page.locator('.checkbox-field').getByRole('link', {
+      name: 'Privacy Policy',
+      exact: true,
+    }),
+  ).toHaveAttribute('href', '/en/privacy/');
+});
+
+test('contact form shows localized validation without losing values', async ({
+  page,
+}) => {
+  await page.goto('/en/contact/');
+
+  await page.getByRole('button', { name: 'Send enquiry' }).click();
+  await expect(page.locator('#form-error-summary')).toHaveText(
+    'Please check the highlighted fields.',
+  );
+  await expect(page.locator('#full-name')).toHaveAttribute(
+    'aria-invalid',
+    'true',
+  );
+  await expect(page.locator('#email')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#enquiry-type')).toHaveAttribute(
+    'aria-invalid',
+    'true',
+  );
+  await expect(page.locator('#message')).toHaveAttribute(
+    'aria-invalid',
+    'true',
+  );
+  await expect(page.locator('#privacy-acknowledgement')).toHaveAttribute(
+    'aria-invalid',
+    'true',
+  );
+  await expect(page.locator('#form-error-summary')).toBeFocused();
+
+  await page.locator('#full-name').fill('  ');
+  await page.locator('#email').fill('person@example.com');
+  await page.locator('#enquiry-type').selectOption('software');
+  await page.locator('#message').fill("SELECT * FROM work WHERE note = '<x>';");
+  await page.locator('#privacy-acknowledgement').check();
+  await page.getByRole('button', { name: 'Send enquiry' }).click();
+  await expect(page.locator('#full-name-error')).toHaveText(
+    'Please enter at least 2 characters.',
+  );
+  await expect(page.locator('#message-count')).toContainText('38 / 5000');
+  await expect(page.locator('#message')).toHaveValue(
+    "SELECT * FROM work WHERE note = '<x>';",
+  );
+});
+
+test('contact form posts URL-encoded data and redirects on success', async ({
+  page,
+}) => {
+  let postData = '';
+  let contentType = '';
+
+  await page.goto('/en/contact/');
+  await page.route('**/', async (route) => {
+    const request = route.request();
+    if (request.method() !== 'POST') {
+      await route.continue();
+      return;
+    }
+
+    postData = request.postData() || '';
+    contentType = request.headers()['content-type'] || '';
+    await route.fulfill({ status: 200, body: 'OK' });
+  });
+
+  await page.locator('#full-name').fill('Անի Ivanova');
+  await page.locator('#company').fill('Heavens Partner');
+  await page.locator('#email').fill('ani@example.com');
+  await page.locator('#phone').fill('+374 10 000000');
+  await page.locator('#country').fill('Armenia');
+  await page.locator('#enquiry-type').selectOption('ai-solution');
+  await page.locator('#message').fill("AI solution request with SQL 'quotes'.");
+  await page.locator('#privacy-acknowledgement').check();
+  await page.getByRole('button', { name: 'Send enquiry' }).click();
+
+  await expect(page).toHaveURL(/\/en\/contact\/success\/$/);
+  expect(contentType).toContain('application/x-www-form-urlencoded');
+  expect(postData).toContain('form-name=premium-contact');
+  expect(postData).toContain('locale=en');
+  expect(postData).toContain('enquiry-type=ai-solution');
+  expect(postData).not.toContain('{');
+});
+
+test('contact form prevents duplicate submissions and preserves values on failure', async ({
+  page,
+}) => {
+  let postCount = 0;
+
+  await page.goto('/en/contact/');
+  await page.route('**/', async (route) => {
+    const request = route.request();
+    if (request.method() !== 'POST') {
+      await route.continue();
+      return;
+    }
+
+    postCount += 1;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    await route.fulfill({ status: 500, body: 'Nope' });
+  });
+
+  await page.locator('#full-name').fill('Future Partner');
+  await page.locator('#email').fill('partner@example.com');
+  await page.locator('#enquiry-type').selectOption('distribution');
+  await page.locator('#message').fill('Distribution partnership request.');
+  await page.locator('#privacy-acknowledgement').check();
+
+  const submit = page.getByRole('button', { name: 'Send enquiry' });
+  await submit.dblclick();
+  await expect(page.locator('#form-status')).toHaveText(
+    'Your enquiry could not be sent. Please check your connection and try again.',
+  );
+  await expect(page.locator('#message')).toHaveValue(
+    'Distribution partnership request.',
+  );
+  await expect(submit).toBeEnabled();
+  await expect(submit).toHaveText('Send enquiry');
+  expect(postCount).toBe(1);
 });
 
 test('instagram links and organization schema use confirmed account', async ({

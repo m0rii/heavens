@@ -1,4 +1,5 @@
 import type { AnyRouteSlug } from '@/config/routes';
+import type { EnquiryType } from '@/lib/forms';
 import { localeNames, type Locale } from './config';
 
 type PageCopy = {
@@ -16,9 +17,46 @@ type Dictionary = {
   social: {
     instagram: string;
   };
+  form: ContactFormCopy;
   legal: string;
   draftNotice: string;
   pages: Record<AnyRouteSlug, PageCopy>;
+};
+
+type ContactFormCopy = {
+  heading: string;
+  intro: string;
+  requiredNote: string;
+  optional: string;
+  labels: {
+    fullName: string;
+    company: string;
+    email: string;
+    phone: string;
+    country: string;
+    enquiryType: string;
+    message: string;
+    privacyAcknowledgement: string;
+    privacyPolicy: string;
+    honeypot: string;
+  };
+  selectEnquiryType: string;
+  enquiryTypes: Record<EnquiryType, string>;
+  status: {
+    idle: string;
+    pending: string;
+    success: string;
+    failure: string;
+  };
+  errors: {
+    summary: string;
+    requiredText: string;
+    email: string;
+    enquiryType: string;
+    message: string;
+    privacy: string;
+    maxLength: string;
+  };
 };
 
 const englishPages: Record<AnyRouteSlug, PageCopy> = {
@@ -327,6 +365,297 @@ const socialLabels: Record<Locale, { instagram: string }> = {
   ar: { instagram: 'تابعونا على Instagram' },
 };
 
+const contactFormCopy: Record<Locale, ContactFormCopy> = {
+  hy: {
+    heading: 'Կապի ձև',
+    intro:
+      'Ներկայացրեք ձեր հարցման հիմնական տեղեկությունը, և համապատասխան թիմը կդիտարկի այն:',
+    requiredNote: '* Պարտադիր դաշտեր',
+    optional: '(ըստ ցանկության)',
+    labels: {
+      fullName: 'Անուն ազգանուն',
+      company: 'Ընկերություն',
+      email: 'Էլ. հասցե',
+      phone: 'Հեռախոս',
+      country: 'Երկիր',
+      enquiryType: 'Հարցման տեսակ',
+      message: 'Հաղորդագրություն',
+      privacyAcknowledgement:
+        'Համաձայն եմ, որ Heavens-ը մշակի այս հարցումը պատասխանելու նպատակով:',
+      privacyPolicy: 'Գաղտնիության քաղաքականություն',
+      honeypot: 'Մի լրացրեք այս դաշտը՝',
+    },
+    selectEnquiryType: 'Ընտրեք հարցման տեսակը',
+    enquiryTypes: {
+      general: 'Ընդհանուր',
+      'import-export': 'Ներմուծում և արտահանում',
+      'product-sourcing': 'Ապրանքների որոնում',
+      distribution: 'Բաշխում',
+      software: 'Ծրագրային ապահովում',
+      'digital-platform': 'Թվային հարթակ',
+      'ai-solution': 'AI լուծում',
+      'media-production': 'Մեդիա արտադրություն',
+      'brand-partnership': 'Բրենդային համագործակցություն',
+      other: 'Այլ',
+    },
+    status: {
+      idle: 'Ուղարկել հարցումը',
+      pending: 'Ուղարկվում է...',
+      success: 'Շնորհակալություն։ Ձեր հարցումը ստացվել է։',
+      failure: 'Ձեր հարցումը չհաջողվեց ուղարկել։ Ստուգեք կապը և կրկին փորձեք։',
+    },
+    errors: {
+      summary: 'Խնդրում ենք ստուգել նշված դաշտերը։',
+      requiredText: 'Մուտքագրեք առնվազն 2 նիշ։',
+      email: 'Մուտքագրեք վավեր էլ. հասցե։',
+      enquiryType: 'Ընտրեք հարցման տեսակը։',
+      message: 'Մուտքագրեք առնվազն 10 նիշ։',
+      privacy: 'Խնդրում ենք հաստատել գաղտնիության հայտարարությունը։',
+      maxLength: 'Այս դաշտը չափազանց երկար է։',
+    },
+  },
+  en: {
+    heading: 'Contact form',
+    intro:
+      'Tell us a little about the enquiry and the right team will review it.',
+    requiredNote: '* Required fields',
+    optional: '(optional)',
+    labels: {
+      fullName: 'Full name',
+      company: 'Company',
+      email: 'Email',
+      phone: 'Phone',
+      country: 'Country',
+      enquiryType: 'Enquiry type',
+      message: 'Message',
+      privacyAcknowledgement:
+        'I agree that Heavens may process this enquiry to respond.',
+      privacyPolicy: 'Privacy Policy',
+      honeypot: 'Do not fill this field:',
+    },
+    selectEnquiryType: 'Select an enquiry type',
+    enquiryTypes: {
+      general: 'General',
+      'import-export': 'Import and export',
+      'product-sourcing': 'Product sourcing',
+      distribution: 'Distribution',
+      software: 'Software',
+      'digital-platform': 'Digital platform',
+      'ai-solution': 'AI solution',
+      'media-production': 'Media production',
+      'brand-partnership': 'Brand partnership',
+      other: 'Other',
+    },
+    status: {
+      idle: 'Send enquiry',
+      pending: 'Sending...',
+      success: 'Thank you. Your enquiry has been received.',
+      failure:
+        'Your enquiry could not be sent. Please check your connection and try again.',
+    },
+    errors: {
+      summary: 'Please check the highlighted fields.',
+      requiredText: 'Please enter at least 2 characters.',
+      email: 'Please enter a valid email address.',
+      enquiryType: 'Please select an enquiry type.',
+      message: 'Please enter at least 10 characters.',
+      privacy: 'Please acknowledge the privacy statement.',
+      maxLength: 'This field is too long.',
+    },
+  },
+  ru: {
+    heading: 'Контактная форма',
+    intro: 'Кратко опишите запрос, и соответствующая команда рассмотрит его.',
+    requiredNote: '* Обязательные поля',
+    optional: '(необязательно)',
+    labels: {
+      fullName: 'Полное имя',
+      company: 'Компания',
+      email: 'Эл. почта',
+      phone: 'Телефон',
+      country: 'Страна',
+      enquiryType: 'Тип запроса',
+      message: 'Сообщение',
+      privacyAcknowledgement:
+        'Я согласен, что Heavens может обработать этот запрос для ответа.',
+      privacyPolicy: 'Политика конфиденциальности',
+      honeypot: 'Не заполняйте это поле:',
+    },
+    selectEnquiryType: 'Выберите тип запроса',
+    enquiryTypes: {
+      general: 'Общий вопрос',
+      'import-export': 'Импорт и экспорт',
+      'product-sourcing': 'Поиск продукции',
+      distribution: 'Дистрибуция',
+      software: 'Программное обеспечение',
+      'digital-platform': 'Цифровая платформа',
+      'ai-solution': 'AI-решение',
+      'media-production': 'Медиа-производство',
+      'brand-partnership': 'Партнерство с брендом',
+      other: 'Другое',
+    },
+    status: {
+      idle: 'Отправить запрос',
+      pending: 'Отправка...',
+      success: 'Спасибо. Ваш запрос получен.',
+      failure:
+        'Не удалось отправить запрос. Проверьте подключение и попробуйте еще раз.',
+    },
+    errors: {
+      summary: 'Проверьте выделенные поля.',
+      requiredText: 'Введите не менее 2 символов.',
+      email: 'Введите корректный адрес электронной почты.',
+      enquiryType: 'Выберите тип запроса.',
+      message: 'Введите не менее 10 символов.',
+      privacy: 'Подтвердите уведомление о конфиденциальности.',
+      maxLength: 'Это поле слишком длинное.',
+    },
+  },
+  de: {
+    heading: 'Kontaktformular',
+    intro:
+      'Beschreiben Sie kurz Ihre Anfrage. Das passende Team wird sie pruefen.',
+    requiredNote: '* Pflichtfelder',
+    optional: '(optional)',
+    labels: {
+      fullName: 'Vollstaendiger Name',
+      company: 'Unternehmen',
+      email: 'E-Mail',
+      phone: 'Telefon',
+      country: 'Land',
+      enquiryType: 'Art der Anfrage',
+      message: 'Nachricht',
+      privacyAcknowledgement:
+        'Ich stimme zu, dass Heavens diese Anfrage zur Antwort verarbeiten darf.',
+      privacyPolicy: 'Datenschutzerklaerung',
+      honeypot: 'Dieses Feld nicht ausfuellen:',
+    },
+    selectEnquiryType: 'Art der Anfrage auswaehlen',
+    enquiryTypes: {
+      general: 'Allgemein',
+      'import-export': 'Import und Export',
+      'product-sourcing': 'Produktsuche',
+      distribution: 'Distribution',
+      software: 'Software',
+      'digital-platform': 'Digitale Plattform',
+      'ai-solution': 'KI-Loesung',
+      'media-production': 'Medienproduktion',
+      'brand-partnership': 'Markenpartnerschaft',
+      other: 'Sonstiges',
+    },
+    status: {
+      idle: 'Anfrage senden',
+      pending: 'Wird gesendet...',
+      success: 'Vielen Dank. Ihre Anfrage wurde empfangen.',
+      failure:
+        'Ihre Anfrage konnte nicht gesendet werden. Bitte pruefen Sie Ihre Verbindung und versuchen Sie es erneut.',
+    },
+    errors: {
+      summary: 'Bitte pruefen Sie die markierten Felder.',
+      requiredText: 'Bitte geben Sie mindestens 2 Zeichen ein.',
+      email: 'Bitte geben Sie eine gueltige E-Mail-Adresse ein.',
+      enquiryType: 'Bitte waehlen Sie eine Art der Anfrage aus.',
+      message: 'Bitte geben Sie mindestens 10 Zeichen ein.',
+      privacy: 'Bitte bestaetigen Sie den Datenschutzhinweis.',
+      maxLength: 'Dieses Feld ist zu lang.',
+    },
+  },
+  fa: {
+    heading: 'فرم تماس',
+    intro: 'کمی درباره درخواست خود بنویسید تا تیم مربوطه آن را بررسی کند.',
+    requiredNote: '* فیلدهای ضروری',
+    optional: '(اختیاری)',
+    labels: {
+      fullName: 'نام کامل',
+      company: 'شرکت',
+      email: 'ایمیل',
+      phone: 'تلفن',
+      country: 'کشور',
+      enquiryType: 'نوع درخواست',
+      message: 'پیام',
+      privacyAcknowledgement:
+        'می‌پذیرم که Heavens این درخواست را برای پاسخ‌گویی پردازش کند.',
+      privacyPolicy: 'سیاست حریم خصوصی',
+      honeypot: 'این فیلد را پر نکنید:',
+    },
+    selectEnquiryType: 'نوع درخواست را انتخاب کنید',
+    enquiryTypes: {
+      general: 'عمومی',
+      'import-export': 'واردات و صادرات',
+      'product-sourcing': 'تامین محصول',
+      distribution: 'توزیع',
+      software: 'نرم‌افزار',
+      'digital-platform': 'پلتفرم دیجیتال',
+      'ai-solution': 'راهکار هوش مصنوعی',
+      'media-production': 'تولید رسانه',
+      'brand-partnership': 'همکاری برند',
+      other: 'سایر',
+    },
+    status: {
+      idle: 'ارسال درخواست',
+      pending: 'در حال ارسال...',
+      success: 'متشکریم. درخواست شما دریافت شد.',
+      failure:
+        'درخواست شما ارسال نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید.',
+    },
+    errors: {
+      summary: 'لطفا فیلدهای مشخص‌شده را بررسی کنید.',
+      requiredText: 'لطفا حداقل 2 نویسه وارد کنید.',
+      email: 'لطفا یک ایمیل معتبر وارد کنید.',
+      enquiryType: 'لطفا نوع درخواست را انتخاب کنید.',
+      message: 'لطفا حداقل 10 نویسه وارد کنید.',
+      privacy: 'لطفا متن حریم خصوصی را تایید کنید.',
+      maxLength: 'این فیلد بیش از حد طولانی است.',
+    },
+  },
+  ar: {
+    heading: 'نموذج التواصل',
+    intro: 'اكتب نبذة قصيرة عن طلبك وسيراجعه الفريق المناسب.',
+    requiredNote: '* حقول مطلوبة',
+    optional: '(اختياري)',
+    labels: {
+      fullName: 'الاسم الكامل',
+      company: 'الشركة',
+      email: 'البريد الإلكتروني',
+      phone: 'الهاتف',
+      country: 'الدولة',
+      enquiryType: 'نوع الطلب',
+      message: 'الرسالة',
+      privacyAcknowledgement: 'أوافق على أن تعالج Heavens هذا الطلب للرد عليه.',
+      privacyPolicy: 'سياسة الخصوصية',
+      honeypot: 'لا تملأ هذا الحقل:',
+    },
+    selectEnquiryType: 'اختر نوع الطلب',
+    enquiryTypes: {
+      general: 'عام',
+      'import-export': 'الاستيراد والتصدير',
+      'product-sourcing': 'توريد المنتجات',
+      distribution: 'التوزيع',
+      software: 'البرمجيات',
+      'digital-platform': 'منصة رقمية',
+      'ai-solution': 'حل ذكاء اصطناعي',
+      'media-production': 'إنتاج إعلامي',
+      'brand-partnership': 'شراكة مع علامة تجارية',
+      other: 'أخرى',
+    },
+    status: {
+      idle: 'إرسال الطلب',
+      pending: 'جار الإرسال...',
+      success: 'شكرا لك. تم استلام طلبك.',
+      failure: 'تعذر إرسال طلبك. تحقق من الاتصال وحاول مرة أخرى.',
+    },
+    errors: {
+      summary: 'يرجى مراجعة الحقول المحددة.',
+      requiredText: 'يرجى إدخال حرفين على الأقل.',
+      email: 'يرجى إدخال بريد إلكتروني صالح.',
+      enquiryType: 'يرجى اختيار نوع الطلب.',
+      message: 'يرجى إدخال 10 أحرف على الأقل.',
+      privacy: 'يرجى تأكيد بيان الخصوصية.',
+      maxLength: 'هذا الحقل طويل جدا.',
+    },
+  },
+};
+
 export function getDictionary(locale: Locale): Dictionary {
   const pages = Object.fromEntries(
     Object.entries(englishPages).map(([slug, page]) => {
@@ -354,6 +683,7 @@ export function getDictionary(locale: Locale): Dictionary {
       skip: 'Skip to content',
     },
     social: socialLabels[locale],
+    form: contactFormCopy[locale],
     legal: 'Draft content - pending legal and translation review.',
     draftNotice:
       locale === 'en'

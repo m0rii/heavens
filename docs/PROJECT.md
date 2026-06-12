@@ -68,6 +68,10 @@ Target WCAG 2.2 AA. Required basics include landmarks, skip link, one main landm
 
 Use one Netlify form named `premium-contact` across all locales. Static generated markup must include hidden `form-name`, `locale`, honeypot, fixed enquiry type values, length limits, privacy acknowledgement, and a non-JavaScript success action.
 
+The form uses localized labels, field-level errors, an error summary, a persistent live status region, a live message character count, and a two-column desktop layout that collapses to one column on mobile. The progressive enhancement posts URL-encoded `FormData` to `/` for Netlify, prevents duplicate submissions, preserves entered values after failed sends, redirects to the localized success page only after a successful response, and does not render submitted values into the page.
+
+Allowed enquiry values are exactly `general`, `import-export`, `product-sourcing`, `distribution`, `software`, `digital-platform`, `ai-solution`, `media-production`, `brand-partnership`, and `other`. Do not add fake SQL-keyword filtering or English-only name validation.
+
 ## Security
 
 Treat static generation as reduced attack surface, not a security guarantee. Configure security headers, cautious CSP, safe external links, no secrets, dependency review, no unsafe HTML rendering, no uploads, and preview noindex behavior.
