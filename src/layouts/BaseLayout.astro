@@ -6,6 +6,7 @@ import {
   type AnyRouteSlug,
 } from '@/config/routes';
 import { brandAssets } from '@/config/brand';
+import { company } from '@/config/company';
 import { site } from '@/config/site';
 import { socialProfiles } from '@/config/social';
 import InstagramIcon from '@/components/InstagramIcon.astro';
@@ -306,15 +307,37 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
           {
             routeSlugs
               .filter((item) =>
-                ['legal', 'privacy', 'cookies', 'terms'].includes(item),
+                ['legal', 'privacy', 'cookies', 'terms', 'contact'].includes(
+                  item,
+                ),
               )
               .map((item) => (
                 <a href={localizedPath(locale, item)}>
-                  {dictionary.pages[item].heading}
+                  {item === 'contact'
+                    ? dictionary.nav.contact
+                    : dictionary.pages[item].heading}
                 </a>
               ))
           }
         </nav>
+        <div class="footer-company-details">
+          <p>{company.legalName}</p>
+          <p>
+            {dictionary.company.address}: {company.address.full}
+          </p>
+          <p>
+            {dictionary.company.registrationNumber}: {
+              company.registrationNumber
+            }
+          </p>
+          <p>
+            {dictionary.company.taxCode}: {company.taxCode}
+          </p>
+          <p>
+            © {new Date().getFullYear()}
+            {company.legalName}. {dictionary.company.rights}
+          </p>
+        </div>
         <a
           class="social-link footer-social-link"
           href={socialProfiles.instagram.url}
@@ -325,8 +348,120 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
           <InstagramIcon />
           <span>{dictionary.social.instagram}</span>
         </a>
+        <button class="footer-cookie-settings" type="button" data-consent-open>
+          {dictionary.consent.cookieSettings}
+        </button>
       </div>
     </footer>
+    <div
+      class="consent-status"
+      role="status"
+      aria-live="polite"
+      data-consent-status
+    >
+    </div>
+    <section
+      class="consent-banner"
+      aria-labelledby="consent-banner-title"
+      data-consent-banner
+      hidden
+    >
+      <div class="consent-banner-copy">
+        <h2 id="consent-banner-title">{dictionary.consent.bannerTitle}</h2>
+        <p>{dictionary.consent.bannerBody}</p>
+      </div>
+      <div class="consent-actions">
+        <button
+          class="consent-button"
+          type="button"
+          data-consent-choice="essential"
+          data-consent-message={dictionary.consent.savedEssential}
+        >
+          {dictionary.consent.essentialOnly}
+        </button>
+        <button
+          class="consent-button"
+          type="button"
+          data-consent-choice="analytics"
+          data-consent-message={dictionary.consent.savedAnalytics}
+        >
+          {dictionary.consent.acceptAnalytics}
+        </button>
+        <button
+          class="consent-button consent-button-subtle"
+          type="button"
+          data-consent-open
+        >
+          {dictionary.consent.cookieSettings}
+        </button>
+      </div>
+    </section>
+    <div class="consent-backdrop" data-consent-backdrop hidden></div>
+    <section
+      class="consent-panel"
+      aria-labelledby="consent-panel-title"
+      data-consent-panel
+      hidden
+    >
+      <div class="consent-panel-header">
+        <div>
+          <h2 id="consent-panel-title" tabindex="-1">
+            {dictionary.consent.panelTitle}
+          </h2>
+          <p>{dictionary.consent.panelIntro}</p>
+        </div>
+        <button
+          class="consent-close"
+          type="button"
+          aria-label={dictionary.consent.close}
+          data-consent-close
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="consent-option">
+        <div>
+          <h3>{dictionary.consent.essentialTitle}</h3>
+          <p>{dictionary.consent.essentialBody}</p>
+        </div>
+        <strong>{dictionary.consent.alwaysActive}</strong>
+      </div>
+      <label class="consent-option consent-option-toggle">
+        <span>
+          <strong>{dictionary.consent.analyticsTitle}</strong>
+          <span>{dictionary.consent.analyticsBody}</span>
+          <span>{dictionary.consent.analyticsInactive}</span>
+        </span>
+        <input type="checkbox" data-consent-analytics />
+      </label>
+      <div class="consent-panel-actions">
+        <button
+          class="consent-button"
+          type="button"
+          data-consent-save
+          data-consent-message={dictionary.consent.savedChoices}
+        >
+          {dictionary.consent.saveChoices}
+        </button>
+        <button
+          class="consent-button"
+          type="button"
+          data-consent-choice="analytics"
+          data-consent-message={dictionary.consent.savedAnalytics}
+        >
+          {dictionary.consent.acceptAnalytics}
+        </button>
+        <button
+          class="consent-button consent-button-subtle"
+          type="button"
+          data-consent-choice="essential"
+          data-consent-message={dictionary.consent.savedEssential}
+        >
+          {dictionary.consent.essentialOnly}
+        </button>
+      </div>
+    </section>
     <script is:inline src="/scripts/language-preference.js" defer></script>
+    <script is:inline src="/scripts/privacy-consent.js" defer></script>
   </body>
 </html>

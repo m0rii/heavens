@@ -1,5 +1,83 @@
 # Progress
 
+## 2026-06-13 - Service Page Number Labels Removed
+
+Implemented:
+
+- Removed generated `01`, `02`, and similar index labels from service-page process previews and service cards.
+- Removed the related index-only CSS so cards and process steps align without empty number space.
+- Added a browser regression check confirming service pages no longer render the numbered index elements.
+
+Verified:
+
+- `npm run test:e2e` - passed.
+- `npm run ci` - passed.
+
+## 2026-06-13 - Privacy Consent System
+
+Implemented:
+
+- Added a premium bottom consent banner with localized copy and comparable "Essential only" and "Accept analytics" choices.
+- Added a localized Cookie settings panel that can be reopened from the footer, supports Escape and outside-click closing, and stores choices in `localStorage`.
+- Added `heavens:privacy-consent:v1` consent storage with version, essential, analytics, and updatedAt fields.
+- Changed language preference storage to `heavens:language` with migration from the legacy `heavens-locale` key.
+- Added `hasAnalyticsConsent()` and `loadAnalyticsIfAllowed()` helpers in `public/scripts/privacy-consent.js`; analytics loading remains a documented no-op because no provider is active.
+- Updated Cookie Policy drafts in every supported language to state that optional analytics is not currently active, no advertising cookies are used, no social media embeds are used, and rejecting analytics does not block site access.
+- Updated the Privacy Policy English master draft to state that optional analytics is not currently active and would follow visitor privacy choices if introduced.
+
+Verified:
+
+- `npm run test:e2e` - passed, including accessibility smoke checks.
+- `npm run ci` - passed.
+
+## 2026-06-13 - Homepage Hero Copy Refinement
+
+Implemented:
+
+- Updated the homepage hero supporting copy through the localized content system.
+- Kept the main headline as "Live the Dream.".
+- Added localized versions for Armenian, English, Russian, German, Persian, and Arabic.
+- Added a unit regression test for the English source copy and non-English localization.
+
+Verified:
+
+- `npm run ci` - passed.
+
+## 2026-06-13 - Public Contact Email Placeholder Removed
+
+Implemented:
+
+- Removed the public-facing future-public-email placeholder from the Contact page in every supported language.
+- Replaced the Contact page copy with enquiry-form/contact-routing wording.
+- Updated legal/privacy wording to refer to the enquiry form and contact-routing review instead of unpublished email verification.
+- Updated launch and verification docs so production checks focus on contact-form notification routing, owner, Netlify delivery, retention, and authorised access rather than publishing or verifying a public email address.
+- Added a unit regression test to prevent future email-verification placeholder copy from returning.
+
+Verified:
+
+- `npm run ci` - passed.
+- Repository and built `dist` search confirmed the removed placeholder wording is absent outside the regression test construction.
+
+## 2026-06-13 - Compliance Page Expansion
+
+Implemented:
+
+- Expanded the English Legal Information, Privacy Policy, Cookie Policy, and Terms of Use master drafts with the practical Armenian LLC website clauses supplied by the user.
+- Added company identity, registration number, tax code, registered address, operator statement, no-contractual-offer language, availability disclaimer, external-link disclaimer, intellectual-property wording, Armenian governing-law wording, and translation-status wording to Legal Information.
+- Expanded Privacy Policy draft coverage for contact-form data, Netlify Forms processing, purposes, cautious processing-basis wording, authorised access, retention caveat, individual rights, security, required fields, sensitive-data warning, children, and changes.
+- Expanded Cookie Policy draft coverage for current essential storage, language preference, future privacy/analytics preference, security/form protection, inactive optional analytics, and future preference controls.
+- Expanded Terms of Use draft coverage for informational use, acceptable use, intellectual property, no reliance, availability, external links, liability limitation, Armenian governing law, changes, and contact through the form.
+- Added footer company details from the typed company configuration: Heavens LLC, registered address, registration number, tax code, copyright, legal links, Contact, and Instagram.
+
+Verified:
+
+- `npm run test:unit` - passed.
+- `npm run check` - passed with existing Astro deprecation hints only.
+
+Blockers:
+
+- Armenian legal translation, legal review, effective/revision dates, Netlify retention, authorised-submission access, and final public company email remain unresolved before production approval.
+
 ## 2026-06-11 - Phase 0
 
 Implemented:
@@ -18,12 +96,12 @@ Verified:
 Decisions:
 
 - Use static Astro 6 without React or the Netlify adapter.
-- Keep official email unrendered until verified.
+- Keep public contact email unpublished unless the business explicitly approves publishing one; use the enquiry form as the public contact path.
 - Treat translations and legal pages as drafts until approved.
 
 Blockers:
 
-- Official email, domain, Zeghch relationship, final assets, legal review, translation review, and Netlify production behavior remain unverified.
+- Official domain, contact notification routing, Zeghch relationship, final assets, legal review, translation review, and Netlify production behavior remain unverified.
 
 Next:
 
@@ -55,7 +133,7 @@ Decisions:
 
 Blockers:
 
-- Official email/domain, Zeghch relationship, final assets, professional translations, legal approval, Netlify form detection, production headers, CSP enforcement, and retention behavior remain unverified.
+- Official domain, contact notification routing, Zeghch relationship, final assets, professional translations, legal approval, Netlify form detection, production headers, CSP enforcement, and retention behavior remain unverified.
 - `agent-browser` CLI was unavailable, so browser verification used Playwright instead.
 
 Next:

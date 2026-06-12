@@ -1,4 +1,6 @@
 (function () {
+  const LANGUAGE_STORAGE_KEY = 'heavens:language';
+  const LEGACY_LANGUAGE_STORAGE_KEY = 'heavens-locale';
   const locales = window.__HEAVENS_LOCALES__ || [
     'hy',
     'en',
@@ -8,7 +10,9 @@
     'ar',
   ];
   const fallback = window.__HEAVENS_DEFAULT_LOCALE__ || 'hy';
-  const saved = window.localStorage.getItem('heavens-locale');
+  const saved =
+    window.localStorage.getItem(LANGUAGE_STORAGE_KEY) ||
+    window.localStorage.getItem(LEGACY_LANGUAGE_STORAGE_KEY);
 
   function nearest(language) {
     if (!language) return fallback;
@@ -34,6 +38,9 @@
   }
 
   const target = locales.includes(saved) ? saved : browserTarget();
+  if (locales.includes(saved)) {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, saved);
+  }
   const path = `/${target}/`;
 
   if (window.location.pathname !== path) {

@@ -15,11 +15,13 @@ Primary slogan: "Live the Dream."
 - Tax code: 02660767
 - Registered address: 40 Sayat-Nova Avenue, Yerevan, Armenia
 
-The exact official domain, email, founding year, social profiles, and Zeghch legal relationship still require verification.
+The exact official domain, founding year, social profiles, contact notification routing, and Zeghch legal relationship still require verification.
 
 ## Pages
 
 Generate the following routes for every locale: home, about, business, technology, media, brands, brands/zeghch, contact, legal, privacy, cookies, and terms. Also generate localized contact success pages that are `noindex` and excluded from the sitemap.
+
+The Legal Information, Privacy Policy, Cookie Policy, and Terms of Use pages use expanded implementation drafts for an informational Armenian LLC website. They include company identity, operator, form-processing, Netlify, storage, acceptable-use, no-offer, governing-law, and translation-status wording, but remain blocked until legal review and approved Armenian legal translation.
 
 ## Locales
 
@@ -46,6 +48,8 @@ Current palette direction is derived from the supplied Heavens logo: olive `#698
 ## Navigation Shell
 
 Desktop navigation remains a restrained horizontal navigation. Mobile navigation uses a sticky dark header, compact language popover, and fixed full-height drawer opening from the logical inline end. The drawer includes a header row, primary navigation links, a language section, and a contact CTA. Background content is covered by an overlay and body scroll is locked while the drawer is open.
+
+The footer displays the typed company identity details required for launch review: Heavens LLC, 40 Sayat-Nova Avenue, Yerevan, Armenia, registration number 50456518, tax code 02660767, legal-policy links, Contact, Instagram, and generated copyright year. Do not render a public email address unless the business explicitly approves publishing one.
 
 ## Architecture
 
@@ -74,6 +78,14 @@ The form uses localized labels, field-level errors, an error summary, a persiste
 
 Allowed enquiry values are exactly `general`, `import-export`, `product-sourcing`, `distribution`, `software`, `digital-platform`, `ai-solution`, `media-production`, `brand-partnership`, and `other`. Do not add fake SQL-keyword filtering or English-only name validation.
 
+## Privacy Consent
+
+Use only two categories: Essential and Analytics. Essential is always active and covers necessary browser storage such as language preference, privacy preference, and basic form/security behavior. Analytics is optional, defaults to false, and is currently inactive because no analytics provider is installed.
+
+Store language preference in `localStorage` under `heavens:language`. Store consent in `localStorage` under `heavens:privacy-consent:v1` as `{ version: 1, essential: true, analytics: boolean, updatedAt: string }`. Do not store personal form data in cookies or localStorage. Do not use advertising cookies, tracking pixels, embedded social feeds, Google Analytics, Google Tag Manager, Meta Pixel, or analytics scripts unless explicitly approved later.
+
+`loadAnalyticsIfAllowed()` is currently a no-op. If analytics is added later, it must load only after analytics consent and must stop loading on future page loads if analytics consent is revoked.
+
 ## Security
 
 Treat static generation as reduced attack surface, not a security guarantee. Configure security headers, cautious CSP, safe external links, no secrets, dependency review, no unsafe HTML rendering, no uploads, and preview noindex behavior.
@@ -84,4 +96,4 @@ Maintain minimal JavaScript, no global framework runtime, no third-party request
 
 ## Unresolved Verification Items
 
-Official email, mailbox ownership, email provider, SPF, DKIM, DMARC, domain, Zeghch relationship, approved product categories, social URLs, founding year, logo, favicon, photography, licensed fonts, translation review, legal review, analytics, Netlify retention, and deletion responsibility.
+Official domain, contact notification routing, notification owner, Zeghch relationship, approved product categories, social URLs, founding year, logo, favicon, photography, licensed fonts, translation review, legal review, effective legal-page dates, analytics, Netlify retention, authorised submission access, and deletion responsibility.

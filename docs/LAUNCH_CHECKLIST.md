@@ -10,28 +10,30 @@ Do not use this checklist as approval evidence until each item is verified and d
 - [ ] Registered address formatting approved.
 - [ ] Commercial claims approved.
 - [ ] Zeghch relationship approved.
+- [ ] Legal Information page legally approved.
 - [ ] Privacy Policy legally approved.
 - [ ] Cookie Policy legally approved.
 - [ ] Terms legally approved.
+- [ ] Consent banner and Cookie settings wording legally approved.
+- [ ] Effective date and latest revision date added to legal pages.
+- [ ] Armenian legal text reviewed as primary version.
+- [ ] Translation precedence clause approved by Armenian counsel.
 
 ## Email And Forms
 
 - [ ] Official domain confirmed.
-- [ ] Official email confirmed.
-- [ ] Mailbox owner assigned.
-- [ ] Email provider confirmed.
-- [ ] Mailbox receives external email.
-- [ ] Mailbox sends replies.
-- [ ] SPF valid.
-- [ ] DKIM enabled.
-- [ ] DMARC published.
+- [ ] Contact-form notification destination configured.
+- [ ] Contact-form notification owner assigned.
+- [ ] Notification account access secured.
 - [ ] Netlify detects `premium-contact`.
 - [ ] Normal form submission verified.
 - [ ] Honeypot submission classified appropriately.
-- [ ] Notification reaches official mailbox.
+- [ ] Notification reaches the approved internal contact destination.
 - [ ] Reply-to uses submitter email.
 - [ ] Netlify retention confirmed.
 - [ ] Deletion responsibility assigned.
+- [ ] Authorised people with access to submissions confirmed.
+- [ ] Sensitive-data handling procedure confirmed.
 
 ## Content And Localization
 
@@ -42,6 +44,7 @@ Do not use this checklist as approval evidence until each item is verified and d
 - [ ] Persian reviewed, including RTL.
 - [ ] Arabic reviewed, including RTL.
 - [ ] All metadata reviewed.
+- [ ] Legal pages reviewed in every supported language.
 
 ## Assets
 
@@ -62,5 +65,7 @@ Do not use this checklist as approval evidence until each item is verified and d
 - [ ] Robots references actual sitemap.
 - [ ] Search Console submission completed.
 - [ ] Analytics and consent approved if analytics is enabled.
+- [ ] Confirm optional analytics remains inactive unless explicitly approved.
+- [ ] Confirm consent storage key `heavens:privacy-consent:v1`.
 - [ ] Rollback procedure documented.
 - [ ] Monitoring responsibilities assigned.

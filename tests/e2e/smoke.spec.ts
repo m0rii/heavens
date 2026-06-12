@@ -24,7 +24,7 @@ test('root chooses browser locale with Armenian fallback', async ({ page }) => {
 
   await page.goto('/');
   await page.evaluate(() =>
-    window.localStorage.setItem('heavens-locale', 'de'),
+    window.localStorage.setItem('heavens:language', 'de'),
   );
   await page.goto('/');
   await expect(page).toHaveURL(/\/de\/$/);
@@ -254,6 +254,8 @@ test('service pages use compact differentiated editorial layouts', async ({
         hasText: servicePage.panelLabel,
       }),
     ).toBeVisible();
+    await expect(page.locator('.service-card-index')).toHaveCount(0);
+    await expect(page.locator('.service-process-preview span')).toHaveCount(0);
     await expect(
       page.locator('.desktop-nav a[aria-current="page"]'),
     ).toHaveText(new RegExp(servicePage.slug, 'i'));
@@ -590,4 +592,163 @@ test('instagram links and organization schema use confirmed account', async ({
   await expect(page.locator('.mobile-drawer-social')).toContainText(
     'Follow us on Instagram',
   );
+});
+
+test('footer exposes company legal facts and required links', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+
+  const footer = page.locator('footer');
+  await expect(footer).toContainText('Heavens LLC');
+  await expect(footer).toContainText('40 Sayat-Nova Avenue, Yerevan, Armenia');
+  await expect(footer).toContainText('Registration No.: 50456518');
+  await expect(footer).toContainText('Tax Code: 02660767');
+  await expect(footer.getByRole('link', { name: 'Contact' })).toHaveAttribute(
+    'href',
+    '/en/contact/',
+  );
+  await expect(
+    footer.getByRole('link', { name: 'Legal information.' }),
+  ).toHaveAttribute('href', '/en/legal/');
+});
+
+test('privacy consent banner stores essential-only choice', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+
+  const banner = page.locator('[data-consent-banner]');
+  await expect(banner).toBeVisible();
+  await expect(banner).toContainText('Your privacy choices');
+
+  await page.getByRole('button', { name: 'Essential only' }).click();
+  await expect(banner).toBeHidden();
+
+  const state = await page.evaluate(() =>
+    JSON.parse(
+      window.localStorage.getItem('heavens:privacy-consent:v1') || '{}',
+    ),
+  );
+  expect(state).toMatchObject({
+    version: 1,
+    essential: true,
+    analytics: false,
+  });
+  expect(typeof state.updatedAt).toBe('string');
+});
+
+test('privacy consent banner stores analytics choice and stays hidden', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+  await page.getByRole('button', { name: 'Accept analytics' }).first().click();
+
+  const state = await page.evaluate(() =>
+    JSON.parse(
+      window.localStorage.getItem('heavens:privacy-consent:v1') || '{}',
+    ),
+  );
+  expect(state.analytics).toBe(true);
+
+  await page.reload();
+  await expect(page.locator('[data-consent-banner]')).toBeHidden();
+});
+
+test('privacy settings reopen from footer and update analytics choice', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+  await page.getByRole('button', { name: 'Accept analytics' }).first().click();
+
+  await page.getByRole('button', { name: 'Cookie settings' }).last().click();
+  const panel = page.locator('[data-consent-panel]');
+  await expect(panel).toBeVisible();
+  await expect(
+    panel.getByRole('checkbox', { name: /analytics/i }),
+  ).toBeChecked();
+
+  await panel.getByRole('checkbox', { name: /analytics/i }).uncheck();
+  await panel.getByRole('button', { name: 'Save choices' }).click();
+
+  const state = await page.evaluate(() =>
+    JSON.parse(
+      window.localStorage.getItem('heavens:privacy-consent:v1') || '{}',
+    ),
+  );
+  expect(state.analytics).toBe(false);
+});
+
+test('privacy analytics helper is safe and currently a no-op', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+
+  const helperState = await page.evaluate(() => {
+    const privacy = (
+      window as unknown as {
+        HeavensPrivacy: {
+          getStoredConsent: () => unknown;
+          hasAnalyticsConsent: () => boolean;
+          loadAnalyticsIfAllowed: () => boolean;
+          saveConsent: (analytics: boolean) => unknown;
+        };
+      }
+    ).HeavensPrivacy;
+
+    window.localStorage.setItem('heavens:privacy-consent:v1', 'not-json');
+    const invalid = privacy.getStoredConsent();
+    window.localStorage.setItem(
+      'heavens:privacy-consent:v1',
+      JSON.stringify({
+        version: 2,
+        essential: true,
+        analytics: true,
+        updatedAt: new Date().toISOString(),
+      }),
+    );
+    const mismatched = privacy.getStoredConsent();
+    window.localStorage.removeItem('heavens:privacy-consent:v1');
+    const noConsent = privacy.hasAnalyticsConsent();
+    const loadResult = privacy.loadAnalyticsIfAllowed();
+    privacy.saveConsent(true);
+    const accepted = privacy.hasAnalyticsConsent();
+    const acceptedLoadResult = privacy.loadAnalyticsIfAllowed();
+
+    return {
+      invalid,
+      mismatched,
+      noConsent,
+      loadResult,
+      accepted,
+      acceptedLoadResult,
+    };
+  });
+
+  expect(helperState.invalid).toBeNull();
+  expect(helperState.mismatched).toBeNull();
+  expect(helperState.noConsent).toBe(false);
+  expect(helperState.loadResult).toBe(false);
+  expect(helperState.accepted).toBe(true);
+  expect(helperState.acceptedLoadResult).toBe(false);
+});
+
+test('privacy consent works in Persian RTL', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/fa/');
+
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  const banner = page.locator('[data-consent-banner]');
+  await expect(banner).toBeVisible();
+  await banner
+    .getByRole('button', { name: 'تنظیمات کوکی' })
+    .click({ force: true });
+  await expect(page.locator('[data-consent-panel]')).toBeVisible();
+
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
 });

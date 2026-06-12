@@ -1,4 +1,6 @@
 (function () {
+  var LANGUAGE_STORAGE_KEY = 'heavens:language';
+  var LEGACY_LANGUAGE_STORAGE_KEY = 'heavens-locale';
   var header = document.querySelector('[data-site-header]');
   var drawer = document.querySelector('[data-mobile-drawer]');
   var drawerTrigger = document.querySelector('[data-mobile-menu-trigger]');
@@ -197,7 +199,10 @@
   document.querySelectorAll('[data-language-link]').forEach(function (link) {
     link.addEventListener('click', function () {
       var locale = link.getAttribute('hreflang');
-      if (locale) window.localStorage.setItem('heavens-locale', locale);
+      if (locale) {
+        window.localStorage.setItem(LANGUAGE_STORAGE_KEY, locale);
+        window.localStorage.removeItem(LEGACY_LANGUAGE_STORAGE_KEY);
+      }
     });
   });
 

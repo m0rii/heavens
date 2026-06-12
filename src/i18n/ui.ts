@@ -16,6 +16,32 @@ type PageCopy = {
 type Dictionary = {
   nav: Record<string, string>;
   actions: Record<string, string>;
+  company: {
+    registrationNumber: string;
+    taxCode: string;
+    address: string;
+    rights: string;
+  };
+  consent: {
+    bannerTitle: string;
+    bannerBody: string;
+    essentialOnly: string;
+    acceptAnalytics: string;
+    cookieSettings: string;
+    panelTitle: string;
+    panelIntro: string;
+    essentialTitle: string;
+    essentialBody: string;
+    alwaysActive: string;
+    analyticsTitle: string;
+    analyticsBody: string;
+    analyticsInactive: string;
+    saveChoices: string;
+    close: string;
+    savedEssential: string;
+    savedAnalytics: string;
+    savedChoices: string;
+  };
   social: {
     instagram: string;
   };
@@ -97,7 +123,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     eyebrow: 'HEAVENS LLC · YEREVAN, ARMENIA',
     heading: 'Live the Dream.',
     intro:
-      'More than a decade of commercial experience, now expanding into technology, digital platforms and creative media.',
+      'Built on more than a decade of commercial experience, Heavens brings together business, technology and creative media to create what comes next.',
     sections: [
       {
         title: 'Established in Armenia. Built for what comes next.',
@@ -246,8 +272,8 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
       'We welcome conversations with businesses, suppliers, technology partners, creators and investors.',
     sections: [
       {
-        title: 'Official email',
-        body: 'The official company email will be displayed after mailbox verification.',
+        title: 'Contact method',
+        body: 'Please use the enquiry form on this page. Your message will be routed through the approved contact process for review and response.',
       },
     ],
   },
@@ -270,15 +296,47 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
       'Legal company information for Heavens LLC. Draft content requires legal review before production approval.',
     heading: 'Legal information.',
     intro:
-      'This page contains implementation-aligned legal information and requires legal review before launch.',
+      'This page provides company and website-operator information for Heavens LLC. It is a practical draft and requires Armenian legal review before final launch approval.',
     sections: [
       {
-        title: 'Company',
-        body: 'Heavens LLC, registration number 50456518, tax code 02660767, registered address 40 Sayat-Nova Avenue, Yerevan, Armenia.',
+        title: 'Company identity',
+        body: 'Legal name: Heavens LLC. Brand name: Heavens. Legal form: Limited Liability Company. Country of registration: Republic of Armenia. Registration number: 50456518. Tax code: 02660767. Registered address: 40 Sayat-Nova Avenue, Yerevan, Armenia. Website: https://www.heavens.am.',
       },
       {
-        title: 'Review status',
-        body: 'This legal content has not yet received final legal approval.',
+        title: 'Contact',
+        body: 'Please contact Heavens LLC using the enquiry form on this website.',
+      },
+      {
+        title: 'Website operator',
+        body: 'This website is owned and operated by Heavens LLC and provides general corporate information about the company, its business activities, services, brands and projects.',
+      },
+      {
+        title: 'Accuracy and updates',
+        body: 'Heavens LLC makes reasonable efforts to keep website information accurate and up to date. Information may be corrected, amended or removed without prior notice.',
+      },
+      {
+        title: 'No contractual offer',
+        body: 'Unless expressly stated otherwise, information on this website does not constitute a binding offer, quotation, guarantee or contractual commitment.',
+      },
+      {
+        title: 'Availability',
+        body: 'Products, services, partnerships and market availability may vary and may be subject to legal, regulatory, customs, technical and commercial requirements.',
+      },
+      {
+        title: 'External links',
+        body: 'The website may contain links to third-party websites. Heavens LLC does not control and is not responsible for the content, availability, security or privacy practices of those websites.',
+      },
+      {
+        title: 'Intellectual property',
+        body: 'Unless otherwise stated, the website design, Heavens name, logo, text, graphics and original content belong to Heavens LLC or are used with permission. Content may not be reproduced, distributed or commercially used without prior written permission, except where permitted by applicable law.',
+      },
+      {
+        title: 'Governing law',
+        body: 'This website and its use are governed by the laws of the Republic of Armenia. Disputes shall be handled in accordance with the applicable laws and jurisdictional rules of the Republic of Armenia.',
+      },
+      {
+        title: 'Translation status',
+        body: 'Translations are provided for convenience. In case of inconsistency, the Armenian-language version should prevail to the extent permitted by law, after final legal approval.',
       },
     ],
   },
@@ -288,15 +346,63 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
       'Draft privacy information describing the current static website and Netlify Forms processing model.',
     heading: 'Privacy Policy.',
     intro:
-      'This draft explains the current implementation and must be finalized after legal, email and Netlify retention review.',
+      'This draft explains how the current informational website and contact form process personal data. It must be finalized after Armenian legal, contact-routing and Netlify retention review.',
     sections: [
       {
-        title: 'Contact form',
-        body: 'Contact form information is intended to be processed through Netlify Forms so Heavens can review and respond to enquiries.',
+        title: 'Data controller',
+        body: 'Heavens LLC, registration number 50456518, tax code 02660767, registered address 40 Sayat-Nova Avenue, Yerevan, Armenia. Privacy requests may be submitted through the website contact form.',
       },
       {
-        title: 'Analytics',
-        body: 'No optional analytics is loaded during initial development.',
+        title: 'Data collected',
+        body: 'The contact form may collect full name, company name if provided, email, phone if provided, country if provided, enquiry type, message, language, and technical or anti-spam data processed by Netlify.',
+      },
+      {
+        title: 'Purpose',
+        body: 'Personal data is used to receive, review and respond to business enquiries, maintain related correspondence, protect the form against spam and abuse, comply with legal obligations, and protect legitimate business and legal interests.',
+      },
+      {
+        title: 'Processing basis',
+        body: "Personal data is processed where necessary to respond to the user's request, manage related business communication, comply with applicable legal obligations and protect legitimate interests, and where required, on the basis of the user's acknowledgement or consent.",
+      },
+      {
+        title: 'Service provider',
+        body: 'The website is hosted on Netlify, and contact-form submissions are processed through Netlify Forms. Netlify may process information in countries outside Armenia as part of providing its infrastructure.',
+      },
+      {
+        title: 'Notification access',
+        body: "Verified enquiries may be made available to authorised representatives of Heavens LLC through the company's controlled notification and account systems.",
+      },
+      {
+        title: 'Retention',
+        body: 'Enquiry information is retained only for as long as reasonably necessary to respond, manage related correspondence, protect legal interests and meet applicable legal obligations. The exact operational retention period remains under review according to the actual Netlify and contact-routing configuration.',
+      },
+      {
+        title: 'Your rights',
+        body: 'Subject to applicable law, individuals may request access, correction, updating, blocking or deletion where applicable, information about processing, withdrawal of consent where processing depends on consent, and may complain to the competent Armenian authority.',
+      },
+      {
+        title: 'Security',
+        body: 'Heavens LLC applies reasonable organisational and technical measures to protect personal data. No internet transmission or storage system can be guaranteed to be completely secure.',
+      },
+      {
+        title: 'Optional analytics',
+        body: "Optional analytics is not currently active. If optional analytics is introduced, it will be used only according to the visitor's privacy choices and applicable legal requirements.",
+      },
+      {
+        title: 'Required fields',
+        body: 'Fields marked as required are necessary to submit an enquiry. Optional fields may be left blank.',
+      },
+      {
+        title: 'Sensitive information',
+        body: 'Do not submit passwords, payment details, identity documents, medical information or other highly sensitive personal information through the general contact form.',
+      },
+      {
+        title: 'Children',
+        body: 'The website and contact form are not intended for children.',
+      },
+      {
+        title: 'Changes',
+        body: 'This Privacy Policy may be updated. The effective date and latest revision date should be added before final publication.',
       },
     ],
   },
@@ -306,15 +412,35 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
       'Draft cookie policy for the initial Heavens website implementation.',
     heading: 'Cookie Policy.',
     intro:
-      'The initial website uses only essential preference storage and does not load optional analytics.',
+      'This website currently uses essential browser storage to remember language and privacy preferences. Optional analytics is not currently active. If analytics is introduced, it will not load before the visitor has given permission where consent is required.',
     sections: [
+      {
+        title: 'Current storage',
+        body: 'The website currently uses only essential browser storage necessary to remember language and privacy preferences. Optional analytics is not currently active.',
+      },
       {
         title: 'Language preference',
         body: 'The root language selector may use local storage to remember a visitor’s selected language.',
       },
       {
-        title: 'Consent status',
-        body: 'Optional analytics requires a later documented provider and consent decision.',
+        title: 'Privacy preference',
+        body: 'A privacy or analytics preference may be stored if optional analytics controls are introduced later.',
+      },
+      {
+        title: 'Security and form protection',
+        body: 'Essential security or anti-spam functionality may be used to protect the contact form and website infrastructure.',
+      },
+      {
+        title: 'Optional analytics',
+        body: 'Optional analytics is not currently active. If analytics is introduced later, it should load only after permission and both accept and reject choices should remain similarly visible.',
+      },
+      {
+        title: 'Changing choices',
+        body: 'Visitors can reopen Cookie settings from the footer. Rejecting analytics does not block access to the website.',
+      },
+      {
+        title: 'No advertising or social embeds',
+        body: 'No advertising cookies, tracking pixels or embedded social media feeds are currently used.',
       },
     ],
   },
@@ -326,12 +452,40 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
       'These terms are implementation drafts and require legal review before launch.',
     sections: [
       {
-        title: 'Website information',
-        body: 'Website content is provided for general corporate information and business enquiry purposes.',
+        title: 'Informational website',
+        body: 'This website provides general corporate information about Heavens LLC and is intended for business enquiry and informational purposes.',
       },
       {
-        title: 'No unsupported claims',
-        body: 'Products, services and availability are subject to verification and applicable requirements.',
+        title: 'Acceptable use',
+        body: 'Visitors must not interfere with the website, attempt unauthorised access, attack security controls, submit unlawful content, or use scraping or automated abuse in a way that harms the website or violates applicable law.',
+      },
+      {
+        title: 'Intellectual property',
+        body: 'The Heavens name, website design, text, graphics, logo and original content belong to Heavens LLC or are used with permission, unless otherwise stated.',
+      },
+      {
+        title: 'No reliance on incomplete information',
+        body: 'Website information may be incomplete, changed or corrected. Visitors should not rely on it as legal, financial, technical, commercial or professional advice.',
+      },
+      {
+        title: 'No guaranteed availability',
+        body: 'Heavens LLC does not guarantee that the website will always be available, uninterrupted, secure or error free.',
+      },
+      {
+        title: 'External links',
+        body: 'Links to third-party websites are provided for convenience. Heavens LLC does not control those websites and is not responsible for their content, security or privacy practices.',
+      },
+      {
+        title: 'Limitation of liability',
+        body: 'To the maximum extent permitted by applicable law, Heavens LLC is not liable for losses arising from use of, inability to use, or reliance on this website, except where liability cannot legally be excluded.',
+      },
+      {
+        title: 'Governing law',
+        body: 'These terms and use of the website are governed by the laws of the Republic of Armenia. Disputes shall be handled in accordance with applicable Armenian laws and jurisdictional rules.',
+      },
+      {
+        title: 'Changes and contact',
+        body: 'These terms may be updated. Questions about the website may be submitted through the contact form.',
       },
     ],
   },
@@ -344,7 +498,7 @@ const localizedOverrides: Partial<
     '': {
       heading: 'Live the Dream.',
       intro:
-        'Heavens-ը միավորում է ավելի քան տասնամյակի առևտրային փորձը տեխնոլոգիայի, թվային հարթակների և ստեղծարար մեդիայի հետ:',
+        'Ավելի քան տասնամյակի առևտրային փորձի վրա հիմնվելով՝ Heavens-ը միավորում է բիզնեսը, տեխնոլոգիան և ստեղծարար մեդիան՝ ստեղծելու այն, ինչ հաջորդն է։',
       sections: [
         {
           title: 'Հիմնված Հայաստանում։ Պատրաստ հաջորդ փուլին։',
@@ -451,8 +605,8 @@ const localizedOverrides: Partial<
         'Մենք բաց ենք բիզնեսների, մատակարարների, տեխնոլոգիական գործընկերների, ստեղծարարների և ներդրողների հետ զրույցների համար։',
       sections: [
         {
-          title: 'Պաշտոնական էլ. հասցե',
-          body: 'Ընկերության պաշտոնական էլ. հասցեն կցուցադրվի փոստարկղի հաստատումից հետո։',
+          title: 'Կապի եղանակ',
+          body: 'Խնդրում ենք օգտագործել այս էջի հարցման ձևը։ Ձեր հաղորդագրությունը կուղղվի հաստատված կապի գործընթացով՝ վերանայման և պատասխանի համար։',
         },
       ],
     },
@@ -493,7 +647,7 @@ const localizedOverrides: Partial<
         'Գաղտնիության նախագծային տեղեկություն՝ ընթացիկ ստատիկ կայքի և Netlify Forms մշակման մոդելի մասին։',
       heading: 'Գաղտնիության քաղաքականություն։',
       intro:
-        'Այս նախագիծը բացատրում է ընթացիկ իրականացումը և պետք է վերջնականացվի իրավական, էլ. փոստի և Netlify պահպանման վերանայումից հետո։',
+        'Այս նախագիծը բացատրում է ընթացիկ իրականացումը և պետք է վերջնականացվի իրավական, կապի ուղղորդման և Netlify պահպանման վերանայումից հետո։',
       sections: [
         {
           title: 'Կապի ձև',
@@ -511,15 +665,35 @@ const localizedOverrides: Partial<
         'Heavens կայքի սկզբնական իրականացման համար cookie-ների նախագծային քաղաքականություն։',
       heading: 'Cookie-ների քաղաքականություն։',
       intro:
-        'Սկզբնական կայքը օգտագործում է միայն անհրաժեշտ նախապատվության պահպանում և չի բեռնում կամընտիր վերլուծություն։',
+        'Այս կայքը ներկայում օգտագործում է անհրաժեշտ browser storage՝ լեզվի և գաղտնիության նախընտրությունները հիշելու համար։ Կամընտիր վերլուծությունը ներկայում ակտիվ չէ։ Եթե վերլուծություն ներդրվի, այն չի բեռնվի մինչև այցելուի թույլտվությունը, երբ համաձայնությունը պահանջվում է։',
       sections: [
         {
-          title: 'Լեզվի նախապատվություն',
-          body: 'Գլխավոր լեզվի ընտրիչը կարող է օգտագործել տեղային պահոց՝ այցելուի ընտրված լեզուն հիշելու համար։',
+          title: 'Ընթացիկ պահպանում',
+          body: 'Կայքը օգտագործում է անհրաժեշտ browser storage՝ լեզվի և գաղտնիության նախընտրությունները հիշելու համար։',
         },
         {
-          title: 'Համաձայնության կարգավիճակ',
-          body: 'Կամընտիր վերլուծությունը պահանջում է հետագա փաստաթղթավորված մատակարարի և համաձայնության որոշում։',
+          title: 'Լեզվի նախապատվություն',
+          body: 'Ընտրված լեզուն կարող է պահպանվել localStorage-ում, որպեսզի կայքը հիշի այցելուի ընտրությունը։',
+        },
+        {
+          title: 'Գաղտնիության նախընտրություն',
+          body: 'Գաղտնիության ընտրությունը պահպանվում է localStorage-ում՝ heavens:privacy-consent:v1 բանալիով։',
+        },
+        {
+          title: 'Անվտանգություն և ձևի պաշտպանություն',
+          body: 'Կապի ձևը և կայքի ենթակառուցվածքը պաշտպանելու համար կարող են օգտագործվել անհրաժեշտ հակասպամ կամ անվտանգության գործառույթներ։',
+        },
+        {
+          title: 'Կամընտիր վերլուծություն',
+          body: 'Կամընտիր վերլուծությունը ներկայում ակտիվ չէ։ Եթե վերլուծություն ավելացվի, այն կբեռնվի միայն թույլտվությունից հետո։',
+        },
+        {
+          title: 'Ընտրությունները փոխելը',
+          body: 'Այցելուները կարող են կրկին բացել Cookie կարգավորումները էջատակից։ Վերլուծությունից հրաժարվելը չի արգելափակում կայքի հասանելիությունը։',
+        },
+        {
+          title: 'Գովազդ կամ սոցիալական ներդրումներ չկան',
+          body: 'Ներկայում չեն օգտագործվում գովազդային cookie-ներ, tracking pixel-ներ կամ ներկառուցված սոցիալական մեդիայի հոսքեր։',
         },
       ],
     },
@@ -545,7 +719,7 @@ const localizedOverrides: Partial<
     '': {
       heading: 'Live the Dream.',
       intro:
-        'Heavens объединяет более чем десятилетний коммерческий опыт с технологиями, цифровыми платформами и медиа.',
+        'Опираясь на более чем десятилетний коммерческий опыт, Heavens объединяет бизнес, технологии и креативные медиа, чтобы создавать то, что будет дальше.',
       sections: [
         {
           title: 'Основано в Армении. Готово к следующему этапу.',
@@ -652,8 +826,8 @@ const localizedOverrides: Partial<
         'Мы открыты к разговору с бизнесами, поставщиками, технологическими партнерами, авторами и инвесторами.',
       sections: [
         {
-          title: 'Официальная электронная почта',
-          body: 'Официальный адрес электронной почты компании будет показан после проверки почтового ящика.',
+          title: 'Способ связи',
+          body: 'Пожалуйста, используйте форму запроса на этой странице. Ваше сообщение будет направлено через утвержденный процесс связи для рассмотрения и ответа.',
         },
       ],
     },
@@ -694,7 +868,7 @@ const localizedOverrides: Partial<
         'Черновая информация о конфиденциальности для текущего статического сайта и модели обработки Netlify Forms.',
       heading: 'Политика конфиденциальности.',
       intro:
-        'Этот черновик объясняет текущую реализацию и должен быть финализирован после юридической проверки, проверки электронной почты и хранения Netlify.',
+        'Этот черновик объясняет текущую реализацию и должен быть финализирован после юридической проверки, проверки маршрутизации обращений и хранения Netlify.',
       sections: [
         {
           title: 'Контактная форма',
@@ -712,15 +886,35 @@ const localizedOverrides: Partial<
         'Черновая политика cookie для начальной реализации сайта Heavens.',
       heading: 'Политика cookie.',
       intro:
-        'Начальная версия сайта использует только необходимое сохранение предпочтений и не загружает дополнительную аналитику.',
+        'Этот сайт сейчас использует необходимое браузерное хранилище, чтобы запоминать языковые настройки и настройки конфиденциальности. Дополнительная аналитика сейчас не активна. Если аналитика будет введена, она не будет загружаться до получения разрешения посетителя там, где требуется согласие.',
       sections: [
         {
-          title: 'Языковое предпочтение',
-          body: 'Корневой выбор языка может использовать локальное хранилище, чтобы запомнить выбранный посетителем язык.',
+          title: 'Текущее хранение',
+          body: 'Сайт использует необходимое браузерное хранилище для запоминания языка и настроек конфиденциальности.',
         },
         {
-          title: 'Статус согласия',
-          body: 'Дополнительная аналитика требует последующего документированного решения о провайдере и согласии.',
+          title: 'Языковое предпочтение',
+          body: 'Выбранный язык может сохраняться в localStorage, чтобы сайт запоминал выбор посетителя.',
+        },
+        {
+          title: 'Настройка конфиденциальности',
+          body: 'Выбор конфиденциальности сохраняется в localStorage с ключом heavens:privacy-consent:v1.',
+        },
+        {
+          title: 'Безопасность и защита формы',
+          body: 'Для защиты контактной формы и инфраструктуры сайта могут использоваться необходимые антиспам- или защитные функции.',
+        },
+        {
+          title: 'Дополнительная аналитика',
+          body: 'Дополнительная аналитика сейчас не активна. Если аналитика будет добавлена, она будет загружаться только после разрешения.',
+        },
+        {
+          title: 'Изменение выбора',
+          body: 'Посетители могут снова открыть настройки cookie из футера. Отказ от аналитики не блокирует доступ к сайту.',
+        },
+        {
+          title: 'Нет рекламы и социальных вставок',
+          body: 'Сейчас не используются рекламные cookie, пиксели отслеживания или встроенные ленты социальных сетей.',
         },
       ],
     },
@@ -746,7 +940,7 @@ const localizedOverrides: Partial<
     '': {
       heading: 'Live the Dream.',
       intro:
-        'Heavens verbindet mehr als ein Jahrzehnt kommerzieller Erfahrung mit Technologie, digitalen Plattformen und Medien.',
+        'Aufbauend auf mehr als einem Jahrzehnt kommerzieller Erfahrung verbindet Heavens Business, Technologie und kreative Medien, um das zu schaffen, was als Nächstes kommt.',
       sections: [
         {
           title: 'In Armenien etabliert. Bereit für das, was kommt.',
@@ -853,8 +1047,8 @@ const localizedOverrides: Partial<
         'Wir freuen uns über Gespräche mit Unternehmen, Lieferanten, Technologiepartnern, Kreativen und Investoren.',
       sections: [
         {
-          title: 'Offizielle E-Mail',
-          body: 'Die offizielle Unternehmens-E-Mail wird nach der Postfachprüfung angezeigt.',
+          title: 'Kontaktweg',
+          body: 'Bitte nutzen Sie das Anfrageformular auf dieser Seite. Ihre Nachricht wird über den freigegebenen Kontaktprozess zur Prüfung und Beantwortung weitergeleitet.',
         },
       ],
     },
@@ -895,7 +1089,7 @@ const localizedOverrides: Partial<
         'Entwurf zur Datenschutzinformation für die aktuelle statische Website und das Netlify-Forms-Verarbeitungsmodell.',
       heading: 'Datenschutzerklärung.',
       intro:
-        'Dieser Entwurf erklärt die aktuelle Implementierung und muss nach rechtlicher Prüfung, E-Mail-Prüfung und Netlify-Aufbewahrungsprüfung finalisiert werden.',
+        'Dieser Entwurf erklärt die aktuelle Implementierung und muss nach rechtlicher Prüfung, Prüfung der Kontaktweiterleitung und Netlify-Aufbewahrungsprüfung finalisiert werden.',
       sections: [
         {
           title: 'Kontaktformular',
@@ -913,15 +1107,35 @@ const localizedOverrides: Partial<
         'Entwurf einer Cookie-Richtlinie für die erste Implementierung der Heavens-Website.',
       heading: 'Cookie-Richtlinie.',
       intro:
-        'Die erste Website nutzt nur notwendige Präferenzspeicherung und lädt keine optionale Analytik.',
+        'Diese Website verwendet derzeit notwendige Browserspeicherung, um Sprach- und Datenschutzeinstellungen zu merken. Optionale Analysen sind derzeit nicht aktiv. Wenn Analysen eingeführt werden, werden sie nicht geladen, bevor der Besucher die erforderliche Erlaubnis gegeben hat.',
       sections: [
         {
-          title: 'Sprachpräferenz',
-          body: 'Die Sprachauswahl auf der Startweiterleitung kann lokalen Speicher verwenden, um die ausgewählte Sprache eines Besuchers zu merken.',
+          title: 'Aktuelle Speicherung',
+          body: 'Die Website verwendet notwendige Browserspeicherung, um Sprache und Datenschutzauswahl zu merken.',
         },
         {
-          title: 'Einwilligungsstatus',
-          body: 'Optionale Analytik erfordert später eine dokumentierte Anbieter- und Einwilligungsentscheidung.',
+          title: 'Sprachpräferenz',
+          body: 'Die ausgewählte Sprache kann in localStorage gespeichert werden, damit die Website die Auswahl merkt.',
+        },
+        {
+          title: 'Datenschutzauswahl',
+          body: 'Die Datenschutzauswahl wird in localStorage unter dem Schlüssel heavens:privacy-consent:v1 gespeichert.',
+        },
+        {
+          title: 'Sicherheit und Formularschutz',
+          body: 'Notwendige Sicherheits- oder Anti-Spam-Funktionen können verwendet werden, um das Kontaktformular und die Website-Infrastruktur zu schützen.',
+        },
+        {
+          title: 'Optionale Analysen',
+          body: 'Optionale Analysen sind derzeit nicht aktiv. Wenn Analysen hinzugefügt werden, werden sie erst nach Erlaubnis geladen.',
+        },
+        {
+          title: 'Auswahl ändern',
+          body: 'Besucher können die Cookie-Einstellungen im Footer erneut öffnen. Das Ablehnen von Analysen blockiert den Zugang zur Website nicht.',
+        },
+        {
+          title: 'Keine Werbung oder Social-Embeds',
+          body: 'Derzeit werden keine Werbe-Cookies, Tracking-Pixel oder eingebetteten Social-Media-Feeds verwendet.',
         },
       ],
     },
@@ -948,7 +1162,7 @@ const localizedOverrides: Partial<
     '': {
       heading: 'Live the Dream.',
       intro:
-        'Heavens بیش از یک دهه تجربه تجاری را با فناوری، پلتفرم‌های دیجیتال و رسانه خلاق پیوند می‌دهد.',
+        'Heavens بر پایه بیش از یک دهه تجربه تجاری، کسب‌وکار، فناوری و رسانه خلاق را کنار هم می‌آورد تا آنچه در ادامه می‌آید را بسازد.',
       sections: [
         {
           title: 'ریشه‌دار در ارمنستان. آماده برای مرحله بعد.',
@@ -1055,8 +1269,8 @@ const localizedOverrides: Partial<
         'ما از گفت‌وگو با کسب‌وکارها، تأمین‌کنندگان، شرکای فناوری، خالقان و سرمایه‌گذاران استقبال می‌کنیم.',
       sections: [
         {
-          title: 'ایمیل رسمی',
-          body: 'ایمیل رسمی شرکت پس از تأیید صندوق پستی نمایش داده خواهد شد.',
+          title: 'روش تماس',
+          body: 'لطفا از فرم درخواست در همین صفحه استفاده کنید. پیام شما از طریق فرایند تماس تاییدشده برای بررسی و پاسخ‌گویی ارسال می‌شود.',
         },
       ],
     },
@@ -1097,7 +1311,7 @@ const localizedOverrides: Partial<
         'اطلاعات پیش‌نویس حریم خصوصی درباره وب‌سایت استاتیک فعلی و مدل پردازش Netlify Forms.',
       heading: 'سیاست حریم خصوصی.',
       intro:
-        'این پیش‌نویس پیاده‌سازی فعلی را توضیح می‌دهد و باید پس از بررسی حقوقی، ایمیل و نگهداری Netlify نهایی شود.',
+        'این پیش‌نویس پیاده‌سازی فعلی را توضیح می‌دهد و باید پس از بررسی حقوقی، مسیر تماس و نگهداری Netlify نهایی شود.',
       sections: [
         {
           title: 'فرم تماس',
@@ -1114,15 +1328,35 @@ const localizedOverrides: Partial<
       description: 'پیش‌نویس سیاست کوکی برای پیاده‌سازی اولیه وب‌سایت Heavens.',
       heading: 'سیاست کوکی.',
       intro:
-        'وب‌سایت اولیه فقط از ذخیره‌سازی ضروری ترجیح‌ها استفاده می‌کند و تحلیل‌گر اختیاری بارگذاری نمی‌کند.',
+        'این وب‌سایت در حال حاضر از ذخیره‌سازی ضروری مرورگر برای یادآوری ترجیح زبان و انتخاب‌های حریم خصوصی استفاده می‌کند. تحلیل‌گر اختیاری در حال حاضر فعال نیست. اگر تحلیل‌گر اضافه شود، در مواردی که رضایت لازم است پیش از اجازه بازدیدکننده بارگذاری نخواهد شد.',
       sections: [
         {
-          title: 'ترجیح زبان',
-          body: 'انتخاب‌گر زبان ریشه ممکن است از ذخیره‌سازی محلی برای یادآوری زبان انتخاب‌شده بازدیدکننده استفاده کند.',
+          title: 'ذخیره‌سازی فعلی',
+          body: 'وب‌سایت از ذخیره‌سازی ضروری مرورگر برای یادآوری زبان و انتخاب حریم خصوصی استفاده می‌کند.',
         },
         {
-          title: 'وضعیت رضایت',
-          body: 'تحلیل‌گر اختیاری نیازمند تصمیم مستند بعدی درباره ارائه‌دهنده و رضایت است.',
+          title: 'ترجیح زبان',
+          body: 'زبان انتخاب‌شده ممکن است در localStorage ذخیره شود تا وب‌سایت انتخاب بازدیدکننده را به خاطر بسپارد.',
+        },
+        {
+          title: 'انتخاب حریم خصوصی',
+          body: 'انتخاب حریم خصوصی در localStorage با کلید heavens:privacy-consent:v1 ذخیره می‌شود.',
+        },
+        {
+          title: 'امنیت و حفاظت فرم',
+          body: 'برای حفاظت از فرم تماس و زیرساخت وب‌سایت ممکن است از قابلیت‌های ضروری امنیتی یا ضداسپم استفاده شود.',
+        },
+        {
+          title: 'تحلیل‌گر اختیاری',
+          body: 'تحلیل‌گر اختیاری در حال حاضر فعال نیست. اگر تحلیل‌گر اضافه شود، فقط پس از اجازه بارگذاری می‌شود.',
+        },
+        {
+          title: 'تغییر انتخاب‌ها',
+          body: 'بازدیدکنندگان می‌توانند تنظیمات کوکی را از پابرگ دوباره باز کنند. رد کردن تحلیل‌گر دسترسی به وب‌سایت را مسدود نمی‌کند.',
+        },
+        {
+          title: 'بدون تبلیغات یا جاسازی شبکه‌های اجتماعی',
+          body: 'در حال حاضر از کوکی‌های تبلیغاتی، پیکسل‌های ردیابی یا فیدهای جاسازی‌شده شبکه‌های اجتماعی استفاده نمی‌شود.',
         },
       ],
     },
@@ -1148,7 +1382,7 @@ const localizedOverrides: Partial<
     '': {
       heading: 'Live the Dream.',
       intro:
-        'تجمع Heavens بين أكثر من عقد من الخبرة التجارية والتقنية والمنصات الرقمية والإعلام الإبداعي.',
+        'انطلاقا من أكثر من عقد من الخبرة التجارية، تجمع Heavens بين الأعمال والتقنية والإعلام الإبداعي لصناعة ما يأتي بعد ذلك.',
       sections: [
         {
           title: 'راسخة في أرمينيا. جاهزة لما يأتي بعد ذلك.',
@@ -1255,8 +1489,8 @@ const localizedOverrides: Partial<
         'نرحب بالمحادثات مع الشركات والموردين وشركاء التقنية والمبدعين والمستثمرين.',
       sections: [
         {
-          title: 'البريد الرسمي',
-          body: 'سيتم عرض البريد الإلكتروني الرسمي للشركة بعد التحقق من صندوق البريد.',
+          title: 'طريقة التواصل',
+          body: 'يرجى استخدام نموذج الاستفسار في هذه الصفحة. سيتم توجيه رسالتك عبر عملية التواصل المعتمدة للمراجعة والرد.',
         },
       ],
     },
@@ -1296,7 +1530,7 @@ const localizedOverrides: Partial<
         'معلومات خصوصية مسودة تصف الموقع الثابت الحالي ونموذج معالجة Netlify Forms.',
       heading: 'سياسة الخصوصية.',
       intro:
-        'تشرح هذه المسودة التنفيذ الحالي ويجب إنهاؤها بعد المراجعة القانونية ومراجعة البريد الإلكتروني واحتفاظ Netlify.',
+        'تشرح هذه المسودة التنفيذ الحالي ويجب إنهاؤها بعد المراجعة القانونية ومراجعة توجيه التواصل واحتفاظ Netlify.',
       sections: [
         {
           title: 'نموذج التواصل',
@@ -1314,15 +1548,35 @@ const localizedOverrides: Partial<
         'مسودة سياسة ملفات تعريف الارتباط للتنفيذ الأولي لموقع Heavens.',
       heading: 'سياسة ملفات تعريف الارتباط.',
       intro:
-        'يستخدم الموقع الأولي تخزين التفضيلات الضروري فقط ولا يحمل تحليلات اختيارية.',
+        'يستخدم هذا الموقع حاليا تخزين المتصفح الأساسي لتذكر تفضيلات اللغة والخصوصية. التحليلات الاختيارية غير نشطة حاليا. إذا تم تقديم التحليلات، فلن يتم تحميلها قبل أن يمنح الزائر الإذن حيث تكون الموافقة مطلوبة.',
       sections: [
         {
-          title: 'تفضيل اللغة',
-          body: 'قد يستخدم محدد اللغة في صفحة الجذر التخزين المحلي لتذكر اللغة التي اختارها الزائر.',
+          title: 'التخزين الحالي',
+          body: 'يستخدم الموقع تخزين المتصفح الأساسي لتذكر اللغة واختيار الخصوصية.',
         },
         {
-          title: 'حالة الموافقة',
-          body: 'تتطلب التحليلات الاختيارية قرارا موثقا لاحقا بشأن المزود والموافقة.',
+          title: 'تفضيل اللغة',
+          body: 'قد يتم حفظ اللغة المختارة في localStorage حتى يتذكر الموقع اختيار الزائر.',
+        },
+        {
+          title: 'اختيار الخصوصية',
+          body: 'يتم حفظ اختيار الخصوصية في localStorage بالمفتاح heavens:privacy-consent:v1.',
+        },
+        {
+          title: 'الأمان وحماية النموذج',
+          body: 'قد تستخدم وظائف أمان أو مكافحة رسائل مزعجة أساسية لحماية نموذج التواصل وبنية الموقع.',
+        },
+        {
+          title: 'التحليلات الاختيارية',
+          body: 'التحليلات الاختيارية غير نشطة حاليا. إذا أضيفت التحليلات، فلن يتم تحميلها إلا بعد الإذن.',
+        },
+        {
+          title: 'تغيير الاختيارات',
+          body: 'يمكن للزوار إعادة فتح إعدادات ملفات تعريف الارتباط من التذييل. رفض التحليلات لا يمنع الوصول إلى الموقع.',
+        },
+        {
+          title: 'لا إعلانات أو تضمينات اجتماعية',
+          body: 'لا تستخدم حاليا ملفات تعريف ارتباط إعلانية أو بكسلات تتبع أو خلاصات وسائط اجتماعية مدمجة.',
         },
       ],
     },
@@ -1508,6 +1762,200 @@ const socialLabels: Record<Locale, { instagram: string }> = {
   de: { instagram: 'Folgen Sie uns auf Instagram' },
   fa: { instagram: 'ما را در Instagram دنبال کنید' },
   ar: { instagram: 'تابعونا على Instagram' },
+};
+
+const companyLabels: Record<
+  Locale,
+  {
+    registrationNumber: string;
+    taxCode: string;
+    address: string;
+    rights: string;
+  }
+> = {
+  hy: {
+    registrationNumber: 'Գրանցման համար',
+    taxCode: 'ՀՎՀՀ',
+    address: 'Հասցե',
+    rights: 'Բոլոր իրավունքները պաշտպանված են։',
+  },
+  en: {
+    registrationNumber: 'Registration No.',
+    taxCode: 'Tax Code',
+    address: 'Address',
+    rights: 'All rights reserved.',
+  },
+  ru: {
+    registrationNumber: 'Регистрационный номер',
+    taxCode: 'Налоговый код',
+    address: 'Адрес',
+    rights: 'Все права защищены.',
+  },
+  de: {
+    registrationNumber: 'Registrierungsnummer',
+    taxCode: 'Steuernummer',
+    address: 'Adresse',
+    rights: 'Alle Rechte vorbehalten.',
+  },
+  fa: {
+    registrationNumber: 'شماره ثبت',
+    taxCode: 'کد مالیاتی',
+    address: 'نشانی',
+    rights: 'تمام حقوق محفوظ است.',
+  },
+  ar: {
+    registrationNumber: 'رقم التسجيل',
+    taxCode: 'الرقم الضريبي',
+    address: 'العنوان',
+    rights: 'جميع الحقوق محفوظة.',
+  },
+};
+
+const consentLabels: Record<Locale, Dictionary['consent']> = {
+  hy: {
+    bannerTitle: 'Ձեր գաղտնիության ընտրությունները',
+    bannerBody:
+      'Մենք օգտագործում ենք անհրաժեշտ տեխնոլոգիաներ կայքը գործարկելու և ձեր լեզվի նախընտրությունը հիշելու համար։ Ձեր թույլտվությամբ կարող ենք նաև օգտագործել վերլուծություն՝ հասկանալու, թե ինչպես է կայքն օգտագործվում։',
+    essentialOnly: 'Միայն անհրաժեշտը',
+    acceptAnalytics: 'Թույլատրել վերլուծությունը',
+    cookieSettings: 'Cookie կարգավորումներ',
+    panelTitle: 'Cookie կարգավորումներ',
+    panelIntro:
+      'Կառավարեք այս կայքի անհրաժեշտ պահպանումն ու վերլուծության ընտրությունը։',
+    essentialTitle: 'Անհրաժեշտ',
+    essentialBody:
+      'Պահանջվում է կայքի հիմնական աշխատանքի, լեզվի նախընտրության և գաղտնիության ընտրության պահպանման համար։',
+    alwaysActive: 'Միշտ ակտիվ է։',
+    analyticsTitle: 'Վերլուծություն',
+    analyticsBody: 'Օգնում է հասկանալ կայքի օգտագործումը, եթե միացված է։',
+    analyticsInactive:
+      'Ընթացիկ պահին ընտրովի վերլուծությունը ակտիվ չէ, քանի դեռ վերլուծության մատակարար չի ավելացվել։',
+    saveChoices: 'Պահպանել ընտրությունները',
+    close: 'Փակել',
+    savedEssential: 'Պահպանվեց՝ միայն անհրաժեշտ պահպանում։',
+    savedAnalytics: 'Պահպանվեց՝ վերլուծությունը թույլատրված է։',
+    savedChoices: 'Ձեր ընտրությունները պահպանվեցին։',
+  },
+  en: {
+    bannerTitle: 'Your privacy choices',
+    bannerBody:
+      'We use essential technologies to operate this website and remember your language preferences. With your permission, we may also use analytics to understand how the website is used.',
+    essentialOnly: 'Essential only',
+    acceptAnalytics: 'Accept analytics',
+    cookieSettings: 'Cookie settings',
+    panelTitle: 'Cookie settings',
+    panelIntro:
+      'Manage essential website storage and the optional analytics choice.',
+    essentialTitle: 'Essential',
+    essentialBody:
+      'Required for core website functionality, language preference and privacy preference storage.',
+    alwaysActive: 'Always active.',
+    analyticsTitle: 'Analytics',
+    analyticsBody: 'Helps us understand website usage if enabled.',
+    analyticsInactive:
+      'Currently inactive unless an analytics provider is added.',
+    saveChoices: 'Save choices',
+    close: 'Close',
+    savedEssential: 'Saved: essential storage only.',
+    savedAnalytics: 'Saved: analytics accepted.',
+    savedChoices: 'Your choices have been saved.',
+  },
+  ru: {
+    bannerTitle: 'Ваши настройки конфиденциальности',
+    bannerBody:
+      'Мы используем необходимые технологии для работы сайта и сохранения языковых предпочтений. С вашего разрешения мы также можем использовать аналитику, чтобы понимать, как используется сайт.',
+    essentialOnly: 'Только необходимое',
+    acceptAnalytics: 'Разрешить аналитику',
+    cookieSettings: 'Настройки cookie',
+    panelTitle: 'Настройки cookie',
+    panelIntro:
+      'Управляйте необходимым хранением сайта и необязательной аналитикой.',
+    essentialTitle: 'Необходимое',
+    essentialBody:
+      'Требуется для основной работы сайта, языковых предпочтений и хранения настроек конфиденциальности.',
+    alwaysActive: 'Всегда активно.',
+    analyticsTitle: 'Аналитика',
+    analyticsBody: 'Помогает понять использование сайта, если включена.',
+    analyticsInactive:
+      'Сейчас неактивна, пока не добавлен поставщик аналитики.',
+    saveChoices: 'Сохранить выбор',
+    close: 'Закрыть',
+    savedEssential: 'Сохранено: только необходимое хранение.',
+    savedAnalytics: 'Сохранено: аналитика разрешена.',
+    savedChoices: 'Ваш выбор сохранен.',
+  },
+  de: {
+    bannerTitle: 'Ihre Datenschutzauswahl',
+    bannerBody:
+      'Wir verwenden notwendige Technologien, um diese Website zu betreiben und Ihre Spracheinstellung zu speichern. Mit Ihrer Erlaubnis können wir auch Analysen nutzen, um zu verstehen, wie die Website verwendet wird.',
+    essentialOnly: 'Nur erforderlich',
+    acceptAnalytics: 'Analysen erlauben',
+    cookieSettings: 'Cookie-Einstellungen',
+    panelTitle: 'Cookie-Einstellungen',
+    panelIntro:
+      'Verwalten Sie notwendige Website-Speicherung und die optionale Analyseauswahl.',
+    essentialTitle: 'Erforderlich',
+    essentialBody:
+      'Erforderlich für grundlegende Website-Funktionen, Spracheinstellung und Speicherung der Datenschutzauswahl.',
+    alwaysActive: 'Immer aktiv.',
+    analyticsTitle: 'Analysen',
+    analyticsBody:
+      'Hilft uns, die Website-Nutzung zu verstehen, wenn aktiviert.',
+    analyticsInactive:
+      'Derzeit inaktiv, solange kein Analyseanbieter hinzugefügt wurde.',
+    saveChoices: 'Auswahl speichern',
+    close: 'Schließen',
+    savedEssential: 'Gespeichert: nur erforderliche Speicherung.',
+    savedAnalytics: 'Gespeichert: Analysen erlaubt.',
+    savedChoices: 'Ihre Auswahl wurde gespeichert.',
+  },
+  fa: {
+    bannerTitle: 'انتخاب‌های حریم خصوصی شما',
+    bannerBody:
+      'ما از فناوری‌های ضروری برای اجرای این وب‌سایت و به خاطر سپردن ترجیح زبان شما استفاده می‌کنیم. با اجازه شما، ممکن است از تحلیل‌ها نیز برای فهمیدن نحوه استفاده از وب‌سایت استفاده کنیم.',
+    essentialOnly: 'فقط ضروری',
+    acceptAnalytics: 'پذیرش تحلیل‌ها',
+    cookieSettings: 'تنظیمات کوکی',
+    panelTitle: 'تنظیمات کوکی',
+    panelIntro:
+      'ذخیره‌سازی ضروری وب‌سایت و انتخاب اختیاری تحلیل‌ها را مدیریت کنید.',
+    essentialTitle: 'ضروری',
+    essentialBody:
+      'برای عملکرد اصلی وب‌سایت، ترجیح زبان و ذخیره انتخاب حریم خصوصی لازم است.',
+    alwaysActive: 'همیشه فعال است.',
+    analyticsTitle: 'تحلیل‌ها',
+    analyticsBody:
+      'در صورت فعال بودن به ما کمک می‌کند استفاده از وب‌سایت را بفهمیم.',
+    analyticsInactive:
+      'در حال حاضر غیرفعال است، مگر اینکه ارائه‌دهنده تحلیل اضافه شود.',
+    saveChoices: 'ذخیره انتخاب‌ها',
+    close: 'بستن',
+    savedEssential: 'ذخیره شد: فقط ذخیره‌سازی ضروری.',
+    savedAnalytics: 'ذخیره شد: تحلیل‌ها پذیرفته شد.',
+    savedChoices: 'انتخاب‌های شما ذخیره شد.',
+  },
+  ar: {
+    bannerTitle: 'اختيارات الخصوصية',
+    bannerBody:
+      'نستخدم تقنيات أساسية لتشغيل هذا الموقع وتذكر تفضيلات اللغة. وبإذنك، قد نستخدم التحليلات أيضا لفهم كيفية استخدام الموقع.',
+    essentialOnly: 'الأساسي فقط',
+    acceptAnalytics: 'قبول التحليلات',
+    cookieSettings: 'إعدادات ملفات تعريف الارتباط',
+    panelTitle: 'إعدادات ملفات تعريف الارتباط',
+    panelIntro: 'إدارة التخزين الأساسي للموقع وخيار التحليلات الاختياري.',
+    essentialTitle: 'أساسي',
+    essentialBody:
+      'مطلوب لوظائف الموقع الأساسية وتفضيل اللغة وتخزين اختيار الخصوصية.',
+    alwaysActive: 'نشط دائما.',
+    analyticsTitle: 'التحليلات',
+    analyticsBody: 'تساعدنا على فهم استخدام الموقع إذا تم تفعيلها.',
+    analyticsInactive: 'غير نشطة حاليا ما لم تتم إضافة مزود تحليلات.',
+    saveChoices: 'حفظ الاختيارات',
+    close: 'إغلاق',
+    savedEssential: 'تم الحفظ: التخزين الأساسي فقط.',
+    savedAnalytics: 'تم الحفظ: تم قبول التحليلات.',
+    savedChoices: 'تم حفظ اختياراتك.',
+  },
 };
 
 const englishServicePages: Record<ServicePageSlug, ServicePageCopy> = {
@@ -3078,6 +3526,8 @@ export function getDictionary(locale: Locale): Dictionary {
   return {
     nav: navLabels[locale],
     actions: actionLabels[locale],
+    company: companyLabels[locale],
+    consent: consentLabels[locale],
     social: socialLabels[locale],
     form: contactFormCopy[locale],
     servicePages: localizedServicePages[locale],

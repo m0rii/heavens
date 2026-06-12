@@ -22,9 +22,9 @@ The contact form remains a static Netlify Forms implementation with no custom ba
 
 Validation focuses on required fields, length limits, native email validity, the approved enquiry allowlist, and privacy acknowledgement. It intentionally does not block apostrophes, quotes, SQL-like words, code snippets, or international names, because those are legitimate business enquiry contents and should not be treated as attack signatures.
 
-## 2026-06-11 - Email Placeholder Strategy
+## 2026-06-11 - Contact Email Publication Strategy
 
-The recommended `info@heavens.am` address is not rendered until verified. A typed company configuration stores the public email with explicit verification status, and production validation fails when an official email is required but unconfirmed.
+No public company email address is rendered by default. Contact is handled through the website enquiry form and the approved internal notification route. A typed company configuration keeps any future public email publication explicit instead of accidental.
 
 ## 2026-06-11 - Translation And Legal Status
 
@@ -33,6 +33,10 @@ Non-English content may be implemented as draft localization only. Legal pages a
 ## 2026-06-13 - Polished Draft Localization
 
 All supported locales now have human-facing draft localization across route content, navigation, calls to action, service pages, contact forms, status messages, validation messages, legal/cookie/privacy/terms drafts, and accessibility labels. This reduces English fallback in the public experience, but it does not change the approval model: translations remain unapproved until native-language and legal review are completed.
+
+## 2026-06-13 - Practical Legal Drafts Before Review
+
+The Legal Information, Privacy Policy, Cookie Policy, and Terms of Use pages may include practical compliance-oriented draft language for an informational Armenian LLC website, including company identity, form processing, Netlify Forms, storage, acceptable use, no-offer, liability, governing-law, and translation-status clauses. These pages must still be treated as unapproved drafts until Armenian counsel approves the Armenian version, translation precedence, effective dates, retention practice, and operational submission access.
 
 ## 2026-06-13 - Root Locale Selection
 
@@ -45,6 +49,14 @@ The initial Netlify configuration uses conservative response headers and a repor
 ## 2026-06-11 - Analytics
 
 No analytics provider is selected or loaded during initial development. Analytics requires a documented provider decision and consent behavior.
+
+## 2026-06-13 - Privacy Consent Model
+
+The site uses a two-category consent model: Essential and Analytics. Essential storage is always active and covers necessary browser storage such as language preference, privacy preference, and basic form/security behavior. Analytics is optional, defaults to false, and is currently inactive because no analytics provider is installed.
+
+Consent is stored in `localStorage` under `heavens:privacy-consent:v1` as JSON with `version: 1`, `essential: true`, `analytics`, and `updatedAt`. Language preference is stored under `heavens:language`; the legacy `heavens-locale` key is migrated only to preserve existing preferences. No cookies, advertising pixels, social embeds, Google Analytics, Google Tag Manager, Meta Pixel, or Instagram widgets are loaded.
+
+The analytics helper intentionally exposes `hasAnalyticsConsent()` and `loadAnalyticsIfAllowed()`, but `loadAnalyticsIfAllowed()` is a no-op until a provider is explicitly approved. If analytics is added later, it must load only after analytics consent and stop loading on future page loads after consent is revoked.
 
 ## 2026-06-11 - Font Strategy
 
