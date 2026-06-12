@@ -335,3 +335,20 @@ Verified:
 - `npm run check` - passed with existing dependency deprecation hints only.
 - `npm run test:unit` - passed.
 - `npm run test:e2e` - passed.
+
+## 2026-06-12 - Compact Editorial Service Pages
+
+Implemented:
+
+- Added a shared Astro service-page component for Business, Technology, and Media without changing the homepage, header, footer, contact form, or unrelated pages.
+- Replaced the oversized generic internal hero on those pages with compact dark editorial heroes, reduced internal H1 scale, balanced wrapping, immediate transition into services, and page-specific right-side content.
+- Added differentiated variants: Business commercial stat/capability panel, Technology 2x2 process preview using Understand / Design / Build / Improve, and Media restrained editorial frame composition.
+- Added premium reusable service cards with sequence numbers, ivory surfaces, restrained borders, responsive 3/2/1 column behavior, detail sections, compliance/responsible AI notes, and final contact CTAs.
+- Added browser and accessibility coverage for compact service hero height, first-viewport service visibility, mobile/tablet/desktop card layout, RTL media layout, no horizontal overflow, active navigation state, and critical axe checks.
+
+Verified:
+
+- `npm run format:check` - passed.
+- `npm run lint` - passed.
+- `npm run check` - passed with existing dependency deprecation hints only.
+- `npm run test:e2e` - passed across service-page viewport checks.

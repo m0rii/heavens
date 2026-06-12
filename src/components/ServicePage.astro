@@ -1,0 +1,160 @@
+---
+import { localizedPath } from '@/config/routes';
+import type { Locale } from '@/i18n/config';
+import type { ServicePageCopy } from '@/i18n/ui';
+
+type PageCopy = {
+  heading: string;
+  intro: string;
+};
+
+type Props = {
+  locale: Locale;
+  page: PageCopy;
+  servicePage: ServicePageCopy;
+};
+
+const { locale, page, servicePage } = Astro.props;
+---
+
+<section
+  class:list={[
+    'service-hero',
+    `service-hero-${servicePage.variant}`,
+    'section-dark',
+  ]}
+  data-service-page={servicePage.variant}
+>
+  <div class="container service-hero-inner">
+    <div class="service-hero-copy">
+      <p class="eyebrow">{servicePage.eyebrow}</p>
+      <h1>{page.heading}</h1>
+      <p class="service-hero-lead">{page.intro}</p>
+      <a class="service-hero-link" href={localizedPath(locale, 'contact')}>
+        {servicePage.cta.label}
+      </a>
+    </div>
+
+    <aside
+      class:list={[
+        'service-hero-panel',
+        `service-hero-panel-${servicePage.variant}`,
+      ]}
+      aria-label={servicePage.heroSecondaryLabel}
+    >
+      <p class="service-panel-label">{servicePage.heroSecondaryLabel}</p>
+
+      {
+        servicePage.heroStats && (
+          <div class="service-stat-row">
+            {servicePage.heroStats.map((stat) => (
+              <div class="service-stat">
+                <span>{stat.value}</span>
+                <p>{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        servicePage.processSteps ? (
+          <div class="service-process-preview">
+            {servicePage.processSteps.map((step, index) => (
+              <div>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{step}</strong>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <ul class="service-hero-tags">
+            {servicePage.heroItems.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        servicePage.variant === 'media' && (
+          <div class="media-frame-stack" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+        )
+      }
+    </aside>
+  </div>
+</section>
+
+<section class="service-section service-section-primary section-ivory">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{servicePage.services.eyebrow}</p>
+      <h2>{servicePage.services.heading}</h2>
+      <p>{servicePage.services.intro}</p>
+    </div>
+    <div class="service-card-grid">
+      {
+        servicePage.services.cards.map((card, index) => (
+          <article class="service-card">
+            <span class="service-card-index">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{
+  servicePage.detailSections.map((section, sectionIndex) => (
+    <section
+      class:list={[
+        'service-section',
+        sectionIndex % 2 === 0 ? 'section-ivory' : 'service-section-soft',
+      ]}
+    >
+      <div class="container service-detail-layout">
+        <div class="section-heading service-detail-heading">
+          <p class="eyebrow">{section.eyebrow}</p>
+          <h2>{section.heading}</h2>
+          <p>{section.body}</p>
+          {section.note && <p class="service-note">{section.note}</p>}
+        </div>
+
+        {section.items && (
+          <div class="service-detail-grid">
+            {section.items.map((item) => (
+              <article class="service-detail-item">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  ))
+}
+
+<section class="service-cta section-dark">
+  <div class="container service-cta-inner">
+    <div>
+      <p class="eyebrow">{servicePage.eyebrow}</p>
+      <h2>{servicePage.cta.heading}</h2>
+      <p>{servicePage.cta.body}</p>
+    </div>
+    <a
+      class="button button-primary-dark"
+      href={localizedPath(locale, 'contact')}
+    >
+      {servicePage.cta.label}
+    </a>
+  </div>
+</section>

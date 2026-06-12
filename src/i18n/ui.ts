@@ -2,6 +2,8 @@ import type { AnyRouteSlug } from '@/config/routes';
 import type { EnquiryType } from '@/lib/forms';
 import { localeNames, type Locale } from './config';
 
+export type ServicePageSlug = 'business' | 'technology' | 'media';
+
 type PageCopy = {
   title: string;
   description: string;
@@ -18,9 +20,37 @@ type Dictionary = {
     instagram: string;
   };
   form: ContactFormCopy;
+  servicePages: Record<ServicePageSlug, ServicePageCopy>;
   legal: string;
   draftNotice: string;
   pages: Record<AnyRouteSlug, PageCopy>;
+};
+
+export type ServicePageCopy = {
+  variant: ServicePageSlug;
+  eyebrow: string;
+  heroSecondaryLabel: string;
+  heroStats?: Array<{ value: string; label: string }>;
+  heroItems: string[];
+  processSteps?: string[];
+  services: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    cards: Array<{ title: string; body: string }>;
+  };
+  detailSections: Array<{
+    eyebrow: string;
+    heading: string;
+    body: string;
+    items?: Array<{ title: string; body: string }>;
+    note?: string;
+  }>;
+  cta: {
+    heading: string;
+    body: string;
+    label: string;
+  };
 };
 
 type ContactFormCopy = {
@@ -109,7 +139,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     title: 'Business | Heavens LLC',
     description:
       'Commercial experience across import, export, sourcing, distribution and selected consumer-product categories.',
-    heading: 'Commercial experience across products and markets.',
+    heading: 'Commercial capabilities for products and markets.',
     intro:
       'Heavens has more than ten years of experience across import, export, sourcing, distribution and selected consumer-product categories.',
     sections: [
@@ -131,7 +161,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     title: 'Technology | Heavens LLC',
     description:
       'Software, web, mobile, digital platform and practical AI capabilities shaped around real business needs.',
-    heading: 'Technology built around real business needs.',
+    heading: 'Technology for real business needs.',
     intro:
       'Heavens combines commercial experience with modern product development to create useful, scalable digital solutions.',
     sections: [
@@ -153,7 +183,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     title: 'Digital Media | Heavens LLC',
     description:
       'Digital media, content production, social-media campaigns, video and creative production for modern audiences.',
-    heading: 'Creative media for modern brands and platforms.',
+    heading: 'Creative media for modern brands.',
     intro:
       'Heavens is expanding into digital content, social media, photography, video and platform-oriented media production.',
     sections: [
@@ -225,11 +255,12 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     title: 'Message Received | Heavens LLC',
     description: 'Your message has been received by Heavens LLC.',
     heading: 'Message received.',
-    intro: 'Thank you. Your enquiry has been submitted for review.',
+    intro:
+      'Thank you. Your enquiry has been received. We will contact you as soon as possible.',
     sections: [
       {
         title: 'Next step',
-        body: 'The Heavens team will review relevant business enquiries through the confirmed process.',
+        body: 'The Heavens team will review your message and respond through the confirmed contact process.',
       },
     ],
   },
@@ -363,6 +394,222 @@ const socialLabels: Record<Locale, { instagram: string }> = {
   de: { instagram: 'Folgen Sie uns auf Instagram' },
   fa: { instagram: 'ما را در Instagram دنبال کنید' },
   ar: { instagram: 'تابعونا على Instagram' },
+};
+
+const englishServicePages: Record<ServicePageSlug, ServicePageCopy> = {
+  business: {
+    variant: 'business',
+    eyebrow: 'Commerce / Trade / Distribution',
+    heroSecondaryLabel: 'Commercial focus',
+    heroStats: [
+      {
+        value: '10+',
+        label: 'years of commercial experience',
+      },
+    ],
+    heroItems: [
+      'Import and export',
+      'Product sourcing',
+      'Distribution',
+      'Market development',
+    ],
+    services: {
+      eyebrow: 'Capabilities',
+      heading: 'Commercial capabilities',
+      intro:
+        'Practical support across sourcing, trade, distribution and market development.',
+      cards: [
+        {
+          title: 'Import and export',
+          body: 'Support for sourcing, cross-border commercial activity and selected product movement between markets.',
+        },
+        {
+          title: 'Product sourcing',
+          body: 'Commercial experience with selected consumer categories and supplier conversations.',
+        },
+        {
+          title: 'Distribution',
+          body: 'Practical distribution awareness shaped by product, market and operational requirements.',
+        },
+      ],
+    },
+    detailSections: [
+      {
+        eyebrow: 'Product experience',
+        heading: 'Selected consumer categories',
+        body: 'Heavens has experience across selected everyday consumer categories. Availability and commercial activity depend on current business approval and applicable requirements.',
+        items: [
+          {
+            title: 'Food and grocery',
+            body: 'Selected food and everyday grocery categories, subject to compliance and commercial confirmation.',
+          },
+          {
+            title: 'Beauty and personal care',
+            body: 'Experience includes beauty, personal care, perfumes and related consumer categories.',
+          },
+        ],
+      },
+      {
+        eyebrow: 'Market development',
+        heading: 'Partnership-minded commercial work',
+        body: 'The company approaches sourcing, trade and distribution through practical conversations with businesses, suppliers and partners.',
+        items: [
+          {
+            title: 'Supplier conversations',
+            body: 'Clear early-stage discussion around product fit, requirements and feasibility.',
+          },
+          {
+            title: 'Commercial alignment',
+            body: 'Careful review of category, market and operating needs before stronger claims are made.',
+          },
+        ],
+      },
+      {
+        eyebrow: 'Compliance',
+        heading: 'Requirements come first',
+        body: 'All activities are subject to applicable legal, regulatory, customs, product-safety and commercial requirements.',
+      },
+    ],
+    cta: {
+      heading: 'Start a commercial conversation',
+      body: 'Share the business context, product category or partnership idea and Heavens will review the enquiry through the confirmed contact process.',
+      label: 'Start a Conversation',
+    },
+  },
+  technology: {
+    variant: 'technology',
+    eyebrow: 'Product / Software / AI',
+    heroSecondaryLabel: 'Product process',
+    heroItems: ['Software', 'Platforms', 'AI tools', 'Operational workflows'],
+    processSteps: ['Understand', 'Design', 'Build', 'Improve'],
+    services: {
+      eyebrow: 'Capabilities',
+      heading: 'Digital capabilities',
+      intro:
+        'Technology services designed around real operational and customer needs.',
+      cards: [
+        {
+          title: 'Software development',
+          body: 'Custom software designed around operational requirements and customer needs.',
+        },
+        {
+          title: 'Digital platforms',
+          body: 'Web applications, mobile products, marketplaces and business digitalization workflows.',
+        },
+        {
+          title: 'Artificial intelligence',
+          body: 'Practical AI-enabled tools for content, automation, customer experience and productivity.',
+        },
+      ],
+    },
+    detailSections: [
+      {
+        eyebrow: 'Process',
+        heading: 'From need to useful product',
+        body: 'Technology work should begin with the business problem, then move through design, build and continued improvement.',
+        items: [
+          {
+            title: 'Understand',
+            body: 'Clarify the operational need, user context and commercial goal.',
+          },
+          {
+            title: 'Design',
+            body: 'Shape the workflow, interface and technical approach before implementation.',
+          },
+          {
+            title: 'Build',
+            body: 'Create practical software, platforms and AI-enabled tools.',
+          },
+          {
+            title: 'Improve',
+            body: 'Review usage, refine details and adapt the product as needs evolve.',
+          },
+        ],
+      },
+      {
+        eyebrow: 'Business value',
+        heading: 'Digital work connected to operations',
+        body: 'The focus is on useful systems, clearer workflows and digital products that support real business activity.',
+        items: [
+          {
+            title: 'Customer experience',
+            body: 'Interfaces and flows designed around the people who use them.',
+          },
+          {
+            title: 'Product thinking',
+            body: 'Decisions shaped by value, feasibility and long-term maintainability.',
+          },
+        ],
+      },
+    ],
+    cta: {
+      heading: 'Discuss a digital initiative',
+      body: 'Share the operational need, platform idea or AI workflow and Heavens will review the best next step.',
+      label: 'Start a Conversation',
+    },
+  },
+  media: {
+    variant: 'media',
+    eyebrow: 'Content / Social / Production',
+    heroSecondaryLabel: 'Creative focus',
+    heroItems: [
+      'Content production',
+      'Social media',
+      'Photography',
+      'Campaign support',
+    ],
+    services: {
+      eyebrow: 'Capabilities',
+      heading: 'Creative capabilities',
+      intro:
+        'Content and production services for modern brands, products and platforms.',
+      cards: [
+        {
+          title: 'Content production',
+          body: 'Planning and production for brand communication, social media and video channels.',
+        },
+        {
+          title: 'AI-assisted creation',
+          body: 'Responsible use of AI-assisted tools to support creative workflows and business communication.',
+        },
+        {
+          title: 'Campaign support',
+          body: 'Creative assets and media production aligned with business goals and audience needs.',
+        },
+      ],
+    },
+    detailSections: [
+      {
+        eyebrow: 'Formats',
+        heading: 'Creative work across modern channels',
+        body: 'Media work can support brand communication, content planning, campaign material and platform-oriented storytelling.',
+        items: [
+          {
+            title: 'Social content',
+            body: 'Content planning and assets for social-media communication.',
+          },
+          {
+            title: 'Video and photography',
+            body: 'Production-oriented support for visual communication and campaigns.',
+          },
+          {
+            title: 'Brand communication',
+            body: 'Creative materials aligned with business goals and audience needs.',
+          },
+        ],
+      },
+      {
+        eyebrow: 'AI-assisted creation',
+        heading: 'Responsible creative support',
+        body: 'AI-assisted tools may support ideation, production workflows and content operations, while final public claims and assets remain subject to business and legal review.',
+      },
+    ],
+    cta: {
+      heading: 'Plan a creative conversation',
+      body: 'Share the product, campaign or platform context and Heavens will review how media support can fit the goal.',
+      label: 'Start a Conversation',
+    },
+  },
 };
 
 const contactFormCopy: Record<Locale, ContactFormCopy> = {
@@ -684,6 +931,7 @@ export function getDictionary(locale: Locale): Dictionary {
     },
     social: socialLabels[locale],
     form: contactFormCopy[locale],
+    servicePages: englishServicePages,
     legal: 'Draft content - pending legal and translation review.',
     draftNotice:
       locale === 'en'

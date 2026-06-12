@@ -83,3 +83,11 @@ The homepage hero uses a two-line editorial headline, a shared 1440px container 
 The current user instruction expands supported locales from `hy`, `en`, `ru`, `de`, and `fa` to `hy`, `en`, `ru`, `de`, `fa`, and `ar`, superseding the earlier locale list in the project guide. Arabic is treated as RTL alongside Persian, with prefixed routes, hreflang metadata, equivalent-page switching, draft dictionary fallback, and launch-blocking translation review.
 
 Mobile navigation now uses a sticky header, compact language popover, fixed full-height drawer, overlay, body scroll locking, Escape/overlay/link close behavior, focus trapping, focus restoration, and logical inline-end placement for RTL. The desktop navigation remains a horizontal nav sourced from the same primary navigation model. Reduced-motion users keep the same behavior without the drawer slide animation.
+
+## 2026-06-12 - Compact Service Page Architecture
+
+Business, Technology, and Media now use a shared service-page component instead of the generic internal-page hero/card layout. These pages are intentionally more compact and information-rich than the homepage: the homepage can remain the dramatic brand entry, while service pages should show the H1, introduction, page-specific secondary content, and the start of the services section within common desktop viewports.
+
+The internal service hero avoids `100vh` sizing and uses content-driven dark editorial sections with a target desktop height below roughly 680px at 1366x768. Internal H1 typography is reduced from the homepage scale, uses balanced wrapping, and keeps letter spacing at `0` to match the site typography rule. The service section begins immediately after the hero, without large empty spacing or decorative delay.
+
+The three variants share one architecture but have distinct right-side hero treatments: Business uses commercial statistics and capability labels, Technology uses the approved Understand / Design / Build / Improve process preview, and Media uses a restrained editorial frame composition with controlled amber accents. Service cards use a reusable premium card system with sequence numbers, ivory surfaces, restrained borders, and subtle hover movement.

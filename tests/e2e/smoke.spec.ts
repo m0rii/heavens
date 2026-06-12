@@ -173,6 +173,146 @@ test('mobile drawer language grid stays compact across mobile sizes', async ({
   }
 });
 
+test('service pages use compact differentiated editorial layouts', async ({
+  page,
+}) => {
+  const servicePages = [
+    {
+      slug: 'business',
+      serviceHeading: 'Commercial capabilities',
+      panelLabel: 'Commercial focus',
+    },
+    {
+      slug: 'technology',
+      serviceHeading: 'Digital capabilities',
+      panelLabel: 'Product process',
+    },
+    {
+      slug: 'media',
+      serviceHeading: 'Creative capabilities',
+      panelLabel: 'Creative focus',
+    },
+  ];
+
+  for (const servicePage of servicePages) {
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.goto(`/en/${servicePage.slug}/`);
+
+    await expect(
+      page.locator(`[data-service-page="${servicePage.slug}"]`),
+    ).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        name: servicePage.serviceHeading,
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.locator('.service-hero-panel', {
+        hasText: servicePage.panelLabel,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.locator('.desktop-nav a[aria-current="page"]'),
+    ).toHaveText(new RegExp(servicePage.slug, 'i'));
+
+    const desktopMetrics = await page.evaluate(() => {
+      const hero = document
+        .querySelector('.service-hero')
+        ?.getBoundingClientRect();
+      const h1 = document.querySelector('h1')?.getBoundingClientRect();
+      const services = document
+        .querySelector('.service-section-primary')
+        ?.getBoundingClientRect();
+      const cards = Array.from(document.querySelectorAll('.service-card')).map(
+        (card) => card.getBoundingClientRect(),
+      );
+
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        heroHeight: hero?.height || 0,
+        h1Width: h1?.width || 0,
+        h1Height: h1?.height || 0,
+        servicesTop: services?.top || 0,
+        viewportHeight: window.innerHeight,
+        firstCardTop: Math.round(cards[0]?.top || 0),
+        secondCardTop: Math.round(cards[1]?.top || 0),
+        thirdCardTop: Math.round(cards[2]?.top || 0),
+      };
+    });
+
+    expect(desktopMetrics.scrollWidth).toBeLessThanOrEqual(
+      desktopMetrics.clientWidth,
+    );
+    expect(desktopMetrics.heroHeight).toBeLessThan(680);
+    expect(desktopMetrics.h1Width).toBeGreaterThan(360);
+    expect(desktopMetrics.h1Height).toBeLessThan(330);
+    expect(desktopMetrics.servicesTop).toBeLessThan(
+      desktopMetrics.viewportHeight,
+    );
+    expect(desktopMetrics.secondCardTop).toBe(desktopMetrics.firstCardTop);
+    expect(desktopMetrics.thirdCardTop).toBe(desktopMetrics.firstCardTop);
+  }
+});
+
+test('service pages remain responsive across mobile tablet desktop and rtl', async ({
+  page,
+}) => {
+  const viewports = [
+    { width: 360, height: 640, expectedColumns: 1 },
+    { width: 390, height: 844, expectedColumns: 1 },
+    { width: 430, height: 932, expectedColumns: 1 },
+    { width: 768, height: 1024, expectedColumns: 2 },
+    { width: 1024, height: 768, expectedColumns: 2 },
+    { width: 1440, height: 900, expectedColumns: 3 },
+    { width: 1536, height: 864, expectedColumns: 3 },
+    { width: 1920, height: 1080, expectedColumns: 3 },
+  ];
+
+  for (const viewport of viewports) {
+    await page.setViewportSize({
+      width: viewport.width,
+      height: viewport.height,
+    });
+    await page.goto('/en/technology/');
+
+    const metrics = await page.evaluate(() => {
+      const cards = Array.from(document.querySelectorAll('.service-card')).map(
+        (card) => card.getBoundingClientRect(),
+      );
+      const heroPanel = document
+        .querySelector('.service-hero-panel')
+        ?.getBoundingClientRect();
+
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        cardTops: cards.map((card) => Math.round(card.top)),
+        heroPanelHeight: heroPanel?.height || 0,
+      };
+    });
+
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+    expect(metrics.heroPanelHeight).toBeGreaterThan(120);
+    expect(
+      metrics.cardTops.filter((top) => top === metrics.cardTops[0]).length,
+    ).toBe(viewport.expectedColumns);
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/ar/media/');
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  await expect(page.locator('[data-service-page="media"]')).toBeVisible();
+  const rtlWidth = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  expect(rtlWidth).toBeLessThanOrEqual(0);
+});
+
 test('contact form contains Netlify fields', async ({ page }) => {
   await page.goto('/en/contact/');
   const form = page.locator('form[name="premium-contact"]');
