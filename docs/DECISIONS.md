@@ -30,6 +30,14 @@ The recommended `info@heavens.am` address is not rendered until verified. A type
 
 Non-English content may be implemented as draft localization only. Legal pages are implementation-aligned drafts and remain blocked for production until legal review.
 
+## 2026-06-13 - Polished Draft Localization
+
+All supported locales now have human-facing draft localization across route content, navigation, calls to action, service pages, contact forms, status messages, validation messages, legal/cookie/privacy/terms drafts, and accessibility labels. This reduces English fallback in the public experience, but it does not change the approval model: translations remain unapproved until native-language and legal review are completed.
+
+## 2026-06-13 - Root Locale Selection
+
+The root page defaults to Armenian when no saved preference or supported browser language is available. If a visitor has a saved language preference, that wins. Otherwise the browser language preference list is scanned for the first supported locale. The no-JavaScript fallback also points to Armenian.
+
 ## 2026-06-11 - CSP Approach
 
 The initial Netlify configuration uses conservative response headers and a report-only CSP while implementation sources stabilize. Enforced production CSP remains a launch blocker until verified against deployed responses.

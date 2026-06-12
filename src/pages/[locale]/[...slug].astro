@@ -36,6 +36,7 @@ const dictionary = getDictionary(locale);
 const page = dictionary.pages[slug];
 const isHome = slug === '';
 const isServicePage = ['business', 'technology', 'media'].includes(slug);
+const isCompactPage = ['about', 'contact'].includes(slug);
 const formCopy = dictionary.form;
 ---
 
@@ -49,7 +50,13 @@ const formCopy = dictionary.form;
       />
     ) : (
       <>
-        <section class:list={['hero', isHome && 'hero-home']}>
+        <section
+          class:list={[
+            'hero',
+            isHome && 'hero-home',
+            isCompactPage && 'compact-page-hero',
+          ]}
+        >
           <div class="container hero-inner">
             <div class="hero-copy">
               {page.eyebrow && <p class="eyebrow">{page.eyebrow}</p>}

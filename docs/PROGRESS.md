@@ -352,3 +352,50 @@ Verified:
 - `npm run lint` - passed.
 - `npm run check` - passed with existing dependency deprecation hints only.
 - `npm run test:e2e` - passed across service-page viewport checks.
+
+## 2026-06-13 - Root Locale Fallback Clarification
+
+Implemented:
+
+- Kept Armenian (`hy`) as the root fallback and no-JavaScript destination.
+- Updated the root redirect page to use `lang="hy"` so the fallback document matches the default locale.
+- Refined browser-language detection to scan the browser language preference list and choose the first supported locale, with Armenian fallback when none are supported.
+- Preserved saved visitor language preference as the first priority when it exists.
+
+Verified:
+
+- Added browser tests for unsupported-language Armenian fallback, supported language-list detection, and saved preference precedence.
+
+## 2026-06-13 - Compact About And Contact Heroes
+
+Implemented:
+
+- Applied the compact internal hero treatment to About and Contact so they no longer use the tall homepage-style banner.
+- Kept the homepage dramatic and left the contact form layout unchanged.
+- Added browser coverage to verify About and Contact hero height, heading height, next-section visibility, and Contact form reachability.
+
+Verified:
+
+- `npm run format:check` - passed.
+- `npm run lint` - passed.
+- `npm run check` - passed with existing dependency deprecation hints only.
+- `npm run test:e2e` - passed.
+
+## 2026-06-13 - Full Draft Localization Pass
+
+Implemented:
+
+- Replaced broad English fallbacks across supported locales with polished draft copy for Armenian, Russian, German, Persian, and Arabic.
+- Localized route titles, descriptions, headings, introductions, page sections, success messages, legal/cookie/privacy/terms draft copy, navigation labels, action labels, language/mobile drawer accessibility labels, form labels, status messages, validation messages, and Business/Technology/Media service-page content.
+- Updated the mobile drawer script to use localized open/close navigation labels instead of hard-coded English.
+- Added unit coverage to prevent non-English locales from silently falling back to English for key page, service, action, and form copy.
+
+Notes:
+
+- This improves site-wide human-facing language quality but remains draft localization. Professional native-language and legal review are still required before launch approval.
+
+Verified:
+
+- `npm run test:unit` - passed.
+- `npm run lint` - passed.
+- `npm run check` - passed with existing dependency deprecation hints only.

@@ -65,7 +65,10 @@
       drawerOverlay.classList.add('is-open');
     });
     drawerTrigger.setAttribute('aria-expanded', 'true');
-    drawerTrigger.setAttribute('aria-label', 'Close navigation');
+    drawerTrigger.setAttribute(
+      'aria-label',
+      drawerTrigger.dataset.closeLabel || 'Close navigation',
+    );
     lockScroll();
 
     var focusTarget = drawerClose || focusableDrawerItems()[0];
@@ -84,7 +87,10 @@
       if (!drawer.classList.contains('is-open')) drawerOverlay.hidden = true;
     }, 200);
     drawerTrigger.setAttribute('aria-expanded', 'false');
-    drawerTrigger.setAttribute('aria-label', 'Open navigation');
+    drawerTrigger.setAttribute(
+      'aria-label',
+      drawerTrigger.dataset.openLabel || 'Open navigation',
+    );
     unlockScroll();
     if (restoreFocus && lastDrawerTrigger) lastDrawerTrigger.focus();
   }

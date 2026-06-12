@@ -109,7 +109,11 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
     <a href="#main" class="skip-link">{dictionary.actions.skip}</a>
     <header class="site-header" data-site-header>
       <div class="container header-inner">
-        <a class="brand" href={localizedPath(locale)} aria-label="Heavens home">
+        <a
+          class="brand"
+          href={localizedPath(locale)}
+          aria-label={dictionary.actions.heavensHome}
+        >
           <img
             src={brandAssets.logo.src}
             width={brandAssets.logo.width}
@@ -118,7 +122,10 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
           />
           <span class="header-brand-meta">{site.slogan}</span>
         </a>
-        <nav class="nav desktop-nav" aria-label="Primary navigation">
+        <nav
+          class="nav desktop-nav"
+          aria-label={dictionary.actions.primaryNavigation}
+        >
           {
             desktopNavItems.map(([key, itemSlug]) => (
               <a
@@ -135,7 +142,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
             <summary
               class="language-trigger"
               role="button"
-              aria-label={`Current language: ${localeNames[locale]}`}
+              aria-label={`${dictionary.actions.currentLanguage}: ${localeNames[locale]}`}
               aria-controls={languageMenuId}
               data-dropdown-trigger
             >
@@ -145,7 +152,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
             <nav
               class="language-menu"
               id={languageMenuId}
-              aria-label="Language"
+              aria-label={dictionary.actions.language}
             >
               {
                 locales.map((item) => (
@@ -167,10 +174,12 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
           <button
             class="mobile-menu-trigger"
             type="button"
-            aria-label="Open navigation"
+            aria-label={dictionary.actions.openNavigation}
             aria-expanded="false"
             aria-controls={mobileDrawerId}
             data-mobile-menu-trigger
+            data-open-label={dictionary.actions.openNavigation}
+            data-close-label={dictionary.actions.closeNavigation}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -181,7 +190,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
           <aside
             class="mobile-drawer"
             id={mobileDrawerId}
-            aria-label="Mobile navigation"
+            aria-label={dictionary.actions.mobileNavigation}
             aria-hidden="true"
             inert
             data-mobile-drawer
@@ -190,7 +199,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
               <a
                 class="brand mobile-drawer-brand"
                 href={localizedPath(locale)}
-                aria-label="Heavens home"
+                aria-label={dictionary.actions.heavensHome}
                 data-mobile-drawer-link
               >
                 <img
@@ -203,13 +212,16 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
               <button
                 class="mobile-drawer-close"
                 type="button"
-                aria-label="Close navigation"
+                aria-label={dictionary.actions.closeNavigation}
                 data-mobile-drawer-close
               >
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <nav class="mobile-drawer-nav" aria-label="Mobile navigation">
+            <nav
+              class="mobile-drawer-nav"
+              aria-label={dictionary.actions.mobileNavigation}
+            >
               {
                 primaryNavItems.map(([key, itemSlug]) => (
                   <a
@@ -223,8 +235,13 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
               }
             </nav>
             <div class="mobile-drawer-divider"></div>
-            <section class="mobile-drawer-languages" aria-label="Language">
-              <p class="mobile-drawer-section-label">Language</p>
+            <section
+              class="mobile-drawer-languages"
+              aria-label={dictionary.actions.language}
+            >
+              <p class="mobile-drawer-section-label">
+                {dictionary.actions.language}
+              </p>
               <div class="mobile-language-grid">
                 {
                   locales.map((item) => (
@@ -273,7 +290,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
         <a
           class="brand footer-brand"
           href={localizedPath(locale)}
-          aria-label="Heavens home"
+          aria-label={dictionary.actions.heavensHome}
         >
           <img
             src={brandAssets.logo.src}
@@ -285,7 +302,7 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
             <span class="footer-brand-meta">{site.slogan}</span>
           </span>
         </a>
-        <nav class="nav" aria-label="Legal navigation">
+        <nav class="nav" aria-label={dictionary.actions.legalNavigation}>
           {
             routeSlugs
               .filter((item) =>

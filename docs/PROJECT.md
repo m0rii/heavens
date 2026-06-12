@@ -23,7 +23,7 @@ Generate the following routes for every locale: home, about, business, technolog
 
 ## Locales
 
-Exactly `hy`, `en`, `ru`, `de`, `fa`, and `ar` are supported. Persian and Arabic are RTL; all others are LTR. Routes are always locale-prefixed. Root `/` performs client-side preference/browser-language selection with Armenian fallback and a no-JavaScript `/hy/` fallback.
+Exactly `hy`, `en`, `ru`, `de`, `fa`, and `ar` are supported. Persian and Arabic are RTL; all others are LTR. Routes are always locale-prefixed. Root `/` first uses a saved visitor preference, then scans browser language preferences for the first supported locale, then falls back to Armenian (`/hy/`). The no-JavaScript fallback also goes to `/hy/`.
 
 The language selector must remain visually separate from page navigation. On desktop, use a compact active language code trigger such as `EN` with a restrained custom dropdown listing native names: Հայերեն, English, Русский, Deutsch, فارسی, العربية. Flags may appear only as secondary decorative indicators and never without written language names.
 
@@ -31,11 +31,13 @@ On mobile, the language trigger remains beside the burger button in the sticky h
 
 ## Content Model
 
-Use typed dictionaries and structured content. English is the master drafting language. Other locales may be implementation drafts but must be tracked as unreviewed until linguistically and legally approved.
+Use typed dictionaries and structured content. English is the master drafting language. Armenian, Russian, German, Persian, and Arabic currently have polished draft localization for route copy, navigation, forms, service pages, and accessibility labels. These translations must still be tracked as unreviewed until linguistically and legally approved.
 
 ## Design Direction
 
 Use restrained premium styling: deep charcoal or midnight surfaces, ivory sections, champagne accents, strong contrast, generous spacing, editorial typography, logical CSS properties, and accessible touch targets. Use temporary abstract visuals only when approved photography is unavailable.
+
+The homepage may remain more dramatic. Business, Technology, and Media use compact editorial service-page heroes with page-specific right-side panels and visible service sections near the first viewport. About and Contact use a compact internal hero so they do not feel like oversized campaign banners.
 
 Brand placeholders are implemented for the Heavens logo, hero graphic, and draft color palette. These are temporary implementation aids only. When the final logo, graphic direction, and color palette website/document are provided, update `src/config/brand.ts`, `src/styles/global.css`, and the files under `public/brand/` together.
 

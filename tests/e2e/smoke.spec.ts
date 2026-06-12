@@ -7,6 +7,47 @@ test('localized homepage loads with lang and dir', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });
 
+test('root chooses browser locale with Armenian fallback', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'languages', {
+      configurable: true,
+      value: ['ja-JP', 'it-IT'],
+    });
+    Object.defineProperty(navigator, 'language', {
+      configurable: true,
+      value: 'ja-JP',
+    });
+  });
+
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/hy\/$/);
+
+  await page.goto('/');
+  await page.evaluate(() =>
+    window.localStorage.setItem('heavens-locale', 'de'),
+  );
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/de\/$/);
+});
+
+test('root detects supported browser locale from language list', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'languages', {
+      configurable: true,
+      value: ['ja-JP', 'ar-AE'],
+    });
+    Object.defineProperty(navigator, 'language', {
+      configurable: true,
+      value: 'ja-JP',
+    });
+  });
+
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/ar\/$/);
+});
+
 test('language switcher preserves equivalent route', async ({ page }) => {
   await page.goto('/en/technology/');
   const trigger = page.getByRole('button', { name: /current language/i });
@@ -311,6 +352,50 @@ test('service pages remain responsive across mobile tablet desktop and rtl', asy
       document.documentElement.clientWidth,
   );
   expect(rtlWidth).toBeLessThanOrEqual(0);
+});
+
+test('about and contact pages use compact internal heroes', async ({
+  page,
+}) => {
+  for (const slug of ['about', 'contact']) {
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.goto(`/en/${slug}/`);
+
+    await expect(page.locator('.compact-page-hero')).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+
+    const metrics = await page.evaluate((pageSlug) => {
+      const hero = document
+        .querySelector('.compact-page-hero')
+        ?.getBoundingClientRect();
+      const firstSection = document
+        .querySelector('.compact-page-hero + .section')
+        ?.getBoundingClientRect();
+      const contactForm = document
+        .querySelector('.contact-form')
+        ?.getBoundingClientRect();
+      const h1 = document.querySelector('h1')?.getBoundingClientRect();
+
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        heroHeight: hero?.height || 0,
+        firstSectionTop: firstSection?.top || 0,
+        contactFormTop: contactForm?.top || 0,
+        h1Height: h1?.height || 0,
+        viewportHeight: window.innerHeight,
+        isContact: pageSlug === 'contact',
+      };
+    }, slug);
+
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+    expect(metrics.heroHeight).toBeLessThan(560);
+    expect(metrics.h1Height).toBeLessThan(240);
+    expect(metrics.firstSectionTop).toBeLessThan(metrics.viewportHeight);
+    if (metrics.isContact) {
+      expect(metrics.contactFormTop).toBeLessThan(metrics.viewportHeight * 1.7);
+    }
+  }
 });
 
 test('contact form contains Netlify fields', async ({ page }) => {
