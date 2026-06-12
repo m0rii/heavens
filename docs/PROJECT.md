@@ -6,7 +6,7 @@ Heavens LLC is an Armenia-based diversified company with more than a decade of e
 
 The site must feel premium, established, international, elegant, ambitious, modern, and trustworthy. It must not position Heavens as a new software startup, crypto project, generic SaaS company, or unverified market leader.
 
-Primary slogan: “Live the Dream.”
+Primary slogan: "Live the Dream."
 
 ## Verified Business Facts
 
@@ -23,9 +23,11 @@ Generate the following routes for every locale: home, about, business, technolog
 
 ## Locales
 
-Exactly `hy`, `en`, `ru`, `de`, and `fa` are supported. Persian is RTL; all others are LTR. Routes are always locale-prefixed. Root `/` performs client-side preference/browser-language selection with Armenian fallback and a no-JavaScript `/hy/` fallback.
+Exactly `hy`, `en`, `ru`, `de`, `fa`, and `ar` are supported. Persian and Arabic are RTL; all others are LTR. Routes are always locale-prefixed. Root `/` performs client-side preference/browser-language selection with Armenian fallback and a no-JavaScript `/hy/` fallback.
 
-The language selector must remain visually separate from page navigation. On desktop, use a compact active language code trigger such as `EN` with a restrained custom dropdown listing native names: Հայերեն, English, Русский, Deutsch, فارسی. Flags may appear only as secondary decorative indicators and never without written language names. On mobile, keep the active language trigger beside the hamburger button or in a clearly separated language section, while the hamburger menu remains focused on page navigation. Language links must preserve the equivalent current page and work without JavaScript; JavaScript enhancement must add Escape closing, outside-click closing, visible focus, and accurate ARIA state.
+The language selector must remain visually separate from page navigation. On desktop, use a compact active language code trigger such as `EN` with a restrained custom dropdown listing native names: Հայերեն, English, Русский, Deutsch, فارسی, العربية. Flags may appear only as secondary decorative indicators and never without written language names.
+
+On mobile, the language trigger remains beside the burger button in the sticky header. The drawer also includes a separated language section. Language links preserve the equivalent current page and work without JavaScript. JavaScript enhancement adds Escape closing, outside-click closing, overlay click closing, drawer/language mutual exclusion, focus trapping, focus restoration, body scroll locking, visible focus, and accurate ARIA state.
 
 ## Content Model
 
@@ -38,6 +40,10 @@ Use restrained premium styling: deep charcoal or midnight surfaces, ivory sectio
 Brand placeholders are implemented for the Heavens logo, hero graphic, and draft color palette. These are temporary implementation aids only. When the final logo, graphic direction, and color palette website/document are provided, update `src/config/brand.ts`, `src/styles/global.css`, and the files under `public/brand/` together.
 
 Current palette direction is derived from the supplied Heavens logo: olive `#698A3B`, deep logo green `#3F6111`, and amber `#F9A004`. The site uses dark forest-neutral and warm ivory surfaces as the main environment, with green as the primary brand color and amber as a restrained accent. The internal noindex style guide at `/style-guide/` exists only for implementation review and must not be treated as a public page.
+
+## Navigation Shell
+
+Desktop navigation remains a restrained horizontal navigation. Mobile navigation uses a sticky dark header, compact language popover, and fixed full-height drawer opening from the logical inline end. The drawer includes a header row, primary navigation links, a language section, and a contact CTA. Background content is covered by an overlay and body scroll is locked while the drawer is open.
 
 ## Architecture
 
@@ -56,7 +62,7 @@ Centralize title, description, canonical, hreflang, Open Graph, Twitter card, ro
 
 ## Accessibility
 
-Target WCAG 2.2 AA. Required basics include landmarks, skip link, one main landmark, logical headings, keyboard navigation, visible focus, accessible language switcher, accessible forms, live regions, RTL support, reduced motion, contrast, and mobile reflow.
+Target WCAG 2.2 AA. Required basics include landmarks, skip link, one main landmark, logical headings, keyboard navigation, visible focus, accessible language switcher, accessible mobile drawer, accessible forms, live regions, RTL support, reduced motion, contrast, and mobile reflow.
 
 ## Contact Form
 

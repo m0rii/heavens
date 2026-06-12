@@ -18,12 +18,18 @@ describe('seo utilities', () => {
       lang: 'fa',
       href: 'https://www.heavens.am/fa/technology/',
     });
+    expect(links).toContainEqual({
+      lang: 'ar',
+      href: 'https://www.heavens.am/ar/technology/',
+    });
     expect(links.at(-1)?.lang).toBe('x-default');
   });
 
   it('generates parseable structured data', () => {
-    expect(JSON.parse(JSON.stringify(organizationJsonLd()))['@type']).toBe(
-      'Organization',
+    const organization = JSON.parse(JSON.stringify(organizationJsonLd()));
+    expect(organization['@type']).toBe('Organization');
+    expect(organization.sameAs).toContain(
+      'https://www.instagram.com/heavens_holding/',
     );
     expect(
       JSON.parse(JSON.stringify(breadcrumbJsonLd('en', 'about', 'About')))[

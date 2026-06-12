@@ -2,6 +2,8 @@
 import { enquiryTypes } from '@/lib/forms';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { brandAssets } from '@/config/brand';
+import { socialProfiles } from '@/config/social';
+import InstagramIcon from '@/components/InstagramIcon.astro';
 import {
   getRouteMatrix,
   isAnyRouteSlug,
@@ -103,6 +105,19 @@ const isHome = slug === '';
     slug === 'contact' && (
       <section class="section section-ivory">
         <div class="container">
+          <p class="contact-social">
+            <span>{dictionary.actions.followHeavens}</span>
+            <a
+              class="social-link contact-social-link"
+              href={socialProfiles.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={socialProfiles.instagram.label}
+            >
+              <InstagramIcon />
+              <span>{dictionary.social.instagram}</span>
+            </a>
+          </p>
           <form
             name="premium-contact"
             method="POST"

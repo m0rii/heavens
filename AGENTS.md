@@ -28,15 +28,15 @@ Record meaningful conflicts or resolutions in `docs/DECISIONS.md`.
 
 ## Locale Rules
 
-Supported locales are exactly `hy`, `en`, `ru`, `de`, and `fa`.
+Supported locales are exactly `hy`, `en`, `ru`, `de`, `fa`, and `ar`.
 
 - Use prefixed routes for every language, including the default language.
-- Persian uses `dir="rtl"`; all other locales use `dir="ltr"`.
+- Persian and Arabic use `dir="rtl"`; all other locales use `dir="ltr"`.
 - Never use `am` as the Armenian locale code.
 - Language switching must preserve the equivalent current page.
 - Root `/` must choose a saved preference, then browser language, then Armenian fallback.
 - The language selector must remain visually separate from primary navigation.
-- Desktop language selector: compact trigger using active code (`HY`, `EN`, `RU`, `DE`, `FA`), premium dropdown, native language names visible, optional flags only as secondary decoration.
+- Desktop language selector: compact trigger using active code (`HY`, `EN`, `RU`, `DE`, `FA`, `AR`), premium dropdown, native language names visible, optional flags only as secondary decoration.
 - Mobile language selector: keep the active language trigger beside the hamburger, or in a clearly separated language section; do not bury it as a normal page link.
 - Language selector links must work without JavaScript and point to the equivalent current page.
 - Enhanced language selector behavior must support keyboard navigation, Escape close, outside-click close, visible focus, and correct ARIA expanded state.

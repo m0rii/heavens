@@ -1,5 +1,12 @@
 (function () {
-  const locales = window.__HEAVENS_LOCALES__ || ['hy', 'en', 'ru', 'de', 'fa'];
+  const locales = window.__HEAVENS_LOCALES__ || [
+    'hy',
+    'en',
+    'ru',
+    'de',
+    'fa',
+    'ar',
+  ];
   const fallback = window.__HEAVENS_DEFAULT_LOCALE__ || 'hy';
   const saved = window.localStorage.getItem('heavens-locale');
 

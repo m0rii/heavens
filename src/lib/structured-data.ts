@@ -2,6 +2,7 @@ import { brandAssets } from '../config/brand';
 import { company } from '../config/company';
 import { localizedPath, type AnyRouteSlug } from '../config/routes';
 import { site } from '../config/site';
+import { organizationSameAs } from '../config/social';
 import type { Locale } from '../i18n/config';
 
 export function organizationJsonLd() {
@@ -12,6 +13,7 @@ export function organizationJsonLd() {
     alternateName: company.brandName,
     url: site.origin,
     logo: `${site.origin}${brandAssets.logo.src}`,
+    sameAs: organizationSameAs,
     address: {
       '@type': 'PostalAddress',
       streetAddress: company.address.streetAddress,

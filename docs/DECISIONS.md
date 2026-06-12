@@ -71,3 +71,9 @@ The production header must not display content approval status. Approval state r
 The supplied `public/brand/logopng.png` is the current runtime brand asset for the header logo, footer logo, structured-data logo, social preview image, and homepage graphic. It is not paired with an additional visible text wordmark in the header or footer because the supplied PNG is treated as the full current logo asset. Approved transparent SVG logo and graphic variants remain required before production readiness.
 
 The homepage hero uses a two-line editorial headline, a shared 1440px container grid, restrained dark forest background depth, consistent pill buttons, and a local abstract SVG visual inspired by the four-part Heavens mark. The visual is temporary, abstract, and documented in the verification register; no fake photography or stock imagery is used.
+
+## 2026-06-12 - Arabic Locale And Mobile Navigation Drawer
+
+The current user instruction expands supported locales from `hy`, `en`, `ru`, `de`, and `fa` to `hy`, `en`, `ru`, `de`, `fa`, and `ar`, superseding the earlier locale list in the project guide. Arabic is treated as RTL alongside Persian, with prefixed routes, hreflang metadata, equivalent-page switching, draft dictionary fallback, and launch-blocking translation review.
+
+Mobile navigation now uses a sticky header, compact language popover, fixed full-height drawer, overlay, body scroll locking, Escape/overlay/link close behavior, focus trapping, focus restoration, and logical inline-end placement for RTL. The desktop navigation remains a horizontal nav sourced from the same primary navigation model. Reduced-motion users keep the same behavior without the drawer slide animation.

@@ -259,3 +259,61 @@ Verified:
 
 - `npm run ci` - passed.
 - `npm run test:e2e` - passed.
+
+## 2026-06-12 - Arabic Locale And Mobile Navigation Drawer
+
+Implemented:
+
+- Added Arabic (`ar`) as a supported RTL locale across typed locale config, route generation, content schema, root language detection, hreflang metadata, tests, and route validation.
+- Added draft Arabic homepage copy while keeping translation review as a launch blocker.
+- Replaced the mobile dropdown menu with a sticky-header navigation system, overlay, fixed drawer, close button, primary links, separated language section, and contact CTA.
+- Added native JavaScript for sticky scrolled state, language/drawer mutual exclusion, Escape close, overlay close, link close, body scroll locking, focus trapping, focus restoration, and closed-drawer inert handling.
+- Updated docs to reflect Arabic support, RTL behavior, sticky header behavior, drawer architecture, focus management, scroll locking, language popover behavior, and reduced-motion handling.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed with drawer, overlay, Escape, focus restoration, scroll lock, sticky header, language mutual exclusion, and RTL placement checks.
+
+## 2026-06-12 - Compact Mobile Drawer Language Grid
+
+Implemented:
+
+- Replaced the tall full-width mobile drawer language list with a compact pill grid.
+- Added a muted "Language" section label, 2-column narrow mobile layout, and 3-column wider mobile layout.
+- Kept every language option as a real equivalent-route link with native language names and an inline active checkmark.
+- Reduced drawer spacing around the divider, language grid, and CTA so the CTA remains easier to reach on common mobile heights.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed, including 360x640, 390x844, and 430x932 compact language-grid checks.
+
+## 2026-06-12 - Confirmed Instagram Account
+
+Implemented:
+
+- Added a typed social configuration for the confirmed Instagram account `@heavens_holding`.
+- Added local current-color Instagram icon rendering without adding an icon dependency.
+- Added Instagram links to the footer, Contact page, and mobile drawer using `target="_blank"` and `rel="noopener noreferrer"`.
+- Added the Instagram URL to Organization JSON-LD `sameAs`.
+- Updated the verification register with the confirmed Instagram URL.
+
+Verified:
+
+- Instagram URL probe returned HTTP 200.
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed, including accessible Instagram link and Organization JSON-LD `sameAs` checks.
+
+## 2026-06-12 - Instagram Link Text
+
+Implemented:
+
+- Replaced visible Instagram username text with localized "Follow us on Instagram" link text.
+- Kept `@heavens_holding` only in the central social configuration and verification docs.
+- Preserved the Instagram icon, official URL, accessible label, new-tab behavior, and premium pill styling.
+
+Verified:
+
+- `npm run ci` - passed.
+- `npm run test:e2e` - passed, including no visible username, mobile link spacing, keyboard focus, and Instagram URL checks.

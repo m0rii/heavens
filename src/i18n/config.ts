@@ -1,4 +1,4 @@
-export const locales = ['hy', 'en', 'ru', 'de', 'fa'] as const;
+export const locales = ['hy', 'en', 'ru', 'de', 'fa', 'ar'] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -10,6 +10,7 @@ export const localeDirections: Record<Locale, 'ltr' | 'rtl'> = {
   ru: 'ltr',
   de: 'ltr',
   fa: 'rtl',
+  ar: 'rtl',
 };
 
 export const localeNames: Record<Locale, string> = {
@@ -18,6 +19,7 @@ export const localeNames: Record<Locale, string> = {
   ru: 'Русский',
   de: 'Deutsch',
   fa: 'فارسی',
+  ar: 'العربية',
 };
 
 export const localeCodes: Record<Locale, string> = {
@@ -26,6 +28,7 @@ export const localeCodes: Record<Locale, string> = {
   ru: 'RU',
   de: 'DE',
   fa: 'FA',
+  ar: 'AR',
 };
 
 export const localeFlags: Record<Locale, string> = {
@@ -34,6 +37,7 @@ export const localeFlags: Record<Locale, string> = {
   ru: '🇷🇺',
   de: '🇩🇪',
   fa: '🇮🇷',
+  ar: 'العربية',
 };
 
 export const ogLocales: Record<Locale, string> = {
@@ -42,6 +46,7 @@ export const ogLocales: Record<Locale, string> = {
   ru: 'ru_RU',
   de: 'de_DE',
   fa: 'fa_IR',
+  ar: 'ar',
 };
 
 export function isLocale(value: string | undefined): value is Locale {

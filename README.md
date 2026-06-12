@@ -63,6 +63,7 @@ Supported locales:
 - `ru` Russian, LTR
 - `de` German, LTR
 - `fa` Persian, RTL
+- `ar` Arabic, RTL
 
 ## Deployment Overview
 

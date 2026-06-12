@@ -40,6 +40,7 @@ Do not use this checklist as approval evidence until each item is verified and d
 - [ ] Russian reviewed.
 - [ ] German reviewed.
 - [ ] Persian reviewed, including RTL.
+- [ ] Arabic reviewed, including RTL.
 - [ ] All metadata reviewed.
 
 ## Assets

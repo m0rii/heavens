@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-const locales = ['hy', 'en', 'ru', 'de', 'fa'];
+const locales = ['hy', 'en', 'ru', 'de', 'fa', 'ar'];
 const slugs = [
   '',
   'about',

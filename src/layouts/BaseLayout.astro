@@ -7,6 +7,8 @@ import {
 } from '@/config/routes';
 import { brandAssets } from '@/config/brand';
 import { site } from '@/config/site';
+import { socialProfiles } from '@/config/social';
+import InstagramIcon from '@/components/InstagramIcon.astro';
 import {
   getDirection,
   localeCodes,
@@ -30,14 +32,7 @@ const dictionary = getDictionary(locale);
 const page = dictionary.pages[slug];
 const equivalents = getEquivalentPaths(slug);
 const isNoindex = slug === 'contact/success';
-const desktopNavItems = [
-  ['business', 'business'],
-  ['technology', 'technology'],
-  ['media', 'media'],
-  ['about', 'about'],
-  ['contact', 'contact'],
-] as const;
-const mobileNavItems = [
+const primaryNavItems = [
   ['home', ''],
   ['about', 'about'],
   ['business', 'business'],
@@ -45,6 +40,9 @@ const mobileNavItems = [
   ['media', 'media'],
   ['contact', 'contact'],
 ] as const;
+const desktopNavItems = primaryNavItems.filter(([key]) => key !== 'home');
+const languageMenuId = `language-menu-${locale}-${slug || 'home'}`;
+const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
 ---
 
 <!doctype html>
@@ -109,7 +107,7 @@ const mobileNavItems = [
   </head>
   <body>
     <a href="#main" class="skip-link">{dictionary.actions.skip}</a>
-    <header class="site-header">
+    <header class="site-header" data-site-header>
       <div class="container header-inner">
         <a class="brand" href={localizedPath(locale)} aria-label="Heavens home">
           <img
@@ -138,12 +136,17 @@ const mobileNavItems = [
               class="language-trigger"
               role="button"
               aria-label={`Current language: ${localeNames[locale]}`}
+              aria-controls={languageMenuId}
               data-dropdown-trigger
             >
               <span>{localeCodes[locale]}</span>
               <span aria-hidden="true">▾</span>
             </summary>
-            <nav class="language-menu" aria-label="Language">
+            <nav
+              class="language-menu"
+              id={languageMenuId}
+              aria-label="Language"
+            >
               {
                 locales.map((item) => (
                   <a
@@ -155,33 +158,110 @@ const mobileNavItems = [
                   >
                     <span aria-hidden="true">{localeFlags[item]}</span>
                     <span>{localeNames[item]}</span>
+                    {item === locale && <span class="active-mark">✓</span>}
                   </a>
                 ))
               }
             </nav>
           </details>
-          <details class="mobile-menu" data-dropdown>
-            <summary
-              class="mobile-menu-trigger"
-              role="button"
-              aria-label="Open navigation menu"
-              data-dropdown-trigger
-            >
-              <span aria-hidden="true">☰</span>
-            </summary>
-            <nav class="mobile-menu-panel" aria-label="Mobile navigation">
+          <button
+            class="mobile-menu-trigger"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls={mobileDrawerId}
+            data-mobile-menu-trigger
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+          <div class="mobile-drawer-overlay" hidden data-mobile-drawer-overlay>
+          </div>
+          <aside
+            class="mobile-drawer"
+            id={mobileDrawerId}
+            aria-label="Mobile navigation"
+            aria-hidden="true"
+            inert
+            data-mobile-drawer
+          >
+            <div class="mobile-drawer-header">
+              <a
+                class="brand mobile-drawer-brand"
+                href={localizedPath(locale)}
+                aria-label="Heavens home"
+                data-mobile-drawer-link
+              >
+                <img
+                  src={brandAssets.logo.src}
+                  width={brandAssets.logo.width}
+                  height={brandAssets.logo.height}
+                  alt="Heavens"
+                />
+              </a>
+              <button
+                class="mobile-drawer-close"
+                type="button"
+                aria-label="Close navigation"
+                data-mobile-drawer-close
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <nav class="mobile-drawer-nav" aria-label="Mobile navigation">
               {
-                mobileNavItems.map(([key, itemSlug]) => (
+                primaryNavItems.map(([key, itemSlug]) => (
                   <a
                     href={localizedPath(locale, itemSlug)}
                     aria-current={slug === itemSlug ? 'page' : undefined}
+                    data-mobile-drawer-link
                   >
                     {dictionary.nav[key]}
                   </a>
                 ))
               }
             </nav>
-          </details>
+            <div class="mobile-drawer-divider"></div>
+            <section class="mobile-drawer-languages" aria-label="Language">
+              <p class="mobile-drawer-section-label">Language</p>
+              <div class="mobile-language-grid">
+                {
+                  locales.map((item) => (
+                    <a
+                      href={equivalents[item]}
+                      hreflang={item}
+                      lang={item}
+                      aria-current={item === locale ? 'true' : undefined}
+                      data-language-link
+                      data-mobile-drawer-link
+                    >
+                      <span dir="auto">{localeNames[item]}</span>
+                      {item === locale && <span class="active-mark">✓</span>}
+                    </a>
+                  ))
+                }
+              </div>
+            </section>
+            <a
+              class="button button-primary-dark mobile-drawer-cta"
+              href={localizedPath(locale, 'contact')}
+              data-mobile-drawer-link
+            >
+              {dictionary.actions.contact}
+            </a>
+            <a
+              class="social-link mobile-drawer-social"
+              href={socialProfiles.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={socialProfiles.instagram.label}
+              data-mobile-drawer-link
+            >
+              <InstagramIcon />
+              <span>{dictionary.social.instagram}</span>
+            </a>
+          </aside>
         </div>
       </div>
     </header>
@@ -218,6 +298,16 @@ const mobileNavItems = [
               ))
           }
         </nav>
+        <a
+          class="social-link footer-social-link"
+          href={socialProfiles.instagram.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={socialProfiles.instagram.label}
+        >
+          <InstagramIcon />
+          <span>{dictionary.social.instagram}</span>
+        </a>
       </div>
     </footer>
     <script is:inline src="/scripts/language-preference.js" defer></script>

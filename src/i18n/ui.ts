@@ -13,6 +13,9 @@ type PageCopy = {
 type Dictionary = {
   nav: Record<string, string>;
   actions: Record<string, string>;
+  social: {
+    instagram: string;
+  };
   legal: string;
   draftNotice: string;
   pages: Record<AnyRouteSlug, PageCopy>;
@@ -296,6 +299,13 @@ const localizedOverrides: Partial<
         'Heavens بیش از یک دهه تجربه تجاری را با فناوری، پلتفرم‌های دیجیتال و رسانه خلاق پیوند می‌دهد.',
     },
   },
+  ar: {
+    '': {
+      heading: 'Live the Dream.',
+      intro:
+        'تجمع Heavens بين أكثر من عقد من الخبرة التجارية والتقنية والمنصات الرقمية والإعلام الإبداعي.',
+    },
+  },
 };
 
 const nav = {
@@ -306,6 +316,15 @@ const nav = {
   media: 'Media',
   brands: 'Brands',
   contact: 'Contact',
+};
+
+const socialLabels: Record<Locale, { instagram: string }> = {
+  hy: { instagram: 'Հետեւեք մեզ Instagram-ում' },
+  en: { instagram: 'Follow us on Instagram' },
+  ru: { instagram: 'Подписывайтесь на нас в Instagram' },
+  de: { instagram: 'Folgen Sie uns auf Instagram' },
+  fa: { instagram: 'ما را در Instagram دنبال کنید' },
+  ar: { instagram: 'تابعونا على Instagram' },
 };
 
 export function getDictionary(locale: Locale): Dictionary {
@@ -329,10 +348,12 @@ export function getDictionary(locale: Locale): Dictionary {
     actions: {
       discover: 'Discover Heavens',
       contact: 'Start a Conversation',
+      followHeavens: 'Follow Heavens',
       menu: 'Menu',
       close: 'Close',
       skip: 'Skip to content',
     },
+    social: socialLabels[locale],
     legal: 'Draft content - pending legal and translation review.',
     draftNotice:
       locale === 'en'
