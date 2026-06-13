@@ -9,7 +9,7 @@ type Company = {
   taxCode: string;
   address: {
     full: string;
-    streetAddress: string;
+    streetAddress?: string;
     locality: string;
     country: string;
   };
@@ -22,8 +22,7 @@ export const company: Company = {
   registrationNumber: '50456518',
   taxCode: '02660767',
   address: {
-    full: '40 Sayat-Nova Avenue, Yerevan, Armenia',
-    streetAddress: '40 Sayat-Nova Avenue',
+    full: 'Yerevan, Armenia',
     locality: 'Yerevan',
     country: 'AM',
   },
