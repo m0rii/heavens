@@ -685,7 +685,7 @@ test('footer exposes company legal facts and required links', async ({
   await expect(footer).toContainText('Heavens LLC');
   await expect(footerBrand.getByRole('img', { name: 'Heavens' })).toBeVisible();
   await expect(footerBrandMeta).toHaveText('Live the Dream.');
-  await expect(footer).toContainText('40 Sayat-Nova Avenue, Yerevan, Armenia');
+  await expect(footer).toContainText('Yerevan, Armenia');
   await expect(footer).toContainText('Registration No.: 50456518');
   await expect(footer).toContainText('Tax Code: 02660767');
   await expect(footer.getByRole('link', { name: 'Contact' })).toHaveAttribute(

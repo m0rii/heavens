@@ -13,7 +13,7 @@ Primary slogan: "Live the Dream."
 - Legal name: Heavens LLC
 - Registration number: 50456518
 - Tax code: 02660767
-- Registered address: 40 Sayat-Nova Avenue, Yerevan, Armenia
+- Registered address: Yerevan, Armenia
 
 The exact official domain, founding year, social profiles, contact notification routing, and Zeghch legal relationship still require verification.
 
@@ -49,7 +49,7 @@ Current palette direction is derived from the supplied Heavens logo: olive `#698
 
 Desktop navigation remains a restrained horizontal navigation. Mobile navigation uses a sticky dark header, compact language popover, and fixed full-height drawer opening from the logical inline end. The drawer includes a header row, primary navigation links, a language section, and a contact CTA. Background content is covered by an overlay and body scroll is locked while the drawer is open.
 
-The footer displays the typed company identity details required for launch review: Heavens LLC, 40 Sayat-Nova Avenue, Yerevan, Armenia, registration number 50456518, tax code 02660767, legal-policy links, Contact, Instagram, and generated copyright year. Do not render a public email address unless the business explicitly approves publishing one.
+The footer displays the typed company identity details required for launch review: Heavens LLC, Yerevan, Armenia, registration number 50456518, tax code 02660767, legal-policy links, Contact, Instagram, and generated copyright year. Do not render a public email address unless the business explicitly approves publishing one.
 
 ## Architecture
 

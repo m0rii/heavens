@@ -310,7 +310,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     sections: [
       {
         title: 'Company identity',
-        body: 'Legal name: Heavens LLC. Brand name: Heavens. Legal form: Limited Liability Company. Country of registration: Republic of Armenia. Registration number: 50456518. Tax code: 02660767. Registered address: 40 Sayat-Nova Avenue, Yerevan, Armenia. Website: https://www.heavens.am.',
+        body: 'Legal name: Heavens LLC. Brand name: Heavens. Legal form: Limited Liability Company. Country of registration: Republic of Armenia. Registration number: 50456518. Tax code: 02660767. Registered address: Yerevan, Armenia. Website: https://www.heavens.am.',
       },
       {
         title: 'Contact',
@@ -360,7 +360,7 @@ const englishPages: Record<AnyRouteSlug, PageCopy> = {
     sections: [
       {
         title: 'Data controller',
-        body: 'Heavens LLC, registration number 50456518, tax code 02660767, registered address 40 Sayat-Nova Avenue, Yerevan, Armenia. Privacy requests may be submitted through the website contact form.',
+        body: 'Heavens LLC, registration number 50456518, tax code 02660767, registered address , Yerevan, Armenia. Privacy requests may be submitted through the website contact form.',
       },
       {
         title: 'Data collected',
@@ -1085,7 +1085,7 @@ const localizedOverrides: Partial<
       sections: [
         {
           title: 'Unternehmen',
-          body: 'Heavens LLC, Registrierungsnummer 50456518, Steuernummer 02660767, registrierte Adresse: 40 Sayat-Nova Avenue, Jerewan, Armenien.',
+          body: 'Heavens LLC, Registrierungsnummer 50456518, Steuernummer 02660767, registrierte Adresse: Jerewan, Armenien.',
         },
         {
           title: 'Prüfstatus',
