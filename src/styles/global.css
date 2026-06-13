@@ -1031,7 +1031,7 @@ a {
 }
 
 .contact-topic-grid li {
-  min-block-size: 42px;
+  min-block-size: 44px;
   display: flex;
   align-items: center;
   border: 1px solid var(--border-brand-muted);
@@ -1040,17 +1040,18 @@ a {
   font-size: 0.92rem;
   font-weight: 650;
   line-height: 1.2;
-  padding: 0.58rem 0.85rem;
+  padding: 0.65rem 1rem;
 }
 
 .contact-topic-grid li::before,
 .contact-info-topic-list li::before {
-  inline-size: 0.34rem;
-  block-size: 0.34rem;
+  inline-size: 0.4rem;
+  block-size: 0.4rem;
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--brand-accent);
   content: '';
+  margin-inline-end: 0.65rem;
 }
 
 .hero-graphic {
@@ -1315,31 +1316,18 @@ h3 {
 
 .media-frame-stack {
   position: absolute;
-  inset-inline-end: 1.2rem;
-  inset-block-end: 1.2rem;
-  inline-size: 7rem;
-  block-size: 7rem;
+  inset: 0;
   pointer-events: none;
+  overflow: hidden;
+  border-radius: 12px;
+  background-image: url('/brand/media-graphic.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
 }
 
 .media-frame-stack span {
-  position: absolute;
-  border: 1px solid rgb(249 160 4 / 35%);
-  border-radius: 8px;
-  background: rgb(248 244 235 / 4%);
-}
-
-.media-frame-stack span:nth-child(1) {
-  inset: 0.5rem 0 0 1rem;
-}
-
-.media-frame-stack span:nth-child(2) {
-  inset: 0 1.25rem 1.25rem 0;
-}
-
-.media-frame-stack span:nth-child(3) {
-  inset: 2.4rem 2.2rem 0.2rem 0.3rem;
-  border-color: rgb(105 138 59 / 45%);
+  display: none;
 }
 
 .service-section {
@@ -2008,8 +1996,8 @@ textarea[aria-invalid='true'] {
   .contact-topic-grid li {
     border-radius: 12px;
     font-size: 0.82rem;
-    min-block-size: 38px;
-    padding: 0.48rem 0.62rem;
+    min-block-size: 40px;
+    padding: 0.55rem 0.75rem;
   }
 
   .service-section {
