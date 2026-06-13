@@ -3,6 +3,7 @@ import { contactFormName, enquiryTypes } from '@/lib/forms';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { brandAssets } from '@/config/brand';
 import { socialProfiles } from '@/config/social';
+import FocusCard from '@/components/FocusCard.astro';
 import InstagramIcon from '@/components/InstagramIcon.astro';
 import ServicePage from '@/components/ServicePage.astro';
 import {
@@ -89,20 +90,14 @@ const contactCopy = dictionary.contactPage;
               )}
             </div>
             {slug === 'contact' && (
-              <aside
-                class="contact-hero-panel"
-                aria-labelledby="contact-hero-panel-title"
-              >
-                <p class="eyebrow">{contactCopy.heroPanelEyebrow}</p>
-                <h2 id="contact-hero-panel-title">
-                  {contactCopy.heroPanelTitle}
-                </h2>
-                <ul class="contact-topic-grid">
-                  {contactCopy.enquiryTopics.map((topic) => (
-                    <li>{topic}</li>
-                  ))}
-                </ul>
-              </aside>
+              <FocusCard
+                label={contactCopy.heroPanelEyebrow}
+                title={contactCopy.heroPanelTitle}
+                titleId="contact-hero-panel-title"
+                items={contactCopy.enquiryTopics}
+                className="contact-hero-panel"
+                listClassName="contact-topic-grid"
+              />
             )}
             {isHome && (
               <img

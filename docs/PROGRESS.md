@@ -549,3 +549,16 @@ Verified:
 - `npm run test:unit` - passed.
 - `npm run lint` - passed.
 - `npm run check` - passed with existing dependency deprecation hints only.
+
+## 2026-06-13 - Unified Focus Cards
+
+Implemented:
+
+- Added a shared focus-card component for Contact and service-page hero panels.
+- Updated Business, Technology, Media, and Contact right-side hero cards to share the same premium dark panel, olive border, orange accent detail, circular outline, padding, and orange-dot pill list style.
+- Made the Business experience stat subtle and changed Technology's process preview from square cards to the shared orange-dot pill list.
+
+Verified:
+
+- `npm run ci` - passed.
+- Browser-checked `/en/business/`, `/en/technology/`, `/en/media/`, and `/en/contact/` at desktop, tablet, and mobile widths: panels rendered, no horizontal overflow, no console errors, and active nav underline remained the shared 2px orange style.

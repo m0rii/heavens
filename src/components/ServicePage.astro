@@ -1,5 +1,6 @@
 ---
 import { localizedPath } from '@/config/routes';
+import FocusCard from '@/components/FocusCard.astro';
 import type { Locale } from '@/i18n/config';
 import type { ServicePageCopy } from '@/i18n/ui';
 
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const { locale, page, servicePage } = Astro.props;
+const focusItems = servicePage.processSteps ?? servicePage.heroItems;
 ---
 
 <section
@@ -35,56 +37,15 @@ const { locale, page, servicePage } = Astro.props;
       </a>
     </div>
 
-    <aside
-      class:list={[
-        'service-hero-panel',
-        `service-hero-panel-${servicePage.variant}`,
-      ]}
-      aria-label={servicePage.heroSecondaryLabel}
-    >
-      <p class="service-panel-label">{servicePage.heroSecondaryLabel}</p>
-
-      {
-        servicePage.heroStats && (
-          <div class="service-stat-row">
-            {servicePage.heroStats.map((stat) => (
-              <div class="service-stat">
-                <span>{stat.value}</span>
-                <p>{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        )
-      }
-
-      {
-        servicePage.processSteps ? (
-          <div class="service-process-preview">
-            {servicePage.processSteps.map((step) => (
-              <div>
-                <strong>{step}</strong>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <ul class="service-hero-tags">
-            {servicePage.heroItems.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        )
-      }
-
-      {
-        servicePage.variant === 'media' && (
-          <div class="media-frame-stack" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-        )
-      }
-    </aside>
+    <FocusCard
+      label={servicePage.heroSecondaryLabel}
+      items={focusItems}
+      stats={servicePage.heroStats}
+      ariaLabel={servicePage.heroSecondaryLabel}
+      className={`service-hero-panel service-hero-panel-${servicePage.variant}`}
+      listClassName="service-hero-tags"
+      showMediaGraphic={servicePage.variant === 'media'}
+    />
   </div>
 </section>
 

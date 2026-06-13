@@ -1,0 +1,67 @@
+---
+type FocusStat = {
+  value: string;
+  label: string;
+};
+
+type Props = {
+  label: string;
+  title?: string;
+  items: string[];
+  stats?: FocusStat[] | undefined;
+  titleId?: string;
+  ariaLabel?: string;
+  className?: string;
+  listClassName?: string;
+  showMediaGraphic?: boolean;
+};
+
+const {
+  label,
+  title,
+  items,
+  stats,
+  titleId = 'focus-card-title',
+  ariaLabel,
+  className,
+  listClassName,
+  showMediaGraphic = false,
+} = Astro.props;
+---
+
+<aside
+  class:list={['focus-card', className]}
+  aria-label={title ? undefined : (ariaLabel ?? label)}
+  aria-labelledby={title ? titleId : undefined}
+>
+  <p class="focus-card-label service-panel-label">{label}</p>
+
+  {title && <h2 id={titleId}>{title}</h2>}
+
+  {
+    stats && (
+      <div class="focus-card-stat-row service-stat-row">
+        {stats.map((stat) => (
+          <div class="focus-card-stat service-stat">
+            <span>{stat.value}</span>
+            <p>{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  <ul class:list={['focus-card-list', listClassName]}>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+
+  {
+    showMediaGraphic && (
+      <div class="media-frame-stack" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+    )
+  }
+</aside>
