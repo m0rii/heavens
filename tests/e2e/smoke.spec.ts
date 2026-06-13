@@ -391,13 +391,93 @@ test('about and contact pages use compact internal heroes', async ({
     }, slug);
 
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
-    expect(metrics.heroHeight).toBeLessThan(560);
+    if (metrics.isContact) {
+      expect(metrics.heroHeight).toBeGreaterThan(420);
+      expect(metrics.heroHeight).toBeLessThan(600);
+    } else {
+      expect(metrics.heroHeight).toBeLessThan(560);
+    }
     expect(metrics.h1Height).toBeLessThan(240);
     expect(metrics.firstSectionTop).toBeLessThan(metrics.viewportHeight);
     if (metrics.isContact) {
       expect(metrics.contactFormTop).toBeLessThan(metrics.viewportHeight * 1.7);
     }
   }
+});
+
+test('contact page presents premium enquiry guidance responsively', async ({
+  page,
+}) => {
+  const viewports = [
+    { width: 360, height: 640 },
+    { width: 390, height: 844 },
+    { width: 430, height: 932 },
+    { width: 768, height: 900 },
+    { width: 1024, height: 768 },
+    { width: 1366, height: 768 },
+    { width: 1440, height: 900 },
+  ];
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/en/contact/');
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Start a conversation.',
+    );
+    await expect(page.locator('.contact-hero-panel')).toContainText(
+      'Commercial partnerships',
+    );
+    await expect(page.locator('.contact-hero-panel')).toContainText(
+      'AI solutions',
+    );
+    await expect(page.locator('.contact-info')).toContainText(
+      'Please use the enquiry form below.',
+    );
+    await expect(page.locator('.contact-privacy-note')).toContainText(
+      'We use the information you provide only to review and respond to your enquiry.',
+    );
+    await expect(
+      page.getByRole('link', { name: 'Follow Heavens on Instagram' }).first(),
+    ).toHaveAttribute('href', 'https://www.instagram.com/heavens_holding/');
+    await expect(page.getByText(/gmail/i)).toHaveCount(0);
+
+    const metrics = await page.evaluate(() => {
+      const hero = document
+        .querySelector('.contact-page-hero')
+        ?.getBoundingClientRect();
+      const form = document
+        .querySelector('.contact-form')
+        ?.getBoundingClientRect();
+      const checkbox = document
+        .querySelector('#privacy-acknowledgement')
+        ?.getBoundingClientRect();
+      const checkboxLabel = document
+        .querySelector('label[for="privacy-acknowledgement"]')
+        ?.getBoundingClientRect();
+
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        heroHeight: hero?.height || 0,
+        heroTop: hero?.top || 0,
+        formTop: form?.top || 0,
+        checkboxTop: checkbox?.top || 0,
+        checkboxLabelTop: checkboxLabel?.top || 0,
+      };
+    });
+
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+    expect(metrics.heroHeight).toBeGreaterThan(300);
+    expect(metrics.heroHeight).toBeLessThan(viewport.width >= 1024 ? 610 : 760);
+    expect(metrics.formTop).toBeLessThan(viewport.height * 1.75);
+    expect(
+      Math.abs(metrics.checkboxTop - metrics.checkboxLabelTop),
+    ).toBeLessThan(12);
+  }
+
+  await page.locator('#full-name').focus();
+  await expect(page.locator('#full-name')).toBeFocused();
 });
 
 test('contact form contains Netlify fields', async ({ page }) => {
@@ -600,7 +680,11 @@ test('footer exposes company legal facts and required links', async ({
   await page.goto('/en/');
 
   const footer = page.locator('footer');
+  const footerBrand = footer.locator('.footer-brand');
+  const footerBrandMeta = footer.locator('.footer-brand-meta');
   await expect(footer).toContainText('Heavens LLC');
+  await expect(footerBrand.getByRole('img', { name: 'Heavens' })).toBeVisible();
+  await expect(footerBrandMeta).toHaveText('Live the Dream.');
   await expect(footer).toContainText('40 Sayat-Nova Avenue, Yerevan, Armenia');
   await expect(footer).toContainText('Registration No.: 50456518');
   await expect(footer).toContainText('Tax Code: 02660767');
@@ -611,6 +695,142 @@ test('footer exposes company legal facts and required links', async ({
   await expect(
     footer.getByRole('link', { name: 'Legal information.' }),
   ).toHaveAttribute('href', '/en/legal/');
+  await expect(
+    footer.getByRole('button', { name: 'Cookie settings' }),
+  ).toBeVisible();
+
+  const footerSystem = await page.evaluate(() => {
+    const footer = document.querySelector('footer');
+    const meta = document.querySelector('.footer-brand-meta');
+    const navLink = document.querySelector('.footer-nav a');
+    const company = document.querySelector('.footer-company-details');
+    const social = document.querySelector('.footer-social-link');
+    const cookie = document.querySelector('.footer-cookie-settings');
+    if (!footer || !meta || !navLink || !company || !social || !cookie) {
+      return null;
+    }
+
+    const metaStyles = getComputedStyle(meta);
+    const navStyles = getComputedStyle(navLink);
+    const companyStyles = getComputedStyle(company);
+    const socialStyles = getComputedStyle(social);
+    const cookieStyles = getComputedStyle(cookie);
+
+    return {
+      footerBackground: getComputedStyle(footer).backgroundImage,
+      dividerStyle: metaStyles.borderInlineStartStyle,
+      dividerColor: metaStyles.borderInlineStartColor,
+      navColor: navStyles.color,
+      navWeight: navStyles.fontWeight,
+      companyColor: companyStyles.color,
+      socialBorderColor: socialStyles.borderColor,
+      socialMinHeight: socialStyles.minHeight,
+      socialWeight: socialStyles.fontWeight,
+      cookieBorderStyle: cookieStyles.borderStyle,
+      cookieWeight: cookieStyles.fontWeight,
+    };
+  });
+
+  expect(footerSystem?.footerBackground).toContain('gradient');
+  expect(footerSystem?.dividerStyle).toBe('solid');
+  expect(footerSystem?.dividerColor).toBe('rgba(249, 160, 4, 0.42)');
+  expect(footerSystem?.navColor).toBe('rgb(248, 244, 235)');
+  expect(Number(footerSystem?.navWeight)).toBeLessThanOrEqual(600);
+  expect(footerSystem?.companyColor).toBe('rgb(184, 179, 169)');
+  expect(footerSystem?.socialBorderColor).toBe('rgba(105, 138, 59, 0.22)');
+  expect(footerSystem?.socialMinHeight).toBe('38px');
+  expect(Number(footerSystem?.socialWeight)).toBeLessThanOrEqual(650);
+  expect(footerSystem?.cookieBorderStyle).toBe('none');
+  expect(Number(footerSystem?.cookieWeight)).toBeLessThanOrEqual(600);
+});
+
+test('footer brand system remains responsive without overflow', async ({
+  page,
+}) => {
+  const viewports = [
+    { width: 360, height: 640 },
+    { width: 390, height: 844 },
+    { width: 430, height: 932 },
+    { width: 768, height: 1024 },
+    { width: 1024, height: 768 },
+    { width: 1440, height: 900 },
+  ];
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/en/');
+
+    const metrics = await page.evaluate(() => {
+      const footer = document.querySelector('footer')?.getBoundingClientRect();
+      const brand = document
+        .querySelector('.footer-brand')
+        ?.getBoundingClientRect();
+      const meta = document
+        .querySelector('.footer-brand-meta')
+        ?.getBoundingClientRect();
+      const metaText = document.querySelector('.footer-brand-meta');
+      const actions = document
+        .querySelector('.footer-actions')
+        ?.getBoundingClientRect();
+      const nav = document
+        .querySelector('.footer-nav')
+        ?.getBoundingClientRect();
+      const company = document
+        .querySelector('.footer-company-details')
+        ?.getBoundingClientRect();
+      const links = Array.from(document.querySelectorAll('.footer-nav > *'));
+      const linkRects = links.map((link) => link.getBoundingClientRect());
+      const firstLinkRect = linkRects[0];
+      const secondLinkRect = linkRects[1];
+
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        footerHeight: Math.round(footer?.height || 0),
+        brandWidth: Math.round(brand?.width || 0),
+        metaWidth: Math.round(meta?.width || 0),
+        metaHeight: Math.round(meta?.height || 0),
+        sloganLines: metaText
+          ? Math.round(
+              (meta?.height || 0) /
+                parseFloat(getComputedStyle(metaText).lineHeight),
+            )
+          : 0,
+        actionsWidth: Math.round(actions?.width || 0),
+        columnTops: [
+          Math.round(brand?.top || 0),
+          Math.round(nav?.top || 0),
+          Math.round(company?.top || 0),
+          Math.round(actions?.top || 0),
+        ],
+        navGap:
+          firstLinkRect && secondLinkRect
+            ? Math.round(secondLinkRect.top - firstLinkRect.bottom)
+            : 0,
+        navHeight: Math.round(nav?.height || 0),
+      };
+    });
+
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+    expect(metrics.footerHeight).toBeGreaterThan(110);
+    expect(metrics.brandWidth).toBeGreaterThan(120);
+    expect(metrics.metaWidth).toBeGreaterThan(70);
+    expect(metrics.metaHeight).toBeGreaterThan(12);
+    expect(metrics.sloganLines).toBeLessThanOrEqual(2);
+    expect(metrics.actionsWidth).toBeGreaterThan(0);
+    expect(metrics.navGap).toBeGreaterThanOrEqual(10);
+    expect(metrics.navGap).toBeLessThanOrEqual(18);
+    expect(metrics.navHeight).toBeLessThan(170);
+
+    const uniqueTopRows = new Set(metrics.columnTops).size;
+    if (viewport.width >= 1024) {
+      expect(uniqueTopRows).toBe(1);
+    } else if (viewport.width >= 768) {
+      expect(uniqueTopRows).toBe(2);
+    } else {
+      expect(uniqueTopRows).toBe(4);
+    }
+  }
 });
 
 test('privacy consent banner stores essential-only choice', async ({

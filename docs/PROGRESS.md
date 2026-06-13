@@ -1,5 +1,77 @@
 # Progress
 
+## 2026-06-13 - Footer Grid Layout Fix
+
+Implemented:
+
+- Refined the footer into the requested desktop order: Brand block, Links, Company info, and Social.
+- Made the footer Links group a compact vertical grid containing Contact, Legal Information, Privacy Policy, Cookie Policy, Terms of Use, and Cookie settings.
+- Kept Cookie settings as a quiet button inside the Links column and prevented the global navigation flex styles from overriding the footer layout.
+- Reduced Instagram pill height and weight so it remains secondary to the footer information.
+- Adjusted footer breakpoints to use four columns on desktop, two columns on tablet, and one stacked column on mobile.
+- Added browser assertions for compact footer link spacing, no overflow, slogan wrapping, and desktop/tablet/mobile grid behavior.
+
+Verified:
+
+- `npm run lint` - passed.
+- `npm run check` - passed with existing Astro hints only.
+- `npm run test:unit` - passed.
+- `npm run test:e2e` - passed, including footer compact-link and responsive grid checks.
+- `npm run build` - passed.
+- `npm run ci` - passed.
+
+## 2026-06-13 - Premium Contact Page Refinement
+
+Implemented:
+
+- Reworked the Contact page hero into a compact two-column editorial layout with a localized enquiry-topics panel.
+- Added localized contact-page copy for contact method wording, enquiry topics, and the privacy note across all supported locales.
+- Replaced the plain contact-method card with a structured right-side contact information column for contact method, enquiry topics, and Instagram.
+- Added a near-form privacy note linking to the localized Privacy Policy while preserving the existing privacy acknowledgement checkbox.
+- Preserved Netlify form name `premium-contact`, hidden `form-name`, locale field, honeypot, URL-encoded enhanced submission, validation, localized success route, and no public email display.
+- Added Playwright coverage for the responsive Contact page layout at 360, 390, 430, 768, 1024, 1366, and 1440 widths.
+- Ignored Playwright generated output folders in ESLint so local verification does not fail on transient `test-results` state.
+
+Verified:
+
+- `npm run lint` - passed.
+- `npm run check` - passed with existing Astro hints only.
+- `npm run test:unit` - passed.
+- `npm run test:e2e` - passed, including Contact page responsive guidance, no Gmail display, Instagram URL, privacy note, overflow, and checkbox alignment checks.
+- `npm run build` - passed.
+- `npm run ci` - passed.
+- Manual Playwright visual sanity pass at 1366x768 and 390x844 confirmed one H1, no horizontal overflow, desktop hero height 546px, and all 8 mobile hero topics present.
+
+## 2026-06-13 - Calmer Footer Hierarchy
+
+Implemented:
+
+- Rebalanced the footer into Brand, Company info, Links, and Social groups.
+- Moved Cookie settings into the footer link group as a quiet text-style button while preserving keyboard accessibility and panel behavior.
+- Reduced footer link weight and Instagram pill emphasis so company information and legal links no longer compete visually.
+- Increased footer slogan width so `Live the Dream.` does not split word-by-word.
+- Added browser checks for footer hierarchy, link weights, calmer Instagram styling, cookie settings placement, and responsive no-overflow behavior.
+
+Verified:
+
+- `npm run test:e2e` - passed, including footer hierarchy, responsive layout, and accessibility smoke checks.
+- `npm run ci` - passed.
+
+## 2026-06-13 - Unified Header And Footer Brand System
+
+Implemented:
+
+- Refined the footer into structured brand, legal navigation, company information, and action groups.
+- Mirrored the header brand motif in the footer with the Heavens logo, controlled amber divider, and `Live the Dream.` slogan at a calmer scale.
+- Unified footer colors with the header system: dark forest background, ivory primary text, muted secondary text, amber detail, and olive borders.
+- Kept the Instagram pill and Cookie settings button as full clickable actions within the same footer action group.
+- Added responsive footer checks across mobile, tablet, and desktop widths.
+
+Verified:
+
+- `npm run test:e2e` - passed, including responsive footer checks and accessibility smoke checks.
+- `npm run ci` - passed.
+
 ## 2026-06-13 - Service Page Number Labels Removed
 
 Implemented:

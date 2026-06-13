@@ -38,6 +38,7 @@ const isHome = slug === '';
 const isServicePage = ['business', 'technology', 'media'].includes(slug);
 const isCompactPage = ['about', 'contact'].includes(slug);
 const formCopy = dictionary.form;
+const contactCopy = dictionary.contactPage;
 ---
 
 <BaseLayout locale={locale} slug={slug}>
@@ -55,6 +56,7 @@ const formCopy = dictionary.form;
             'hero',
             isHome && 'hero-home',
             isCompactPage && 'compact-page-hero',
+            slug === 'contact' && 'contact-page-hero',
           ]}
         >
           <div class="container hero-inner">
@@ -86,6 +88,22 @@ const formCopy = dictionary.form;
                 </p>
               )}
             </div>
+            {slug === 'contact' && (
+              <aside
+                class="contact-hero-panel"
+                aria-labelledby="contact-hero-panel-title"
+              >
+                <p class="eyebrow">{contactCopy.heroPanelEyebrow}</p>
+                <h2 id="contact-hero-panel-title">
+                  {contactCopy.heroPanelTitle}
+                </h2>
+                <ul class="contact-topic-grid">
+                  {contactCopy.enquiryTopics.map((topic) => (
+                    <li>{topic}</li>
+                  ))}
+                </ul>
+              </aside>
+            )}
             {isHome && (
               <img
                 class="hero-graphic"
@@ -99,31 +117,39 @@ const formCopy = dictionary.form;
           </div>
         </section>
 
-        <section class="section section-ivory">
-          <div class="container">
-            <div class="grid">
-              {page.sections.map((section) => (
-                <article class="card">
-                  <h2>{section.title}</h2>
-                  <p>{section.body}</p>
-                </article>
-              ))}
+        {slug !== 'contact' && (
+          <section class="section section-ivory">
+            <div class="container">
+              <div class="grid">
+                {page.sections.map((section) => (
+                  <article class="card">
+                    <h2>{section.title}</h2>
+                    <p>{section.body}</p>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </>
     )
   }
 
   {
     slug === 'contact' && (
-      <section class="section section-ivory">
+      <section class="section section-ivory contact-section">
         <div class="container contact-shell">
           <div class="contact-form-panel">
             <div class="form-heading">
               <h2>{formCopy.heading}</h2>
               <p>{formCopy.intro}</p>
               <p class="required-note">{formCopy.requiredNote}</p>
+              <p class="contact-privacy-note">
+                {contactCopy.privacyNote}{' '}
+                <a href={localizedPath(locale, 'privacy')}>
+                  {formCopy.labels.privacyPolicy}
+                </a>
+              </p>
             </div>
             <form
               name={contactFormName}
@@ -374,18 +400,39 @@ const formCopy = dictionary.form;
             </form>
           </div>
           <aside class="contact-info" aria-labelledby="contact-info-title">
-            <h2 id="contact-info-title">{dictionary.actions.followHeavens}</h2>
-            <p>{page.sections[0]?.body}</p>
-            <a
-              class="social-link contact-social-link"
-              href={socialProfiles.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={socialProfiles.instagram.label}
+            <section class="contact-info-card">
+              <h2 id="contact-info-title">{contactCopy.contactMethodTitle}</h2>
+              <p>{contactCopy.contactMethodBody}</p>
+            </section>
+            <section
+              class="contact-info-card"
+              aria-labelledby="contact-topics-title"
             >
-              <InstagramIcon />
-              <span>{dictionary.social.instagram}</span>
-            </a>
+              <h2 id="contact-topics-title">{contactCopy.heroPanelTitle}</h2>
+              <ul class="contact-info-topic-list">
+                {contactCopy.enquiryTopics.map((topic) => (
+                  <li>{topic}</li>
+                ))}
+              </ul>
+            </section>
+            <section
+              class="contact-info-card"
+              aria-labelledby="contact-social-title"
+            >
+              <h2 id="contact-social-title">
+                {dictionary.actions.followHeavens}
+              </h2>
+              <a
+                class="social-link contact-social-link"
+                href={socialProfiles.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={socialProfiles.instagram.label}
+              >
+                <InstagramIcon />
+                <span>{dictionary.social.instagram}</span>
+              </a>
+            </section>
           </aside>
         </div>
         <script is:inline src="/scripts/contact-form.js" defer />

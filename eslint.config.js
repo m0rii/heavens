@@ -8,7 +8,13 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   {
-    ignores: ['dist/**', '.astro/**', 'node_modules/**'],
+    ignores: [
+      'dist/**',
+      '.astro/**',
+      'node_modules/**',
+      'test-results/**',
+      'playwright-report/**',
+    ],
   },
   {
     languageOptions: {

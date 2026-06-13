@@ -286,24 +286,27 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
     <main id="main">
       <slot />
     </main>
-    <footer class="site-header">
+    <footer class="site-header site-footer">
       <div class="container footer-inner">
-        <a
-          class="brand footer-brand"
-          href={localizedPath(locale)}
-          aria-label={dictionary.actions.heavensHome}
-        >
-          <img
-            src={brandAssets.logo.src}
-            width={brandAssets.logo.width}
-            height={brandAssets.logo.height}
-            alt="Heavens"
-          />
-          <span>
+        <div class="footer-brand-block">
+          <a
+            class="brand footer-brand"
+            href={localizedPath(locale)}
+            aria-label={dictionary.actions.heavensHome}
+          >
+            <img
+              src={brandAssets.logo.src}
+              width={brandAssets.logo.width}
+              height={brandAssets.logo.height}
+              alt="Heavens"
+            />
             <span class="footer-brand-meta">{site.slogan}</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label={dictionary.actions.legalNavigation}>
+          </a>
+        </div>
+        <nav
+          class="nav footer-nav"
+          aria-label={dictionary.actions.legalNavigation}
+        >
           {
             routeSlugs
               .filter((item) =>
@@ -319,9 +322,16 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
                 </a>
               ))
           }
+          <button
+            class="footer-cookie-settings"
+            type="button"
+            data-consent-open
+          >
+            {dictionary.consent.cookieSettings}
+          </button>
         </nav>
         <div class="footer-company-details">
-          <p>{company.legalName}</p>
+          <p class="footer-company-name">{company.legalName}</p>
           <p>
             {dictionary.company.address}: {company.address.full}
           </p>
@@ -338,19 +348,18 @@ const mobileDrawerId = `mobile-drawer-${locale}-${slug || 'home'}`;
             {company.legalName}. {dictionary.company.rights}
           </p>
         </div>
-        <a
-          class="social-link footer-social-link"
-          href={socialProfiles.instagram.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={socialProfiles.instagram.label}
-        >
-          <InstagramIcon />
-          <span>{dictionary.social.instagram}</span>
-        </a>
-        <button class="footer-cookie-settings" type="button" data-consent-open>
-          {dictionary.consent.cookieSettings}
-        </button>
+        <div class="footer-actions">
+          <a
+            class="social-link footer-social-link"
+            href={socialProfiles.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={socialProfiles.instagram.label}
+          >
+            <InstagramIcon />
+            <span>{dictionary.social.instagram}</span>
+          </a>
+        </div>
       </div>
     </footer>
     <div

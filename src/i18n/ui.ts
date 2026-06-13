@@ -45,11 +45,21 @@ type Dictionary = {
   social: {
     instagram: string;
   };
+  contactPage: ContactPageCopy;
   form: ContactFormCopy;
   servicePages: Record<ServicePageSlug, ServicePageCopy>;
   legal: string;
   draftNotice: string;
   pages: Record<AnyRouteSlug, PageCopy>;
+};
+
+type ContactPageCopy = {
+  heroPanelEyebrow: string;
+  heroPanelTitle: string;
+  enquiryTopics: string[];
+  contactMethodTitle: string;
+  contactMethodBody: string;
+  privacyNote: string;
 };
 
 export type ServicePageCopy = {
@@ -3507,6 +3517,122 @@ const contactFormCopy: Record<Locale, ContactFormCopy> = {
   },
 };
 
+const contactPageCopy: Record<Locale, ContactPageCopy> = {
+  hy: {
+    heroPanelEyebrow: 'Կապի ուղղություններ',
+    heroPanelTitle: 'Հարցումների թեմաներ',
+    enquiryTopics: [
+      'Առևտրային գործընկերություններ',
+      'Ապրանքների մատակարարում',
+      'Բաշխման գործընկերություններ',
+      'Ծրագրային նախագծեր',
+      'Թվային հարթակներ',
+      'AI լուծումներ',
+      'Մեդիա արտադրություն',
+      'Բրենդային գործընկերություններ',
+    ],
+    contactMethodTitle: 'Կապի եղանակ',
+    contactMethodBody:
+      'Խնդրում ենք օգտագործել ստորև ներկայացված հարցման ձևը։ Ձեր հաղորդագրությունը կդիտարկվի Heavens-ի համապատասխան ներկայացուցչի կողմից։',
+    privacyNote:
+      'Ձեր տրամադրած տեղեկություններն օգտագործում ենք միայն ձեր հարցումը դիտարկելու և պատասխանելու համար։',
+  },
+  en: {
+    heroPanelEyebrow: 'Contact focus',
+    heroPanelTitle: 'Enquiry topics',
+    enquiryTopics: [
+      'Commercial partnerships',
+      'Product sourcing',
+      'Distribution partnerships',
+      'Software projects',
+      'Digital platforms',
+      'AI solutions',
+      'Media production',
+      'Brand partnerships',
+    ],
+    contactMethodTitle: 'Contact method',
+    contactMethodBody:
+      'Please use the enquiry form below. Your message will be reviewed by the appropriate Heavens representative.',
+    privacyNote:
+      'We use the information you provide only to review and respond to your enquiry.',
+  },
+  ru: {
+    heroPanelEyebrow: 'Фокус обращения',
+    heroPanelTitle: 'Темы запросов',
+    enquiryTopics: [
+      'Коммерческие партнерства',
+      'Подбор продукции',
+      'Дистрибуционные партнерства',
+      'Программные проекты',
+      'Цифровые платформы',
+      'AI-решения',
+      'Медиапроизводство',
+      'Партнерства с брендами',
+    ],
+    contactMethodTitle: 'Способ связи',
+    contactMethodBody:
+      'Пожалуйста, используйте форму запроса ниже. Ваше сообщение рассмотрит соответствующий представитель Heavens.',
+    privacyNote:
+      'Мы используем предоставленную вами информацию только для рассмотрения вашего запроса и ответа на него.',
+  },
+  de: {
+    heroPanelEyebrow: 'Kontaktfokus',
+    heroPanelTitle: 'Anfragethemen',
+    enquiryTopics: [
+      'Kommerzielle Partnerschaften',
+      'Produktbeschaffung',
+      'Distributionspartnerschaften',
+      'Softwareprojekte',
+      'Digitale Plattformen',
+      'KI-Lösungen',
+      'Medienproduktion',
+      'Markenpartnerschaften',
+    ],
+    contactMethodTitle: 'Kontaktweg',
+    contactMethodBody:
+      'Bitte nutzen Sie das untenstehende Anfrageformular. Ihre Nachricht wird von der zuständigen Heavens-Ansprechperson geprüft.',
+    privacyNote:
+      'Wir verwenden die von Ihnen bereitgestellten Informationen nur, um Ihre Anfrage zu prüfen und zu beantworten.',
+  },
+  fa: {
+    heroPanelEyebrow: 'تمرکز تماس',
+    heroPanelTitle: 'موضوعات درخواست',
+    enquiryTopics: [
+      'همکاری‌های تجاری',
+      'تامین محصول',
+      'همکاری‌های توزیع',
+      'پروژه‌های نرم‌افزاری',
+      'پلتفرم‌های دیجیتال',
+      'راهکارهای هوش مصنوعی',
+      'تولید رسانه‌ای',
+      'همکاری با برندها',
+    ],
+    contactMethodTitle: 'روش تماس',
+    contactMethodBody:
+      'لطفا از فرم درخواست زیر استفاده کنید. پیام شما توسط نماینده مناسب Heavens بررسی خواهد شد.',
+    privacyNote:
+      'ما از اطلاعاتی که ارائه می‌کنید فقط برای بررسی و پاسخ به درخواست شما استفاده می‌کنیم.',
+  },
+  ar: {
+    heroPanelEyebrow: 'محور التواصل',
+    heroPanelTitle: 'موضوعات الطلب',
+    enquiryTopics: [
+      'الشراكات التجارية',
+      'توريد المنتجات',
+      'شراكات التوزيع',
+      'مشاريع البرمجيات',
+      'المنصات الرقمية',
+      'حلول الذكاء الاصطناعي',
+      'الإنتاج الإعلامي',
+      'شراكات العلامات التجارية',
+    ],
+    contactMethodTitle: 'طريقة التواصل',
+    contactMethodBody:
+      'يرجى استخدام نموذج الطلب أدناه. ستتم مراجعة رسالتك من قبل ممثل Heavens المناسب.',
+    privacyNote: 'نستخدم المعلومات التي تقدمها فقط لمراجعة طلبك والرد عليه.',
+  },
+};
+
 export function getDictionary(locale: Locale): Dictionary {
   const pages = Object.fromEntries(
     Object.entries(englishPages).map(([slug, page]) => {
@@ -3529,6 +3655,7 @@ export function getDictionary(locale: Locale): Dictionary {
     company: companyLabels[locale],
     consent: consentLabels[locale],
     social: socialLabels[locale],
+    contactPage: contactPageCopy[locale],
     form: contactFormCopy[locale],
     servicePages: localizedServicePages[locale],
     legal: {

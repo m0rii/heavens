@@ -98,6 +98,10 @@ The supplied `public/brand/logopng.png` is the current runtime brand asset for t
 
 The homepage hero uses a two-line editorial headline, a shared 1440px container grid, restrained dark forest background depth, consistent pill buttons, and a local abstract SVG visual inspired by the four-part Heavens mark. The visual is temporary, abstract, and documented in the verification register; no fake photography or stock imagery is used.
 
+## 2026-06-13 - Unified Header And Footer Brand System
+
+The footer mirrors the header's current brand motif in a calmer scale: Heavens logo, amber divider, and `Live the Dream.` slogan. Header and footer both use the same dark forest environment, ivory primary text, muted secondary text, amber as a restrained divider/detail, and olive borders for secondary actions. Footer content is grouped into brand, legal navigation, company information, and actions so it reads as part of the same premium shell rather than a collection of unrelated items.
+
 ## 2026-06-12 - Arabic Locale And Mobile Navigation Drawer
 
 The current user instruction expands supported locales from `hy`, `en`, `ru`, `de`, and `fa` to `hy`, `en`, `ru`, `de`, `fa`, and `ar`, superseding the earlier locale list in the project guide. Arabic is treated as RTL alongside Persian, with prefixed routes, hreflang metadata, equivalent-page switching, draft dictionary fallback, and launch-blocking translation review.
@@ -110,4 +114,4 @@ Business, Technology, and Media now use a shared service-page component instead 
 
 The internal service hero avoids `100vh` sizing and uses content-driven dark editorial sections with a target desktop height below roughly 680px at 1366x768. Internal H1 typography is reduced from the homepage scale, uses balanced wrapping, and keeps letter spacing at `0` to match the site typography rule. The service section begins immediately after the hero, without large empty spacing or decorative delay.
 
-The three variants share one architecture but have distinct right-side hero treatments: Business uses commercial statistics and capability labels, Technology uses the approved Understand / Design / Build / Improve process preview, and Media uses a restrained editorial frame composition with controlled amber accents. Service cards use a reusable premium card system with sequence numbers, ivory surfaces, restrained borders, and subtle hover movement.
+The three variants share one architecture but have distinct right-side hero treatments: Business uses commercial statistics and capability labels, Technology uses the approved Understand / Design / Build / Improve process preview, and Media uses a restrained editorial frame composition with controlled amber accents. Service cards use a reusable premium card system with ivory surfaces, restrained borders, and subtle hover movement.
