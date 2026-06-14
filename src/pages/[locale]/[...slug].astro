@@ -40,6 +40,7 @@ const isServicePage = ['business', 'technology', 'media'].includes(slug);
 const isCompactPage = ['about', 'contact'].includes(slug);
 const formCopy = dictionary.form;
 const contactCopy = dictionary.contactPage;
+const localizedContactFormName = `${contactFormName}-${locale}`;
 ---
 
 <BaseLayout locale={locale} slug={slug}>
@@ -147,7 +148,7 @@ const contactCopy = dictionary.contactPage;
               </p>
             </div>
             <form
-              name={contactFormName}
+              name={localizedContactFormName}
               method="POST"
               action={localizedPath(locale, 'contact/success')}
               data-netlify="true"
@@ -167,7 +168,7 @@ const contactCopy = dictionary.contactPage;
               data-error-max-length={formCopy.errors.maxLength}
               class="contact-form"
             >
-              <input type="hidden" name="form-name" value={contactFormName} />
+              <input type="hidden" name="form-name" value={localizedContactFormName} />
               <input type="hidden" name="locale" value={locale} />
               <p class="honeypot" aria-hidden="true">
                 <label>
